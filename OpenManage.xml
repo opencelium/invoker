@@ -1,1 +1,426 @@
-/opt/backend/resources/invokers/subscription/OpenManage.xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
+    <name>OpenManage Enterprise</name>
+    <description>OpenManage, a Dell, Inc. product, consists of a number of network management and systems management applications. Although the name sounds like open source software, it is closed source. </description>
+    <hint>This interface provides the basic auth. Get the api documentation here https://www.dell.com/support/home/de-de/product-support/product/dell-openmanage-enterprise/docs</hint>
+    <requiredData>
+        <item name="url" type="string" visibility="public"/>
+        <item name="username" type="string" visibility="public"/>
+        <item name="password" type="string" visibility="public"/>
+        <item name="token" type="string" visibility="private">Basic {username:password}</item>
+    </requiredData>
+    <authType>basic</authType>
+    <operations>
+        <operation name="DeviceService" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/DeviceService</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="@odata.type" type="string"/>
+                        <field name="@odata.id" type="string"/>
+                        <field name="Actions" type="string"/>
+                        <field name="Devices@odata.navigationLink" type="string"/>
+                        <field name="DeviceStatuses@odata.navigationLink" type="string"/>
+                        <field name="DeviceType@odata.navigationLink" type="string"/>
+                        <field name="PowerStates@odata.navigationLink" type="string"/>
+                        <field name="DeviceSummary@odata.navigationLink" type="string"/>
+                        <field name="DeviceSlotType@odata.navigationLink" type="string"/>
+                        <field name="DeviceSettingsMetadata@odata.navigationLink" type="string"/>
+                        <field name="DeviceModelsByType@odata.navigationLink" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="Devices" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/Devices</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="@odata.count" type="string"/>
+                        <field name="value" type="array">
+                        	<field name="@odata.type" type="string"/>
+                        	<field name="@odata.id" type="string"/>
+                        	<field name="Id" type="int"/>
+                        	<field name="Type" type="int"/>
+                        	<field name="Identifier" type="string"/>
+                        	<field name="DeviceServiceTag" type="string"/>
+                        	<field name="ChassisServiceTag" type="string"/>
+                        	<field name="Model" type="string"/>
+                        	<field name="PowerState" type="int"/>
+                        	<field name="ManagedState" type="int"/>
+                        	<field name="Status" type="int"/>
+                        	<field name="ConnectionState" type="string"/>
+                        	<field name="AssetTag" type="string"/>
+                        	<field name="SystemId" type="string"/>
+                        	<field name="DeviceCapabilities" type="array"/>
+                        	<field name="SlotConfiguration" type="object">
+                        		<field name="ChassisName" type="string"/>
+                        	</field>
+                        	<field name="DeviceManagement" type="array">
+                        		<field name="ManagementId" type="int"/>
+                        		<field name="NetworkAddress" type="string"/>
+                        		<field name="MacAddress" type="string"/>
+                        		<field name="ManagementType" type="int"/>
+                        		<field name="InstrumentationName" type="string"/>
+                        		<field name="DnsName" type="string"/>
+                        		<field name="ManagementProfile" type="array">
+                        			<field name="ManagementProfileId" type="int"/>
+                        			<field name="ProfileId" type="string"/>
+                        			<field name="ManagementId" type="int"/>
+                        			<field name="AgentName" type="string"/>
+                        			<field name="Version" type="string"/>
+                        			<field name="ManagementURL" type="string"/>
+                        			<field name="HasCreds" type="int"/>
+                        			<field name="Status" type="int"/>
+                        			<field name="StatusDateTime" type="string"/>
+                        		</field>
+                        	</field>
+                        	<field name="Enabled" type="string"/>
+                        	<field name="Actions" type="string"/>
+                        	<field name="ConnectionStateReason" type="string"/>
+                        	<field name="SensorHealth@odata.navigationLink" type="string"/>
+                        	<field name="VirtualSession" type="object">
+                        		<field name="@odata.id" type="string"/>
+                        	</field>
+                        	<field name="Baselines" type="object">
+                        		<field name="@odata.id" type="string"/>
+                        	</field>
+                        	<field name="InventoryDetails@odata.navigationLink" type="string"/>
+                        	<field name="HardwareLogs@odata.navigationLink" type="string"/>
+                        	<field name="SubSystemHealth@odata.navigationLink" type="string"/>
+                        	<field name="RecentActivity@odata.navigationLink" type="string"/>
+                        	<field name="InventoryTypes" type="object">
+                        		<field name="@odata.id" type="string"/>
+                        	</field>
+                        	<field name="LogSeverities" type="object">
+                        		<field name="@odata.id" type="string"/>
+                        	</field>
+                        	<field name="Settings@odata.navigationLink" type="string"/>
+                        	<field name="Temperature" type="object">
+                        		<field name="@odata.id" type="string"/>
+                        	</field>
+                        	<field name="Power" type="object">
+                        		<field name="@odata.id" type="string"/>
+                        	</field>
+                        	<field name="SystemUpTime" type="object">
+                        		<field name="@odata.id" type="string"/>
+                        	</field>
+                        	<field name="BlinkStatus" type="object">
+                        		<field name="@odata.id" type="string"/>
+                        	</field>
+                        	<field name="PowerUsageByDevice@odata.navigationLink" type="string"/>
+                        	<field name="DeviceBladeSlots@odata.navigationLink" type="string"/>
+                        	<field name="GraphicInfo" type="object">
+                        		<field name="@odata.id" type="string"/>
+                        	</field>
+                        	<field name="DeployRequired" type="object">
+                        		<field name="@odata.id" type="string"/>
+                        	</field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="Devices(id)" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/Devices{ID}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="@odata.type" type="string"/>
+                        <field name="@odata.id" type="string"/>
+                    	<field name="Id" type="int"/>
+                    	<field name="Type" type="int"/>
+                    	<field name="Identifier" type="string"/>
+                    	<field name="DeviceServiceTag" type="string"/>
+                    	<field name="ChassisServiceTag" type="string"/>
+                    	<field name="Model" type="string"/>
+                    	<field name="PowerState" type="int"/>
+                    	<field name="ManagedState" type="int"/>
+                    	<field name="Status" type="int"/>
+                    	<field name="ConnectionState" type="string"/>
+                    	<field name="AssetTag" type="string"/>
+                    	<field name="SystemId" type="string"/>
+                    	<field name="DeviceCapabilities" type="array"/>
+                    	<field name="SlotConfiguration" type="object">
+                    		<field name="ChassisName" type="string"/>
+                    	</field>
+                    	<field name="DeviceManagement" type="array">
+                    		<field name="ManagementId" type="int"/>
+                    		<field name="NetworkAddress" type="string"/>
+                    		<field name="MacAddress" type="string"/>
+                    		<field name="ManagementType" type="int"/>
+                    		<field name="InstrumentationName" type="string"/>
+                    		<field name="DnsName" type="string"/>
+                    		<field name="ManagementProfile" type="array">
+                    			<field name="ManagementProfileId" type="int"/>
+                    			<field name="ProfileId" type="string"/>
+                    			<field name="ManagementId" type="int"/>
+                    			<field name="AgentName" type="string"/>
+                    			<field name="Version" type="string"/>
+                    			<field name="ManagementURL" type="string"/>
+                    			<field name="HasCreds" type="int"/>
+                    			<field name="Status" type="int"/>
+                    			<field name="StatusDateTime" type="string"/>
+                    		</field>
+                    	</field>
+                        <field name="DeviceSpecificData" type="object">
+                            <field name="sdCardPresent" type="int"/>
+                            <field name="idracDnsName" type="string"/>
+                            <field name="vlanId" type="string"/>
+                            <field name="maxDIMMSlots" type="int"/>
+                            <field name="populatedDIMMSlots" type="string"/>
+                            <field name="manufacturer" type="string"/>
+                            <field name="populatedCPUSockets" type="int"/>
+                            <field name="totalMemory" type="string"/>
+                            <field name="chassisSlot" type="string"/>
+                            <field name="populatedPCISlots" type="int"/>
+                            <field name="serviceTag" type="string"/>
+                            <field name="systemGeneration" type="string"/>   
+                            <field name="chassisServiceTag" type="int"/>
+
+                            <field name="platformGuid" type="string"/>
+                            <field name="chassisSlot" type="string"/>
+                            <field name="maxCPUSockets" type="int"/>
+                            <field name="expressServiceCode" type="string"/>
+                            <field name="nodeId" type="string"/>
+                            <field name="maxPCISlots" type="string"/>                                        
+                        </field>                        
+                    	<field name="Enabled" type="string"/>
+                    	<field name="Actions" type="string"/>
+                    	<field name="ConnectionStateReason" type="string"/>
+                    	<field name="SensorHealth@odata.navigationLink" type="string"/>
+                    	<field name="VirtualSession" type="object">
+                    		<field name="@odata.id" type="string"/>
+                    	</field>
+                    	<field name="Baselines" type="object">
+                    		<field name="@odata.id" type="string"/>
+                    	</field>
+                    	<field name="InventoryDetails@odata.navigationLink" type="string"/>
+                    	<field name="HardwareLogs@odata.navigationLink" type="string"/>
+                    	<field name="SubSystemHealth@odata.navigationLink" type="string"/>
+                    	<field name="RecentActivity@odata.navigationLink" type="string"/>
+                    	<field name="InventoryTypes" type="object">
+                    		<field name="@odata.id" type="string"/>
+                    	</field>
+                    	<field name="LogSeverities" type="object">
+                    		<field name="@odata.id" type="string"/>
+                    	</field>
+                    	<field name="Settings@odata.navigationLink" type="string"/>
+                    	<field name="Temperature" type="object">
+                    		<field name="@odata.id" type="string"/>
+                    	</field>
+                    	<field name="Power" type="object">
+                    		<field name="@odata.id" type="string"/>
+                    	</field>
+                    	<field name="SystemUpTime" type="object">
+                    		<field name="@odata.id" type="string"/>
+                    	</field>
+                    	<field name="BlinkStatus" type="object">
+                    		<field name="@odata.id" type="string"/>
+                    	</field>
+                    	<field name="PowerUsageByDevice@odata.navigationLink" type="string"/>
+                    	<field name="DeviceBladeSlots@odata.navigationLink" type="string"/>
+                    	<field name="GraphicInfo" type="object">
+                    		<field name="@odata.id" type="string"/>
+                    	</field>
+                    	<field name="DeployRequired" type="object">
+                    		<field name="@odata.id" type="string"/>
+                    	</field>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="InventoryDetails" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/DeviceService/Devices{ID}/InventoryDetails</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="@odata.count" type="string"/>
+                        <field name="value" type="array">
+                        	<field name="@odata.id" type="string"/>
+                        	<field name="InventoryType" type="string"/>
+                        	<field name="InventoryInfo" type="array"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="InventoryDetails('serverProcessors')" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/DeviceService/Devices{ID}/InventoryDetails('serverProcessors')</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="@odata.type" type="string"/>
+                        <field name="@odata.id" type="string"/>
+                        <field name="InventoryType" type="string"/>
+                        <field name="InventoryInfo" type="array">
+                            <field name="Id" type="int"/>
+                            <field name="Family" type="string"/>
+                            <field name="MaxSpeed" type="string"/>
+                            <field name="CurrentSpeed" type="int"/>
+                            <field name="SlotNumber" type="string"/>
+                            <field name="Status" type="string"/>
+                            <field name="NumberOfCores" type="int"/>
+                            <field name="NumberOfEnabledCores" type="string"/>
+                            <field name="BrandName" type="string"/>
+                            <field name="ModelName" type="int"/>
+                            <field name="InstanceId" type="string"/>
+                            <field name="Voltage" type="string"/>                                                   
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="InventoryDetails('deviceLocation')" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/DeviceService/Devices{ID}/InventoryDetails('deviceLocation')</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="@odata.type" type="string"/>
+                        <field name="@odata.id" type="string"/>
+                        <field name="InventoryType" type="string"/>
+                        <field name="InventoryInfo" type="array">
+                            <field name="Id" type="int"/>
+                            <field name="Rack" type="string"/>
+                            <field name="Datacenter" type="string"/>
+                            <field name="Rackslot" type="int"/>
+                            <field name="ManagementSystemUnit" type="string"/>                                                
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>              
+        <operation name="InventoryDetails('deviceManagement')" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/DeviceService/Devices{ID}/InventoryDetails('deviceManagement')</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="@odata.type" type="string"/>
+                        <field name="@odata.id" type="string"/>
+                        <field name="InventoryType" type="string"/>
+                        <field name="InventoryInfo" type="array">
+                        	<field name="ManagementId" type="int"/>
+                        	<field name="IpAddress" type="string"/>
+                        	<field name="MacAddress" type="string"/>
+                        	<field name="ManagementType" type="object">
+                        		<field name="Name" type="string"/>
+                        		<field name="Description" type="string"/>
+                        		<field name="ManagementType" type="int"/>
+                        	</field>
+                        	<field name="InstrumentationName" type="string"/>
+                        	<field name="DnsName" type="string"/>
+                        	<field name="EndPointAgents" type="array">
+                        		<field name="ManagementProfileId" type="int"/>
+                        		<field name="ProfileId" type="string"/>
+                        		<field name="AgentName" type="string"/>
+                        		<field name="HasCreds" type="int"/>
+                        		<field name="Version" type="string"/>
+                        		<field name="ManagementURL" type="string"/>
+                        		<field name="Status" type="int"/>
+                        		<field name="StatusDateTime" type="string"/>
+                        	</field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+    </operations>
+</invoker>

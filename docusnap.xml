@@ -1,1 +1,120 @@
-/opt/backend/resources/invokers/subscription/docusnap.xml
+<invoker type="RESTful">
+    <name>Docusnap</name>
+    <description>Docusnap is the software solution for documenting IT environments. Launched in 2004, Docusnap can now proudly call itself the market leader in the field of IT documentation in the German-speaking countries (Germany, Austria and Switzerland).</description>
+    <hint>This interface provides a basic auth and based on a SQL DB Connector. SQL DB to API acts as a filter, sitting between SQL DB and the browser, allowing users to interact with that SQL DB as if it was a native API. It is only supports the response type GET. Read here the documentation https://github.com/opencelium/csv2api</hint>
+    <requiredData>
+        <item name="url" type="string" visibility="public"/>
+        <item name="username" type="string" visibility="public"/>
+        <item name="password" type="string" visibility="protected"/>
+        <item name="token" type="string" visibility="private">Basic {username:password}</item>
+        <item name="dbtype" type="string" visibility="public"/>
+        <item name="dbhost" type="string" visibility="public"/>
+        <item name="dbschema" type="string" visibility="public"/>
+        <item name="dbusername" type="string" visibility="public"/>
+        <item name="dbpassword" type="string" visibility="protected"/>
+    </requiredData>
+    <authType>basic</authType>
+    <operations>
+        <operation name="GetDocu" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/tHosts?transform=1</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="dbtype" type="string">{dbtype}</item>
+                    <item name="dbschema" type="string">{dbschema}</item>
+                    <item name="dbhost" type="string">{dbhost}</item>
+                    <item name="dbusername" type="string">{dbusername}</item>
+                    <item name="dbpassword" type="string">{dbpassword}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                      <field name="tDocu" type="array">
+                          <field name="DocuID" type="string"/>
+                          <field name="HostID" type="string"/>
+                      </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>
+       <operation name="GetHosts" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/tDocu?transform=1</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="dbtype" type="string">{dbtype}</item>
+                    <item name="dbschema" type="string">{dbschema}</item>
+                    <item name="dbhost" type="string">{dbhost}</item>
+                    <item name="dbusername" type="string">{dbusername}</item>
+                    <item name="dbpassword" type="string">{dbpassword}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                      <field name="tHosts" type="array">
+                          <field name="HostID" type="string"/>
+                          <field name="HostName" type="string"/>
+                          <field name="IpOnline" type="string"/>
+                          <field name="zDocu" type="array">
+                            <field name="DocuID" type="string"/>
+                            <field name="ScanDate" type="string"/>
+                          </field>
+                      </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>       
+       <operation name="GetSoftware" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/tSoftware?transform=1</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="dbtype" type="string">{dbtype}</item>
+                    <item name="dbschema" type="string">{dbschema}</item>
+                    <item name="dbhost" type="string">{dbhost}</item>
+                    <item name="dbusername" type="string">{dbusername}</item>
+                    <item name="dbpassword" type="string">{dbpassword}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                      <field name="tSoftware" type="array">
+                          <field name="SoftwareID" type="string"/>
+                          <field name="DocuID" type="string"/>
+                          <field name="SoftwareName" type="string"/>
+                          <field name="SoftwareVersion" type="string"/>
+                          <field name="SoftwarePublisher" type="string"/>
+                          <field name="SoftwareInstallDate" type="string"/>
+                          <field name="SoftwareLicenseKey" type="string"/>
+                          <field name="OSType" type="string"/>
+                      </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+    </operations>
+</invoker>

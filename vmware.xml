@@ -1,1 +1,420 @@
-/opt/backend/resources/invokers/subscription/vmware.xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<invoker type="RESTful">
+    <name>VMWare</name>
+    <description>VMware is a virtualization and cloud computing software provider based in Palo Alto, Calif. Founded in 1998, VMware is a subsidiary of Dell Technologies. EMC Corporation originally acquired VMware in 2004; EMC was later acquired by Dell Technologies in 2016.</description>
+    <hint>This interface provides a basic auth. Read here the api documentation https://developer.vmware.com/apis/vsphere-automation/latest/vcenter/</hint>
+    <requiredData>
+        <item name="url" type="string" visibility="public"/>
+        <item name="username" type="string" visibility="public"/>
+        <item name="password" type="string" visibility="public"/>
+        <item name="sessionId" type="string" visibility="private">Basic {username:password}</item>
+        <item name="token" type="string" visibility="private">%{login.body}</item>
+    </requiredData>
+    <authType>basic</authType>
+    <operations>
+        <operation name="login" type="test">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/api/session</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{sessionId}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="text" type="string">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>
+        <operation name="GetVM" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/vcenter/vm</endpoint>
+                <header>
+                    <item name="vmware-api-session-id" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="array">
+                     <field name="memory_size_MiB" type="string"/>
+                     <field name="vm" type="string"/>
+                     <field name="name" type="string"/>
+                     <field name="power_state" type="string"/>
+                     <field name="cpu_count" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>
+       <operation name="GetVMDetails" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/vcenter/vm/{VM}</endpoint>
+                <header>
+                    <item name="vmware-api-session-id" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                      <field name="cdroms" type="object"/>
+                      <field name="memory" type="object"/>
+                      <field name="disks" type="object"/>
+                      <field name="parallel_ports" type="object"/>
+                      <field name="sata_adapters" type="object"/>
+                      <field name="cpu" type="object"/>
+                      <field name="scsi_adapters" type="object"/>
+                      <field name="name" type="string"/>
+                      <field name="nics" type="object"/>
+                      <field name="boot" type="object"/>
+                      <field name="guest_OS" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>
+       <operation name="GetVMIdentity" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/vcenter/vm/{VM}/guest/identity</endpoint>
+                <header>
+                    <item name="vmware-api-session-id" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                      <field name="full_name" type="array">
+                        <field name="args" type="array"/>
+                        <field name="default_message" type="string"/>
+                        <field name="id" type="string"/>
+                      </field>
+                      <field name="name" type="string"/>
+                      <field name="ip_address" type="string"/>
+                      <field name="family" type="string"/>
+                      <field name="host_name" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>
+       <operation name="GetVMBoot" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/vcenter/vm/{VM}/hardware/boot</endpoint>
+                <header>
+                    <item name="vmware-api-session-id" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                      <field name="delay" type="string"/>
+                      <field name="efi_legacy_boot" type="string"/>
+                      <field name="retry_delay" type="string"/>
+                      <field name="enter_setup_mode" type="string"/>
+                      <field name="type" type="string"/>
+                      <field name="network_protocol" type="string"/>
+                      <field name="retry" type="string"/>                      
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>       
+       <operation name="GetVMLocalFilesystem" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/vcenter/vm/{VM}/guest/local-filesystem</endpoint>
+                <header>
+                    <item name="vmware-api-session-id" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                      <field name="C:\\" type="object">
+                        <field name="mapping" type="string"/>
+                        <field name="free_space" type="string"/>
+                        <field name="filesystem" type="string"/>
+                        <field name="capacity" type="string"/>
+                      </field>
+                      <field name="D:\\" type="object">
+                        <field name="mapping" type="string"/>
+                        <field name="free_space" type="string"/>
+                        <field name="filesystem" type="string"/>
+                        <field name="capacity" type="string"/>
+                      </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>              
+       <operation name="GetVMPorts" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/vcenter/vm/{VM}/hardware/ethernet</endpoint>
+                <header>
+                    <item name="vmware-api-session-id" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="array">
+                      <field name="nic" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>
+       <operation name="GetVMPortDetails" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/vcenter/vm/{VM}/hardware/ethernet/{PORT}</endpoint>
+                <header>
+                    <item name="vmware-api-session-id" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="start_connected" type="string"/>
+                        <field name="pci_slot_number" type="string"/>
+                        <field name="backing" type="object">
+                                <field name="network_name" type="string"/>
+                                <field name="type" type="string"/>
+                                <field name="network" type="string"/>
+                        </field>
+                        <field name="mac_address" type="string"/>
+                        <field name="mac_type" type="string"/>
+                        <field name="allow_guest_control" type="string"/>
+                        <field name="wake_on_lan_enabled" type="string"/>
+                        <field name="label" type="string"/>
+                        <field name="state" type="string"/>
+                        <field name="type" type="string"/>
+                        <field name="upt_compatibility_enabled" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+    <operation name="GetVMNetwork" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/vcenter/vm/{VM}/guest/networking</endpoint>
+                <header>
+                    <item name="vmware-api-session-id" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="dns" type="object">
+                                <field name="ip_addresses" type="array"/>
+                                <field name="ip_addresses" type="array"/>
+            </field>
+                        <field name="dns_values" type="object">
+                                <field name="domain_name" type="string"/>
+                                <field name="hostname" type="string"/>
+                        </field>                
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>     
+       <operation name="GetTools" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/vcenter/vm/{VM}/tools</endpoint>
+                <header>
+                    <item name="vmware-api-session-id" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                      <field name="auto_update_supported" type="string"/>
+                      <field name="error" type="string"/>
+                      <field name="install_attempt_count" type="string"/>
+                      <field name="install_type" type="string"/>
+                      <field name="run_state" type="string"/>
+                      <field name="upgrade_policy" type="string"/>
+                      <field name="version" type="string"/>
+                      <field name="version_number" type="string"/>  
+                      <field name="version_status" type="string"/>                                                 
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>       
+       <operation name="GetHost" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/vcenter/host</endpoint>
+                <header>
+                    <item name="vmware-api-session-id" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="array">
+                      <field name="host" type="string"/>
+                      <field name="name" type="string"/>
+                      <field name="connection_state" type="string"/>
+                      <field name="power_state" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+       <operation name="GetServices" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/vcenter/services</endpoint>
+                <header>
+                    <item name="vmware-api-session-id" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="analytics" type="object">
+                          <field name="name_key" type="string"/>
+                          <field name="startup_type" type="string"/>
+                          <field name="connection_state" type="string"/>
+                          <field name="description_key" type="string"/>
+                          <field name="state" type="string"/>
+                        </field>
+                        <field name="applmgmt" type="object">
+                          <field name="name_key" type="string"/>
+                          <field name="startup_type" type="string"/>
+                          <field name="health_messages" type="array"/>
+                          <field name="connection_state" type="string"/>
+                          <field name="description_key" type="string"/>
+                          <field name="state" type="string"/>
+                        </field>
+                        <field name="certificateauthority" type="object">
+                          <field name="name_key" type="string"/>
+                          <field name="startup_type" type="string"/>
+                          <field name="health_messages" type="array"/>
+                          <field name="connection_state" type="string"/>
+                          <field name="description_key" type="string"/>
+                          <field name="state" type="string"/>
+                        </field>
+                        <field name="cis-license" type="object">
+                          <field name="name_key" type="string"/>
+                          <field name="startup_type" type="string"/>
+                          <field name="health_messages" type="array"/>
+                          <field name="connection_state" type="string"/>
+                          <field name="description_key" type="string"/>
+                          <field name="state" type="string"/>
+                        </field>
+                        <field name="content-library" type="object">
+                          <field name="name_key" type="string"/>
+                          <field name="startup_type" type="string"/>
+                          <field name="health_messages" type="array"/>
+                          <field name="connection_state" type="string"/>
+                          <field name="description_key" type="string"/>
+                          <field name="state" type="string"/>
+                        </field>
+                        <field name="eam" type="object">
+                          <field name="name_key" type="string"/>
+                          <field name="startup_type" type="string"/>
+                          <field name="health_messages" type="array"/>
+                          <field name="connection_state" type="string"/>
+                          <field name="description_key" type="string"/>
+                          <field name="state" type="string"/>
+                        </field>
+                        <field name="envoy" type="object">
+                          <field name="name_key" type="string"/>
+                          <field name="startup_type" type="string"/>
+                          <field name="health_messages" type="array"/>
+                          <field name="connection_state" type="string"/>
+                          <field name="description_key" type="string"/>
+                          <field name="state" type="string"/>
+                        </field>
+                        <field name="hvc" type="object">
+                          <field name="name_key" type="string"/>
+                          <field name="startup_type" type="string"/>
+                          <field name="health_messages" type="array"/>
+                          <field name="connection_state" type="string"/>
+                          <field name="description_key" type="string"/>
+                          <field name="state" type="string"/>
+                        </field>
+                        <field name="imagebuilder" type="object">
+                          <field name="name_key" type="string"/>
+                          <field name="startup_type" type="string"/>
+                          <field name="health_messages" type="array"/>
+                          <field name="connection_state" type="string"/>
+                          <field name="description_key" type="string"/>
+                          <field name="state" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+    </operations>
+</invoker>

@@ -1,1 +1,668 @@
-/opt/backend/resources/invokers/subscription/azureAD.xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<invoker type="RESTful">
+    <name>AzureAD</name>
+    <description>Microsoft Azure is Microsoft's public cloud computing platform. This Connector is implemented to read the Azure AD (AAD).</description>
+    <hint>This api provides a token auth. The scope https://graph.microsoft.com/ is used. Read the documentation here https://learn.microsoft.com/en-us/graph/api/user-post-users?view=graph-rest-1.0</hint>
+    <icon>azure.png</icon>
+    <requiredData>
+        <item name="url" type="string" visibility="private">https://login.microsoftonline.com/</item>
+        <item name="tenant" type="string" visibility="public"/>
+        <item name="client_id" type="string" visibility="public"/>
+        <item name="client_secret" type="string" visibility="protected"/>
+        <item name="token" type="string" visibility="private">%{CreateAccessToken.body.access_token}</item>
+        <item name="scope" type="string" visibility="private">https://graph.microsoft.com/.default</item>
+        <item name="endpointurl" type="string" visibility="private">https://graph.microsoft.com/v1.0</item>
+    </requiredData>
+    <authType>token</authType>
+    <operations>
+        <operation name="CreateAccessToken" type="test">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/{tenant}/oauth2/v2.0/token</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/x-www-form-urlencoded</item>
+                </header>
+                <body>
+                    <field name="grant_type" type="string">client_credentials</field>
+                    <field name="client_id" type="string">{client_id}</field>
+                    <field name="client_secret" type="string">{client_secret}</field>
+                    <field name="scope" type="string">{scope}</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="token_type" type="string"/>
+                        <field name="expires_in" type="string"/>
+                        <field name="ext_expires_in" type="string"/>
+                        <field name="expires_on" type="string"/>
+                        <field name="not_before" type="string"/>
+                        <field name="resource" type="string"/>
+                        <field name="access_token" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header>
+                        <item name="Content-Type" type="string">text/plain</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string"/>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetUsers" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{endpointurl}/users</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="@odata.nextLink" type="string"/>
+                        <field name="value" type="array">
+                            <field name="id" type="string"/>
+                            <field name="userPrincipalName" type="string"/>
+                            <field name="businessPhones" type="array"/>
+                            <field name="displayName" type="string"/>
+                            <field name="givenName" type="string"/>
+                            <field name="surname" type="string"/>
+                            <field name="jobTitle" type="string"/>
+                            <field name="mail" type="string"/>
+                            <field name="mobilePhone" type="string"/>
+                            <field name="officeLocation" type="string"/>
+                            <field name="preferredLanguage" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string">1</field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="SearchUsers" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{endpointurl}/users/?%24search=%22{AZURE_QUERY_PARAMETER}%22</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                    <item name="ConsistencyLevel" type="string">eventual</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="@odata.nextLink" type="string"/>
+                        <field name="value" type="array">
+                            <field name="id" type="string"/>
+                            <field name="userPrincipalName" type="string"/>
+                            <field name="businessPhones" type="array"/>
+                            <field name="displayName" type="string"/>
+                            <field name="givenName" type="string"/>
+                            <field name="surname" type="string"/>
+                            <field name="jobTitle" type="string"/>
+                            <field name="mail" type="string"/>
+                            <field name="mobilePhone" type="string"/>
+                            <field name="officeLocation" type="string"/>
+                            <field name="preferredLanguage" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string">1</field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="AddUser" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{endpointurl}/users</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="accountEnabled" type="string"/>
+                    <field name="displayName" type="string"/>
+                    <field name="mailNickname" type="string"/>
+                    <field name="userPrincipalName" type="string"/>
+                    <field name="businessPhones" type="array"/>
+                    <field name="givenName" type="string"/>
+                    <field name="surname" type="string"/>
+                    <field name="jobTitle" type="string"/>
+                    <field name="mail" type="string"/>
+                    <field name="mobilePhone" type="string"/>
+                    <field name="officeLocation" type="string"/>
+                    <field name="preferredLanguage" type="string"/>
+                    <field name="birthday" type="string"/>
+                    <field name="city" type="string"/>
+                    <field name="companyName" type="string"/>
+                    <field name="country" type="string"/>
+                    <field name="department" type="string"/>
+                    <field name="employeeHireDate" type="string"/>
+                    <field name="employeeLeaveDateTime" type="string"/>
+                    <field name="employeeId" type="string"/>
+                    <field name="employeeType" type="string"/>
+                    <field name="identities" type="array">
+                        <field name="signInType" type="string"/>
+                        <field name="issuer" type="string"/>
+                        <field name="issuerAssignedId" type="string"/>
+                    </field>
+                    <field name="passwordProfile" type="object">
+                        <field name="forceChangePasswordNextSignIn" type="string"/>
+                        <field name="password" type="string"/>
+                    </field>
+                    <field name="passwordPolicies" type="string"/>
+                </body>
+            </request>
+            <response>
+                <success status="201">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="userPrincipalName" type="string"/>
+                        <field name="businessPhones" type="array"/>
+                        <field name="displayName" type="string"/>
+                        <field name="givenName" type="string"/>
+                        <field name="surname" type="string"/>
+                        <field name="jobTitle" type="string"/>
+                        <field name="mail" type="string"/>
+                        <field name="mobilePhone" type="string"/>
+                        <field name="officeLocation" type="string"/>
+                        <field name="preferredLanguage" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string">1</field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="UpdateUser" type="">
+            <request>
+                <method>PATCH</method>
+		        <endpoint>{endpointurl}/users/{ID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="accountEnabled" type="string"/>
+                    <field name="displayName" type="string"/>
+                    <field name="mailNickname" type="string"/>
+                    <field name="userPrincipalName" type="string"/>
+                    <field name="businessPhones" type="array"/>
+                    <field name="givenName" type="string"/>
+                    <field name="surname" type="string"/>
+                    <field name="jobTitle" type="string"/>
+                    <field name="mail" type="string"/>
+                    <field name="mobilePhone" type="string"/>
+                    <field name="officeLocation" type="string"/>
+                    <field name="preferredLanguage" type="string"/>
+                    <field name="birthday" type="string"/>
+                    <field name="city" type="string"/>
+                    <field name="companyName" type="string"/>
+                    <field name="country" type="string"/>
+                    <field name="department" type="string"/>
+                    <field name="employeeHireDate" type="string"/>
+                    <field name="employeeLeaveDateTime" type="string"/>
+                    <field name="employeeId" type="string"/>
+                    <field name="employeeType" type="string"/>
+                    <field name="identities" type="array">
+                        <field name="signInType" type="string"/>
+                        <field name="issuer" type="string"/>
+                        <field name="issuerAssignedId" type="string"/>
+                    </field>
+                    <field name="passwordProfile" type="object">
+                        <field name="forceChangePasswordNextSignIn" type="string"/>
+                        <field name="password" type="string"/>
+                    </field>
+                    <field name="passwordPolicies" type="string"/>
+                </body>
+            </request>
+            <response>
+                <success status="201">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="userPrincipalName" type="string"/>
+                        <field name="businessPhones" type="array"/>
+                        <field name="displayName" type="string"/>
+                        <field name="givenName" type="string"/>
+                        <field name="surname" type="string"/>
+                        <field name="jobTitle" type="string"/>
+                        <field name="mail" type="string"/>
+                        <field name="mobilePhone" type="string"/>
+                        <field name="officeLocation" type="string"/>
+                        <field name="preferredLanguage" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string">1</field>
+                    </body>
+                </fail>
+            </response>	    
+        </operation>
+        <operation name="DeleteUser" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{endpointurl}/users/{ID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="204">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string">1</field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="AssignManager" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{endpointurl}/users/{ID}/manager/$ref</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="@odata.id" type="string"/>
+                </body>
+            </request>
+            <response>
+                <success status="204">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="userPrincipalName" type="string"/>
+                        <field name="businessPhones" type="array"/>
+                        <field name="displayName" type="string"/>
+                        <field name="givenName" type="string"/>
+                        <field name="surname" type="string"/>
+                        <field name="jobTitle" type="string"/>
+                        <field name="mail" type="string"/>
+                        <field name="mobilePhone" type="string"/>
+                        <field name="officeLocation" type="string"/>
+                        <field name="preferredLanguage" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string">1</field>
+                    </body>
+                </fail>
+            </response>
+        </operation>                
+        <operation name="GetUsersWithMoreFields" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{endpointurl}/users$select=displayName,givenName,surname,userPrincipalName,id,mail,postalCode,streetAddress,city,state,country,businessPhones,mobilePhone,jobTitle,companyName,onPremisesExtensionAttributes</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="@odata.nextLink" type="string"/>
+                        <field name="value" type="array">
+                            <field name="displayName" type="string"/>
+                            <field name="givenName" type="string"/>
+                            <field name="surname" type="string"/>
+                            <field name="userPrincipalName" type="string"/>
+                            <field name="id" type="string"/>
+                            <field name="mail" type="string"/>
+                            <field name="postalCode" type="string"/>
+                            <field name="streetAddress" type="string"/>
+                            <field name="city" type="string"/>
+                            <field name="state" type="string"/>
+                            <field name="country" type="string"/>
+                            <field name="businessPhones" type="array"/>
+                            <field name="mobilePhone" type="string"/>
+                            <field name="jobTitle" type="string"/>
+                            <field name="companyName" type="string"/>
+                            <field name="onPremisesExtensionAttributes" type="array">
+                                <field name="extensionAttribute1" type="string"/>
+                                <field name="extensionAttribute2" type="string"/>
+                                <field name="extensionAttribute3" type="string"/>
+                                <field name="extensionAttribute4" type="string"/>
+                                <field name="extensionAttribute5" type="string"/>
+                                <field name="extensionAttribute6" type="string"/>
+                                <field name="extensionAttribute7" type="string"/>
+                                <field name="extensionAttribute8" type="string"/>
+                                <field name="extensionAttribute9" type="string"/>
+                                <field name="extensionAttribute10" type="string"/>
+                                <field name="extensionAttribute11" type="string"/>
+                                <field name="extensionAttribute12" type="string"/>
+                                <field name="extensionAttribute13" type="string"/>
+                                <field name="extensionAttribute14" type="string"/>
+                                <field name="extensionAttribute15" type="string"/>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string">1</field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetOneUserWithMoreFields" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{endpointurl}/users/{REPLACE_WITH_USERID}?$select=displayName,givenName,surname,userPrincipalName,id,mail,postalCode,streetAddress,city,state,country,businessPhones,mobilePhone,jobTitle,companyName,onPremisesExtensionAttributes</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="displayName" type="string"/>
+                        <field name="givenName" type="string"/>
+                        <field name="surname" type="string"/>
+                        <field name="userPrincipalName" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="mail" type="string"/>
+                        <field name="postalCode" type="string"/>
+                        <field name="streetAddress" type="string"/>
+                        <field name="city" type="string"/>
+                        <field name="state" type="string"/>
+                        <field name="country" type="string"/>
+                        <field name="businessPhones" type="array"/>
+                        <field name="mobilePhone" type="string"/>
+                        <field name="jobTitle" type="string"/>
+                        <field name="companyName" type="string"/>
+                        <field name="onPremisesExtensionAttributes" type="array">
+                            <field name="extensionAttribute1" type="string"/>
+                            <field name="extensionAttribute2" type="string"/>
+                            <field name="extensionAttribute3" type="string"/>
+                            <field name="extensionAttribute4" type="string"/>
+                            <field name="extensionAttribute5" type="string"/>
+                            <field name="extensionAttribute6" type="string"/>
+                            <field name="extensionAttribute7" type="string"/>
+                            <field name="extensionAttribute8" type="string"/>
+                            <field name="extensionAttribute9" type="string"/>
+                            <field name="extensionAttribute10" type="string"/>
+                            <field name="extensionAttribute11" type="string"/>
+                            <field name="extensionAttribute12" type="string"/>
+                            <field name="extensionAttribute13" type="string"/>
+                            <field name="extensionAttribute14" type="string"/>
+                            <field name="extensionAttribute15" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string">1</field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetMemberOfUser" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{endpointurl}/users/{REPLACE_WITH_USERID}/memberOf</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="value" type="array">
+                            <field name="@odata.type" type="string"/>
+                            <field name="id" type="string"/>
+                            <field name="deletedDateTime" type="string"/>
+                            <field name="classification" type="string"/>
+                            <field name="createdDateTime" type="string"/>
+                            <field name="creationOptions" type="array"/>
+                            <field name="description" type="string"/>
+                            <field name="displayName" type="string"/>
+                            <field name="expirationDateTime" type="string"/>
+                            <field name="groupTypes" type="array"/>
+                            <field name="isAssignableToRole" type="string"/>
+                            <field name="mail" type="string"/>
+                            <field name="mailEnabled" type="string"/>
+                            <field name="mailNickname" type="string"/>
+                            <field name="membershipRule" type="string"/>
+                            <field name="membershipRuleProcessingState" type="string"/>
+                            <field name="proxyAddresses" type="array"/>
+                            <field name="onPremisesDomainName" type="string"/>
+                            <field name="onPremisesLastSyncDateTime" type="string"/>
+                            <field name="onPremisesNetBiosName" type="string"/>
+                            <field name="onPremisesSamAccountName" type="string"/>
+                            <field name="onPremisesSecurityIdentifier" type="string"/>
+                            <field name="onPremisesSyncEnabled" type="string"/>
+                            <field name="renewedDateTime" type="string"/>
+                            <field name="resourceBehaviorOptions" type="array"/>
+                            <field name="resourceProvisioningOptions" type="array"/>
+                            <field name="securityEnabled" type="string"/>
+                            <field name="securityIdentifier" type="string"/>
+                            <field name="theme" type="string"/>
+                            <field name="visibility" type="string"/>
+                            <field name="onPremisesProvisioningErrors" type="array"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string">1</field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetGroups" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{endpointurl}/groups</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="@odata.nextLink" type="string"/>
+                        <field name="value" type="array">
+                            <field name="id" type="string"/>
+                            <field name="deletedDateTime" type="string"/>
+                            <field name="classification" type="string"/>
+                            <field name="createdDateTime" type="string"/>
+                            <field name="creationOptions" type="array"/>
+                            <field name="description" type="string"/>
+                            <field name="displayName" type="string"/>
+                            <field name="expirationDateTime" type="string"/>
+                            <field name="groupTypes" type="array"/>
+                            <field name="isAssignableToRole" type="string"/>
+                            <field name="mail" type="string"/>
+                            <field name="mailEnabled" type="string"/>
+                            <field name="mailNickname" type="string"/>
+                            <field name="membershipRule" type="string"/>
+                            <field name="membershipRuleProcessingState" type="string"/>
+                            <field name="onPremisesDomainName" type="string"/>
+                            <field name="onPremisesLastSyncDateTime" type="string"/>
+                            <field name="onPremisesNetBiosName" type="string"/>
+                            <field name="onPremisesSamAccountName" type="string"/>
+                            <field name="onPremisesSecurityIdentifier" type="string"/>
+                            <field name="onPremisesSyncEnabled" type="string"/>
+                            <field name="preferredDataLocation" type="string"/>
+                            <field name="preferredLanguage" type="string"/>
+                            <field name="proxyAddresses" type="array"/>
+                            <field name="renewedDateTime" type="string"/>
+                            <field name="resourceBehaviorOptions" type="array"/>
+                            <field name="resourceProvisioningOptions" type="array"/>
+                            <field name="securityEnabled" type="string"/>
+                            <field name="securityIdentifier" type="string"/>
+                            <field name="theme" type="string"/>
+                            <field name="visibility" type="string"/>
+                            <field name="onPremisesProvisioningErrors" type="array"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string">1</field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetGroupMembersWithMoreAttributes" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{endpointurl}/groups/{REPLACE_WITH_GROUP_ID}/members?$select=displayName,givenName,surname,userPrincipalName,id,mail,postalCode,streetAddress,city,state,country,businessPhones,mobilePhone,jobTitle,companyName,onPremisesExtensionAttributes</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="@odata.context" type="string"/>
+                        <field name="@odata.nextLink" type="string"/>
+                        <field name="value" type="array">
+                            <field name="@odata.type" type="string"/>
+                            <field name="displayName" type="string"/>
+                            <field name="givenName" type="string"/>
+                            <field name="surname" type="string"/>
+                            <field name="userPrincipalName" type="string"/>
+                            <field name="id" type="string"/>
+                            <field name="mail" type="string"/>
+                            <field name="postalCode" type="string"/>
+                            <field name="streetAddress" type="string"/>
+                            <field name="city" type="string"/>
+                            <field name="state" type="string"/>
+                            <field name="country" type="string"/>
+                            <field name="businessPhones" type="array"/>
+                            <field name="mobilePhone" type="string"/>
+                            <field name="jobTitle" type="string"/>
+                            <field name="companyName" type="string"/>
+                            <field name="onPremisesExtensionAttributes" type="array">
+                                <field name="extensionAttribute1" type="string"/>
+                                <field name="extensionAttribute2" type="string"/>
+                                <field name="extensionAttribute3" type="string"/>
+                                <field name="extensionAttribute4" type="string"/>
+                                <field name="extensionAttribute5" type="string"/>
+                                <field name="extensionAttribute6" type="string"/>
+                                <field name="extensionAttribute7" type="string"/>
+                                <field name="extensionAttribute8" type="string"/>
+                                <field name="extensionAttribute9" type="string"/>
+                                <field name="extensionAttribute10" type="string"/>
+                                <field name="extensionAttribute11" type="string"/>
+                                <field name="extensionAttribute12" type="string"/>
+                                <field name="extensionAttribute13" type="string"/>
+                                <field name="extensionAttribute14" type="string"/>
+                                <field name="extensionAttribute15" type="string"/>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string">1</field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+    </operations>
+</invoker>

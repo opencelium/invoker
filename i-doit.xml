@@ -1,1 +1,1266 @@
-/opt/backend/resources/invokers/subscription/i-doit.xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--
+   ~// Copyright (C) <2020> <becon GmbH>
+   ~//
+   ~// This file is licensed under the OpenCelium license agreement.
+   ~//
+   ~// If you purchased an OpenCelium subscription you can use this file
+   ~// under the terms of the OpenCelium license agreement.
+   ~// License agreement and license key will be shipped with the order
+   ~// confirmation.
+--><invoker type="RESTful">
+    <name>i-doit</name>
+    <description>The IT-documentation solution i-doit is based on a complete open source configuration management and database. Using i-doit as a CMDB you can manage your IT according to ITIL best practices and configurate the significant components of your IT environment. You can visualize the relationships between these components and keep track of software and hardware assets and their relations.</description>
+    <hint>This interface provides a apikey auth. Read the api documentation here https://kb.i-doit.com/display/de/API+Methoden</hint>
+    <icon>i-doit.png</icon>
+    <requiredData>
+        <item name="url" type="string" visibility="public"/>
+        <item name="apikey" type="string" visibility="public"/>
+        <item name="username" type="string" visibility="public"/>
+        <item name="password" type="string" visibility="protected"/>
+    </requiredData>
+    <authType>apikey</authType>
+    <operations>
+        <operation name="idoit.version" type="test">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">idoit.version</field>
+                    <field name="params" type="object">
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string">de</field>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string"/>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="version" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.objects.read" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.objects.read</field>
+                    <field name="params" type="object">
+                        <field name="filter" type="object">
+                            <field name="ids" type="array"/>
+                            <field name="type" type="array"/>
+                            <field name="title" type="string"/>
+                            <field name="type_title" type="string"/>
+                            <field name="sysid" type="string"/>
+                            <field name="first_name" type="string"/>
+                            <field name="last_name" type="string"/>
+                            <field name="email" type="string"/>
+                        </field>
+                        <field name="limit" type="string"/>
+                        <field name="order_by" type="string"/>
+                        <field name="sort" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" required="true" type="number"/>
+                        <field name="jsonrpc" required="true" type="string"/>
+                        <field name="result" type="array">
+                            <field name="id" type="string"/>
+                            <field name="title" type="string"/>
+                            <field name="sysid" type="string"/>
+                            <field name="type" type="string"/>
+                            <field name="created" type="string"/>
+                            <field name="updated" type="string"/>
+                            <field name="type_title" type="string"/>
+                            <field name="type_group_title" type="string"/>
+                            <field name="status" type="string"/>
+                            <field name="cmdb_status" type="string"/>
+                            <field name="cmdb_status_title" type="string"/>
+                            <field name="image" type="string"/>
+                            <field name="test" type="string"/>
+                        <field name="f_text_c_17079078358748253" type="string"/></field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.object.read" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.object.read</field>
+                    <field name="params" type="object">
+                        <field name="id" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" required="true" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                            <field name="id" type="string"/>
+                            <field name="title" type="string"/>
+                            <field name="sysid" type="string"/>
+                            <field name="objecttyp" type="string"/>
+                            <field name="type_title" type="string"/>
+                            <field name="type_icon" type="string"/>
+                            <field name="status" type="string"/>
+                            <field name="cmdb_status" type="string"/>
+                            <field name="cmdb_status_title" type="string"/>
+                            <field name="created" type="string"/>
+                            <field name="updated" type="string"/>
+                            <field name="image" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.object.create" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.object.create</field>
+                    <field name="params" type="object">
+                        <field name="type" type="string"/>
+                        <field name="title" type="string"/>
+                        <field name="cmdb_status" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" required="true" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                            <field name="id" type="string"/>
+                            <field name="message" type="string"/>
+                            <field name="status" type="boolean"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.object.update" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="method" type="string"/>
+                    <field name="id" type="string"/>
+                    <field name="params" type="object">
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                        <field name="title" type="string"/>
+                        <field name="id" type="string"/>
+                    </field>
+                    <field name="version" type="string"/>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                            <field name="message" type="string"/>
+                            <field name="status" type="boolean"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.object.archive" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.object.archive</field>
+                    <field name="params" type="object">
+                        <field name="object" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" required="true" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                            <field name="message" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.object.delete" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.object.delete</field>
+                    <field name="params" type="object">
+                        <field name="object" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" required="true" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                            <field name="message" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.object.recycle" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.object.recycle</field>
+                    <field name="params" type="object">
+                        <field name="object" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" required="true" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                            <field name="success" type="string"/>
+                            <field name="message" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.object.purge" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.object.purge</field>
+                    <field name="params" type="object">
+                        <field name="object" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                    </field>
+                    <field name="id" required="true" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                            <field name="success" type="string"/>
+                            <field name="message" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.ip_search.getNetworksByIp" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.ip_search.getNetworksByIp</field>
+                    <field name="params" type="object">
+                        <field name="ip" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="string"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="array">
+                            <field name="id" type="string"/>
+                            <field name="title" type="string"/>
+                            <field name="sysid" type="string"/>
+                            <field name="cmdb_status" type="string"/>
+                            <field name="range from" type="string"/>
+                            <field name="range to" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.category.read" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.category.read</field>
+                    <field name="params" type="object">
+                        <field name="objID" type="string"/>
+                        <field name="category" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <!-- for empty or not need to ask a user -->
+                        <field name="result" type="array">
+                            <field name="id" type="string"/>
+                            <field name="objID" type="string"/>
+                            <field name="hostname" type="string"/>
+                            <field name="parent" type="object">
+                                <field name="location_path" type="string"/>
+                                <field name="id" type="string"/>
+                            </field>
+                            <field name="contact" type="object">
+                                <field name="first_name" type="string"/>
+                                <field name="last_name" type="string"/>
+                                <field name="mail" type="string"/>
+                                <field name="login" type="string"/>
+                            <field name="title" type="string"/></field>
+                            <field name="role" type="object">
+                                <field name="id" type="string"/>
+                                <field name="title" type="string"/>
+                            </field>
+                            <field name="title" type="string"/>
+                        <field name="serial" type="string"/><field name="f_text_c_17079078358748253" type="string"/><field name="f_text_c_1602595189006" type="string"/></field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.category.save" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.category.save</field>
+                    <field name="params" type="object">
+                        <field name="object" type="string"/>
+                        <field name="category" type="string"/>
+                        <field name="data" type="object"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="string"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                            <field name="success" type="string"/>
+                            <field name="message" type="string"/>
+                            <field name="entry" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.category.archive" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.category.archive</field>
+                    <field name="params" type="object">
+                        <field name="object" type="string"/>
+                        <field name="category" type="string"/>
+                        <field name="entry" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="string"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                            <field name="success" type="string"/>
+                            <field name="message" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.category.delete" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.category.delete</field>
+                    <field name="params" type="object">
+                        <field name="object" type="string"/>
+                        <field name="category" type="string"/>
+                        <field name="entry" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="string"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                            <field name="success" type="string"/>
+                            <field name="message" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.category.recycle" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.category.recycle</field>
+                    <field name="params" type="object">
+                        <field name="object" type="string"/>
+                        <field name="category" type="string"/>
+                        <field name="entry" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="string"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                            <field name="success" type="string"/>
+                            <field name="message" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.category.purge" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.category.purge</field>
+                    <field name="params" type="object">
+                        <field name="object" type="string"/>
+                        <field name="category" type="string"/>
+                        <field name="entry" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="string"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                            <field name="success" type="string"/>
+                            <field name="message" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.category.update" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.category.update</field>
+                    <field name="params" type="object">
+                        <field name="objID" type="string"/>
+                        <field name="category" type="string"/>
+                        <field name="data" type="object"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <!-- for empty or not need to ask a user -->
+                        <field name="result" type="array">
+                            <field name="id" type="string"/>
+                            <field name="objID" type="string"/>
+                            <field name="hostname" type="string"/>
+                            <field name="parent" type="object">
+                                <field name="location_path" type="string"/>
+                            </field>
+                            <field name="contact" type="object">
+                                <field name="first_name" type="string"/>
+                                <field name="last_name" type="string"/>
+                                <field name="mail" type="string"/>
+                                <field name="login" type="string"/>
+                            </field>
+                            <field name="role" type="object">
+                                <field name="id" type="string"/>
+                                <field name="title" type="string"/>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.category.create" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.category.create</field>
+                    <field name="params" type="object">
+                        <field name="objID" type="string"/>
+                        <field name="category" type="string"/>
+                        <field name="data" type="object">
+                            <field name="manufacturer" type="string"/>
+                            <field name="title" type="string"/>
+                        </field>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <!-- for empty or not need to ask a user -->
+                        <field name="result" type="array">
+                            <field name="id" type="string"/>
+                            <field name="message" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.reports.read" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.reports.read</field>
+                    <field name="params" type="object">
+                        <field name="objID" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <!-- for empty or not need to ask a user -->
+                        <field name="result" type="array"/>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="idoit.search" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">idoit.search</field>
+                    <field name="params" type="object">
+                        <field name="q" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="array">
+                            <field name="documentId" type="string"/>
+                            <field name="key" type="string"/>
+                            <field name="value" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.object_type_categories" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.object_type_categories</field>
+                    <field name="params" type="object">
+                        <field name="type" type="string"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="string"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                            <field name="catg" type="array">
+                                <field name="id" type="string"/>
+                                <field name="title" type="string"/>
+                                <field name="const" type="string"/>
+                                <field name="multi_value" type="string"/>
+                                <field name="source_table" type="string"/>
+                            </field>
+                            <field name="cats" type="array">
+                                <field name="id" type="string"/>
+                                <field name="title" type="string"/>
+                                <field name="const" type="string"/>
+                                <field name="multi_value" type="string"/>
+                                <field name="source_table" type="string"/>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.categories.read" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.categories.read</field>
+                    <field name="params" type="object">
+                        <field name="objID" type="string"/>
+                        <field name="catgID" type="array"/>
+                        <field name="catsID" type="array"/>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="string"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                            <field name="catgID" type="object">
+                            </field>
+                            <field name="catsID" type="object">
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="cmdb.contact.read" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
+                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.contact.read</field>
+                    <field name="params" type="object">
+                        <field name="method" type="string"/>
+                        <field name="filter" type="object">
+                            <field name="id" type="string"/>
+                        </field>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="string"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+    </operations>
+</invoker>

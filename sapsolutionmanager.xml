@@ -1,1 +1,2646 @@
-/opt/backend/resources/invokers/subscription/sapsolutionmanager.xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
+    <name>SAP Solution Manager</name>
+    <description>SAP Solution Manager supports you throughout the entire lifecycle of you solutions, from planning through configuration to production operation</description>
+    <hint>This interface provides the basic_auth.</hint>
+    <requiredData>
+        <item name="url" type="string" visibility="public"/>
+        <item name="username" type="string" visibility="public"/>
+        <item name="password" type="string" visibility="protected"/>
+        <item name="token" type="string" visibility="private">Basic {username:password}</item>
+    </requiredData>
+    <authType>basic</authType>
+    <operations>
+        <operation name="RequestSystemGuid" type="test">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <body data="raw" format="xml" type="object">
+                    <field name="soap:Envelope" type="object">
+                        <field name="__oc__attributes" type="object">
+                            <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                        </field>
+                        <field name="soap:Header" type="object"/>
+                        <field name="soap:Body" type="object">
+                            <field name="urn:RequestSystemGuid" type="object">
+                                <field name="__oc__attributes" type="object"/>
+                                <field name="__oc__value" type="string"/>
+                            </field>
+                        </field>
+                    </field>
+                </body>
+                <header>
+                    <item name="Content-Type" type="string">application/soap+xml</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+            </request>
+            <response>
+                <success status="200">
+                    <body data="raw" format="xml" type="object">
+                        <field name="env:Envelope" type="object">
+                            <field name="__oc__attributes" type="object">
+                                <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            </field>
+                            <field name="env:Header" type="object"/>
+                            <field name="env:Body" type="object">
+                                <field name="n0:RequestSystemGuidResponse" type="object">
+                                    <field name="__oc__attributes" type="object">
+                                        <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                                    </field>
+                                    <field name="Errors" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="item" type="array">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="ErrorCode" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="number"/>
+                                            </field>
+                                            <field name="Val1" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val2" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val3" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val4" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                    <field name="SystemGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <body data="raw" format="xml" type="object">
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="ProcessIncident" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/soap+xml</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body data="raw" format="xml" type="object">
+                    <field name="soap:Envelope" type="object">
+                        <field name="__oc__attributes" type="object">
+                            <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                        </field>
+                        <field name="soap:Header" type="object"/>
+                        <field name="soap:Body" type="object">
+                            <field name="urn:ProcessIncident" type="object">
+                                <field name="__oc__attributes" type="object"/>
+                                <field name="IctAdditionalInfos" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="Guid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="ParentGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="AddInfoAttribute" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="AddInfoValue" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctAttachments" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="AttachmentGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Filename" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="MimeType" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Data" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="base64"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctHead" type="object">
+                                    <field name="IncidentGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="RequesterGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ProviderGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="AgentId" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ReporterId" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ShortDescription" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="Priority" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="Language" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="RequestBegin" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="number"/>
+                                    </field>
+                                    <field name="RequestEnd" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="number"/>
+                                    </field>
+                                </field>
+                                <field name="IctId" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="__oc__value" type="string"/>
+                                </field>
+                                <field name="IctPersons" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="PersonIdExt" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Sex" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="FirsName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="LastName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Telephone" type="object">
+                                            <field name="PhoneNo" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="PhoneNoExtension" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                        <field name="Mobilephone" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Fax" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="FaxNo" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="FaxNoExtension" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                        <field name="Email" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctSapNotes" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="NoteId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="NoteDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="number">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctSolutions" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="SolutionId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="SolutionDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctStatements" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="TextType" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Texts" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctTimestamp" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="__oc__value" type="number"/>
+                                </field>
+                                <field name="IctUrls" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="UrlGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="UrlName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="UrlDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <body data="raw" format="xml" type="object">
+                        <field name="env:Envelope" type="object">
+                            <field name="__oc__attributes" type="object">
+                                <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            </field>
+                            <field name="env:Header" type="object"/>
+                            <field name="env:Body" type="object">
+                                <field name="n0:ProcessIncidentResponse" type="object">
+                                    <field name="__oc__attributes" type="object">
+                                        <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                                    </field>
+                                    <field name="Errors" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="item" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="ErrorCode" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="number"/>
+                                            </field>
+                                            <field name="Val1" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val2" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val3" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val4" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                    <field name="PersonMaps" type="array">
+                                        <field name="item" type="object">
+                                            <field name="PersonId" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="PersonIdExt" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                    <field name="Prdlctld" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <body data="raw" format="xml" type="object">
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="ReadCompleteIncident" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <body data="raw" format="xml" type="object">
+                    <field name="soap:Envelope" type="object">
+                        <field name="__oc__attributes" type="object">
+                            <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                        </field>
+                        <field name="soap:Header" type="object"/>
+                        <field name="soap:Body" type="object">
+                            <field name="urn:ReadCompleteIncident" type="object">
+                                <field name="IncidentGuid" type="string"/>
+                                <field name="SystemGuid" type="string"/>
+                            </field>
+                        </field>
+                    </field>    
+                </body>
+                <header>
+                    <item name="Content-Type" type="string">application/soap+xml</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+            </request>
+            <response>
+                <success status="200">
+                    <body data="raw" format="xml" type="object">
+                        <field name="env:Envelope" type="object">
+                            <field name="__oc__attributes" type="object">
+                                <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            </field>
+                            <field name="env:Header" type="object"/>
+                            <field name="env:Body" type="object">
+                                <field name="n0:ReadCompleteIncidentResponse" type="object">
+                                    <field name="__oc__attributes" type="object">
+                                        <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                                    </field>
+                                    <field name="Errors" type="array">
+                                        <field name="item" type="object">
+                                            <field name="ErrorCode" type="number"/>
+                                            <field name="Val1" type="string"/>
+                                            <field name="Val2" type="string"/>
+                                            <field name="Val3" type="string"/>
+                                            <field name="Val4" type="string"/>
+                                        </field>
+                                    </field>
+                                    <field name="IctAdditionalInfos" type="array">
+                                        <field name="item" type="object">
+                                            <field name="Guid" type="string"/>
+                                            <field name="ParentGuid" type="string"/>
+                                            <field name="AddInfoAttribute" type="string"/>
+                                            <field name="AddInfoValue" type="string"/>
+                                        </field>
+                                    </field>
+                                    <field name="IctAttachments" type="array">
+                                        <field name="item" type="object">
+                                            <field name="AttachmentGuid" type="string"/>
+                                            <field name="Filename" type="string"/>
+                                            <field name="MimeType" type="string"/>
+                                            <field name="Data" type="base64"/>
+                                            <field name="Timestamp" type="number"/>
+                                            <field name="PersonId" type="string"/>
+                                            <field name="Url" type="string"/>
+                                            <field name="Language" type="string"/>
+                                            <field name="Delete" type="string"/>
+                                        </field>
+                                    </field>
+                                    <field name="IctHead" type="object">
+                                        <field name="IncidentGuid" type="string"/>
+                                        <field name="RequesterGuid" type="string"/>
+                                        <field name="ProviderGuid" type="string"/>
+                                        <field name="AgentId" type="string"/>
+                                        <field name="ReporterId" type="string"/>
+                                        <field name="ShortDescription" type="string"/>
+                                        <field name="Priority" type="string"/>
+                                        <field name="Language" type="string"/>
+                                        <field name="RequestBegin" type="number"/>
+                                        <field name="RequestEnd" type="number"/>
+                                    </field>
+                                    <field name="IctPersons" type="array">
+                                        <field name="item" type="object">
+                                            <field name="PersonId" type="string"/>
+                                            <field name="PersonIdExt" type="string"/>
+                                            <field name="Sex" type="string"/>
+                                            <field name="FirsName" type="string"/>
+                                            <field name="LastName" type="string"/>
+                                            <field name="Telephone" type="string">
+                                                <field name="PhoneNo" type="string"/>
+                                                <field name="PhoneNoExtension" type="string"/>
+                                            </field>
+                                            <field name="Mobilephone" type="string"/>
+                                            <field name="Fax" type="object">
+                                                <field name="FaxNo" type="string"/>
+                                                <field name="FaxNoExtension" type="string"/>
+                                            </field>
+                                            <field name="Email" type="string"/>
+                                        </field>
+                                    </field>
+                                    <field name="IctSapNotes" type="array">
+                                        <field name="item" type="object">
+                                            <field name="NoteId" type="string"/>
+                                            <field name="NoteDescription" type="string"/>
+                                            <field name="Timestamp" type="number"/>
+                                            <field name="PersonId" type="string"/>
+                                            <field name="Url" type="string"/>
+                                            <field name="Language" type="string"/>
+                                            <field name="Delete" type="string"/>
+                                        </field>
+                                    </field>
+                                    <field name="IctSolutions" type="array">
+                                        <field name="item" type="object">
+                                            <field name="SolutionId" type="string"/>
+                                            <field name="SolutionDescription" type="string"/>
+                                            <field name="Timestamp" type="number"/>
+                                            <field name="PersonId" type="string"/>
+                                            <field name="Url" type="string"/>
+                                            <field name="Language" type="string"/>
+                                            <field name="Delete" type="string"/>
+                                        </field>
+                                    </field>                                 
+                                    <field name="IctStatements" type="object">
+                                        <field name="item" type="array">
+                                            <field name="TextType" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>                                                
+                                            <field name="Texts" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="item" type="array">
+                                                    <field name="__oc__attributes" type="object"/>
+                                                    <field name="__oc__value" type="string"/>
+                                                </field>
+                                            </field>
+                                            <field name="Timestamp" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="PersonId" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Language" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                    <field name="IctStatus" type="string"/>
+                                    <field name="IctUrls" type="array">
+                                        <field name="item" type="object">
+                                            <field name="UrlGuid" type="string"/>
+                                            <field name="UrlName" type="string"/>
+                                            <field name="UrlDescription" type="string"/>
+                                            <field name="Timestamp" type="number"/>
+                                            <field name="PersonId" type="string"/>
+                                            <field name="Language" type="string"/>
+                                            <field name="Delete" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <body data="raw" format="xml" type="object">
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="CloseIncident" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/soap+xml</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body data="raw" format="xml" type="object">
+                    <field name="soap:Envelope" type="object">
+                        <field name="__oc__attributes" type="object">
+                            <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                        </field>
+                        <field name="soap:Header" type="object"/>
+                        <field name="soap:Body" type="object">
+                            <field name="urn:CloseIncident" type="object">
+                                <field name="IctAdditionalInfos" type="array">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="Guid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="ParentGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="AddInfoAttribute" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="AddInfoValue" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctAttachments" type="array">
+                                    <field name="item" type="object">
+                                        <field name="AttachmentGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Filename" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="MimeType" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Data" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="base64"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctHead" type="object">
+                                    <field name="IncidentGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="RequesterGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ProviderGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="AgentId" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ReporterId" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ShortDescription" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="Priority" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="Language" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="RequestBegin" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="number"/>
+                                    </field>
+                                    <field name="RequestEnd" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="number"/>
+                                    </field>
+                                </field>
+                                <field name="IctPersons" type="array">
+                                    <field name="item" type="object">
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="PersonIdExt" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Sex" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="FirsName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="LastName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Telephone" type="object">
+                                            <field name="PhoneNo" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="PhoneNoExtension" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                        <field name="Mobilephone" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Fax" type="object">
+                                            <field name="FaxNo" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="FaxNoExtension" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                        <field name="Email" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctSapNotes" type="array">
+                                    <field name="item" type="object">
+                                        <field name="NoteId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="NoteDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="number">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctSolutions" type="array">
+                                    <field name="item" type="object">
+                                        <field name="SolutionId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="SolutionDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctStatements" type="array">
+                                    <field name="item" type="object">
+                                        <field name="TextType" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Texts" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctUrls" type="array">
+                                    <field name="item" type="object">
+                                        <field name="UrlGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="UrlName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="UrlDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <body data="raw" format="xml" type="object">
+                        <field name="env:Envelope" type="object">
+                            <field name="__oc__attributes" type="object">
+                                <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            </field>
+                            <field name="env:Header" type="object"/>
+                            <field name="env:Body" type="object">
+                                <field name="n0:CloseIncidentResponse" type="object">
+                                    <field name="__oc__attributes" type="object">
+                                        <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                                    </field>
+                                    <field name="Errors" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                        <field name="item" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                            <field name="ErrorCode" type="number"/>
+                                            <field name="Val1" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val2" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val3" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val4" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                    <field name="PersonMaps" type="array">
+                                        <field name="item" type="object">
+                                            <field name="PersonId" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="PersonIdExt" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <body data="raw" format="xml" type="object">
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="VerifyIncidentSolution" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/soap+xml</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body data="raw" format="xml" type="object">
+                    <field name="soap:Envelope" type="object">
+                        <field name="__oc__attributes" type="object">
+                            <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                        </field>
+                        <field name="soap:Header" type="object"/>
+                        <field name="soap:Body" type="object">
+                            <field name="n0:VerifyIncidentSolution" type="object">
+                                <field name="IctAdditionalInfos" type="array">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="Guid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="ParentGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="AddInfoAttribute" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="AddInfoValue" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctAttachments" type="array">
+                                    <field name="item" type="object">
+                                        <field name="AttachmentGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Filename" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="MimeType" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Data" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="base64"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctHead" type="object">
+                                    <field name="IncidentGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="RequesterGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ProviderGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="AgentId" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ReporterId" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ShortDescription" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="Priority" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="Language" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="RequestBegin" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="number"/>
+                                    </field>
+                                    <field name="RequestEnd" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="number"/>
+                                    </field>
+                                </field>
+                                <field name="IctPersons" type="array">
+                                    <field name="item" type="object">
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="PersonIdExt" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Sex" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="FirsName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="LastName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Telephone" type="object">
+                                            <field name="PhoneNo" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="PhoneNoExtension" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                        <field name="Mobilephone" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Fax" type="object">
+                                            <field name="FaxNo" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="FaxNoExtension" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                        <field name="Email" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctSapNotes" type="array">
+                                    <field name="item" type="object">
+                                        <field name="NoteId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="NoteDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="number">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctSolutions" type="array">
+                                    <field name="item" type="object">
+                                        <field name="SolutionId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="SolutionDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctStatements" type="array">
+                                    <field name="item" type="object">
+                                        <field name="TextType" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Texts" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctUrls" type="array">
+                                    <field name="item" type="object">
+                                        <field name="UrlGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="UrlName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="UrlDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <body data="raw" format="xml" type="object">
+                        <field name="env:Envelope" type="object">
+                            <field name="__oc__attributes" type="object">
+                                <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            </field>
+                            <field name="env:Header" type="object"/>
+                            <field name="env:Body" type="object">
+                                <field name="n0:VerifyIncidentSolutionResponse" type="object">
+                                    <field name="__oc__attributes" type="object">
+                                        <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                                    </field>
+                                    <field name="Errors" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                        <field name="item" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                            <field name="ErrorCode" type="number"/>
+                                            <field name="Val1" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val2" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val3" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val4" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                    <field name="PersonMaps" type="array">
+                                        <field name="item" type="object">
+                                            <field name="PersonId" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="PersonIdExt" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <body data="raw" format="xml" type="object">
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="AcceptIncidentProcessing" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/soap+xml</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body data="raw" format="xml" type="object">
+                    <field name="soap:Envelope" type="object">
+                        <field name="__oc__attributes" type="object">
+                            <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                        </field>
+                        <field name="soap:Header" type="object"/>
+                        <field name="soap:Body" type="object">
+                            <field name="urn:AcceptIncidentProcessing" type="object">
+                                <field name="IctAdditionalInfos" type="array">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="Guid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="ParentGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="AddInfoAttribute" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="AddInfoValue" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctAttachments" type="array">
+                                    <field name="item" type="object">
+                                        <field name="AttachmentGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Filename" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="MimeType" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Data" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="base64"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctHead" type="object">
+                                    <field name="IncidentGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="RequesterGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ProviderGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="AgentId" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ReporterId" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ShortDescription" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="Priority" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="Language" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="RequestBegin" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="number"/>
+                                    </field>
+                                    <field name="RequestEnd" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="number"/>
+                                    </field>
+                                </field>
+                                <field name="IctPersons" type="array">
+                                    <field name="item" type="object">
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="PersonIdExt" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Sex" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="FirsName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="LastName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Telephone" type="object">
+                                            <field name="PhoneNo" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="PhoneNoExtension" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                        <field name="Mobilephone" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Fax" type="object">
+                                            <field name="FaxNo" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="FaxNoExtension" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                        <field name="Email" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctSapNotes" type="array">
+                                    <field name="item" type="object">
+                                        <field name="NoteId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="NoteDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="number">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctSolutions" type="array">
+                                    <field name="item" type="object">
+                                        <field name="SolutionId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="SolutionDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctStatements" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="TextType" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Texts" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctUrls" type="array">
+                                    <field name="item" type="object">
+                                        <field name="UrlGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="UrlName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="UrlDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <body data="raw" format="xml" type="object">
+                        <field name="env:Envelope" type="object">
+                            <field name="__oc__attributes" type="object">
+                                <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            </field>
+                            <field name="env:Header" type="object"/>
+                            <field name="env:Body" type="object">
+                                <field name="n0:AcceptIncidentProcessingResponse" type="object">
+                                    <field name="__oc__attributes" type="object">
+                                        <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                                    </field>
+                                    <field name="Errors" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                        <field name="item" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                            <field name="ErrorCode" type="number"/>
+                                            <field name="Val1" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val2" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val3" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val4" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                    <field name="PersonMaps" type="array">
+                                        <field name="item" type="object">
+                                            <field name="PersonId" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="PersonIdExt" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <body data="raw" format="xml" type="object">
+                    </body>
+                </fail>
+            </response>
+        </operation>            
+        <operation name="RejectIncidentSolution" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/soap+xml</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body data="raw" format="xml" type="object">
+                    <field name="soap:Envelope" type="object">
+                        <field name="__oc__attributes" type="object">
+                            <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                        </field>
+                        <field name="soap:Header" type="object"/>
+                        <field name="soap:Body" type="object">
+                            <field name="urn:RejectIncidentSolution" type="object">
+                                <field name="IctAdditionalInfos" type="array">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="Guid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="ParentGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="AddInfoAttribute" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="AddInfoValue" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctAttachments" type="array">
+                                    <field name="item" type="object">
+                                        <field name="AttachmentGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Filename" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="MimeType" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Data" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="base64"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctHead" type="object">
+                                    <field name="IncidentGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="RequesterGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ProviderGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="AgentId" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ReporterId" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ShortDescription" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="Priority" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="Language" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="RequestBegin" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="number"/>
+                                    </field>
+                                    <field name="RequestEnd" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="number"/>
+                                    </field>
+                                </field>
+                                <field name="IctPersons" type="array">
+                                    <field name="item" type="object">
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="PersonIdExt" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Sex" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="FirsName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="LastName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Telephone" type="object">
+                                            <field name="PhoneNo" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="PhoneNoExtension" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                        <field name="Mobilephone" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Fax" type="object">
+                                            <field name="FaxNo" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="FaxNoExtension" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                        <field name="Email" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctSapNotes" type="array">
+                                    <field name="item" type="object">
+                                        <field name="NoteId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="NoteDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="number">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctSolutions" type="array">
+                                    <field name="item" type="object">
+                                        <field name="SolutionId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="SolutionDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctStatements" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="TextType" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Texts" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctUrls" type="array">
+                                    <field name="item" type="object">
+                                        <field name="UrlGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="UrlName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="UrlDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <body data="raw" format="xml" type="object">
+                        <field name="env:Envelope" type="object">
+                            <field name="__oc__attributes" type="object">
+                                <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            </field>
+                            <field name="env:Header" type="object"/>
+                            <field name="env:Body" type="object">
+                                <field name="n0:RejectIncidentSolutionResponse" type="object">
+                                    <field name="__oc__attributes" type="object">
+                                        <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                                    </field>
+                                    <field name="Errors" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                        <field name="item" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                            <field name="ErrorCode" type="number"/>
+                                            <field name="Val1" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val2" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val3" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val4" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                    <field name="PersonMaps" type="array">
+                                        <field name="item" type="object">
+                                            <field name="PersonId" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="PersonIdExt" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <body data="raw" format="xml" type="object">
+                    </body>
+                </fail>
+            </response>
+        </operation>        
+        <operation name="AddInfo" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/soap+xml</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body data="raw" format="xml" type="object">
+                    <field name="soap:Envelope" type="object">
+                        <field name="__oc__attributes" type="object">
+                            <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                        </field>
+                        <field name="soap:Header" type="object"/>
+                        <field name="soap:Body" type="object">
+                            <field name="urn:AddInfo" type="object">
+                                <field name="__oc__attributes" type="object"/>
+                                <field name="IctAdditionalInfos" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="Guid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="ParentGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="AddInfoAttribute" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="AddInfoValue" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctAttachments" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="AttachmentGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Filename" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="MimeType" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Data" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="base64"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctHead" type="object">
+                                    <field name="IncidentGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="RequesterGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ProviderGuid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="AgentId" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ReporterId" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="ShortDescription" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="Priority" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="Language" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                    <field name="RequestBegin" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="number"/>
+                                    </field>
+                                    <field name="RequestEnd" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="number"/>
+                                    </field>
+                                </field>
+                                <field name="IctId" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="__oc__value" type="string"/>
+                                </field>
+                                <field name="IctPersons" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="PersonIdExt" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Sex" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="FirsName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="LastName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Telephone" type="object">
+                                            <field name="PhoneNo" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="PhoneNoExtension" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                        <field name="Mobilephone" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Fax" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="FaxNo" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="FaxNoExtension" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                        <field name="Email" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctSapNotes" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="NoteId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="NoteDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="number">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctSolutions" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="SolutionId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="SolutionDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Url" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctStatements" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="TextType" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Texts" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                                <field name="IctTimestamp" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="__oc__value" type="number"/>
+                                </field>
+                                <field name="IctUrls" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="item" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="UrlGuid" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="UrlName" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="UrlDescription" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Timestamp" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="number"/>
+                                        </field>
+                                        <field name="PersonId" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Language" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                        <field name="Delete" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                        </field>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <body data="raw" format="xml" type="object">
+                        <field name="env:Envelope" type="object">
+                            <field name="__oc__attributes" type="object">
+                                <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            </field>
+                            <field name="env:Header" type="object"/>
+                            <field name="env:Body" type="object">
+                                <field name="n0:AddInfoResponse" type="object">
+                                    <field name="__oc__attributes" type="object">
+                                        <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                                    </field>
+                                    <field name="Errors" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="item" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="ErrorCode" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="number"/>
+                                            </field>
+                                            <field name="Val1" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val2" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val3" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val4" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                    <field name="PersonMaps" type="array">
+                                        <field name="item" type="object">
+                                            <field name="PersonId" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="PersonIdExt" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                    <field name="Prdlctld" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <body data="raw" format="xml" type="object">
+                    </body>
+                </fail>
+            </response>
+        </operation>    
+        <operation name="ListUnclosedIncidents" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/soap+xml</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body data="raw" format="xml" type="object">
+                    <field name="soap:Envelope" type="object">
+                        <field name="__oc__attributes" type="object">
+                            <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                        </field>
+                        <field name="soap:Header" type="object"/>
+                        <field name="soap:Body" type="object">
+                            <field name="urn:ListUnclosedIncidents" type="object">
+                                <field name="SystemGuid" type="object">
+                                    <field name="__oc__attributes" type="object"/>
+                                    <field name="__oc__value" type="string"/>
+                                </field>
+                            </field>
+                        </field>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <body data="raw" format="xml" type="object">
+                        <field name="env:Envelope" type="object">
+                            <field name="__oc__attributes" type="object">
+                                <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            </field>
+                            <field name="env:Header" type="object"/>
+                            <field name="env:Body" type="object">
+                                <field name="n0:ListUnclosedIncidentsResponse" type="object">
+                                    <field name="__oc__attributes" type="object">
+                                        <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                                    </field>
+                                    <field name="Errors" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                        <field name="item" type="array">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                            <field name="ErrorCode" type="number"/>
+                                            <field name="Val1" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val2" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val3" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val4" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                    <field name="Incidents" type="object">
+                                        <field name="item" type="array">
+                                            <field name="IncidentGuid" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="RequesterGuid" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="ProviderGuid" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Status" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <body data="raw" format="xml" type="object">
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="RequestGuid" type="test">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <body data="raw" format="xml" type="object">
+                    <field name="soap:Envelope" type="object">
+                        <field name="__oc__attributes" type="object">
+                            <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                        </field>
+                        <field name="soap:Header" type="object"/>
+                        <field name="soap:Body" type="object">
+                            <field name="urn:RequestGuid" type="object">
+                                <field name="__oc__attributes" type="object"/>
+                                <field name="__oc__value" type="string"/>
+                            </field>
+                        </field>
+                    </field>
+                </body>
+                <header>
+                    <item name="Content-Type" type="string">application/soap+xml</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+            </request>
+            <response>
+                <success status="200">
+                    <body data="raw" format="xml" type="object">
+                        <field name="env:Envelope" type="object">
+                            <field name="__oc__attributes" type="object">
+                                <field name="xmlns:soap" type="string">http://www.w3.org/2003/05/soap-envelope</field>
+                            </field>
+                            <field name="env:Header" type="object"/>
+                            <field name="env:Body" type="object">
+                                <field name="n0:RequestGuidResponse" type="object">
+                                    <field name="__oc__attributes" type="object">
+                                        <field name="xmlns:urn" type="string">urn:sap-com:document:sap:soap:functions:mc-style</field>
+                                    </field>
+                                    <field name="Errors" type="array">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                        <field name="item" type="object">
+                                            <field name="__oc__attributes" type="object"/>
+                                            <field name="__oc__value" type="string"/>
+                                            <field name="ErrorCode" type="number"/>
+                                            <field name="Val1" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val2" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val3" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                            <field name="Val4" type="object">
+                                                <field name="__oc__attributes" type="object"/>
+                                                <field name="__oc__value" type="string"/>
+                                            </field>
+                                        </field>
+                                    </field>
+                                    <field name="Guid" type="object">
+                                        <field name="__oc__attributes" type="object"/>
+                                        <field name="__oc__value" type="string"/>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <body data="raw" format="xml" type="object">
+                    </body>
+                </fail>
+            </response>
+        </operation>
+    </operations>
+</invoker>

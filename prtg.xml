@@ -1,1 +1,307 @@
-/opt/backend/resources/invokers/subscription/prtg.xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ Copyright (C) <2020>  <becon GmbH>
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, version 3 of the License.
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<invoker type="RESTful">
+    <name>PRTG</name>
+    <description>Powerful and easy network monitoring.Get push notifications. Create individual maps. All in one, no add-ons. Monitor complete network. Hosted version available. Integrated ticket system. Create custom dashboards.</description>
+    <hint>This interface provides an endpoint auth. You can request the passhash for an account with the following API call: https://yourserver/api/getpasshash.htm?username=myuser&amp;password=mypassword. Check out the documentation https://www.paessler.com/manuals/prtg/http_api</hint>
+    <requiredData>
+        <item name="url" type="string" visibility="public"/>
+        <item name="username" type="string" visibility="public"/>
+        <item name="passhash" type="string" visibility="protected"/>
+    </requiredData>
+    <authType>endpointAuth</authType>
+    <operations>
+        <operation name="GetSensors" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/table.json?username={username}&amp;passhash={passhash}&amp;content=sensors&amp;columns=objid,status,device,host&amp;count=50000</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body>
+                        <field name="prtg-version" type="string"/>
+                        <field name="treesize" type="string"/>
+                        <field name="sensors" type="array">
+                            <field name="objid" type="string"/>
+                            <field name="objid_raw" type="string"/>
+                            <field name="device" type="string"/>
+                            <field name="device_raw" type="string"/>
+                            <field name="sensor" type="string"/>
+                            <field name="sensor_raw" type="string"/>
+                            <field name="status" type="string"/>
+                            <field name="status_raw" type="string"/>
+                        </field>
+                   </body>
+                </success>
+                <fail status="200">
+                    <header>
+                       <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string"/>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetDevices" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/table.json?username={username}&amp;passhash={passhash}&amp;content=devices&amp;columns=objid,status,device,host,type,group</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body>
+                        <field name="prtg-version" type="string"/>
+                        <field name="treesize" type="string"/>
+                        <field name="devices" type="array">
+                            <field name="objid" type="string"/>
+                            <field name="objid_raw" type="string"/>
+                            <field name="device" type="string"/>
+                            <field name="device_raw" type="string"/>
+                            <field name="host" type="string"/>
+                            <field name="host_raw" type="string"/>
+                            <field name="status" type="string"/>
+                            <field name="status_raw" type="string"/>
+                            <field name="type" type="string"/>
+                            <field name="type_raw" type="string"/>
+                            <field name="group" type="string"/>
+                            <field name="group_raw" type="string"/>
+                        </field>
+                   </body>
+                </success>
+                <fail status="200">
+                    <header>
+                       <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string"/>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetObjectIDs" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/table.json?username={username}&amp;passhash={passhash}&amp;content=sensors&amp;columns=objid</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body>
+                        <field name="prtg-version" type="string"/>
+                        <field name="treesize" type="string"/>
+                        <field name="sensors" type="array">
+                            <field name="objid" type="string"/>
+                            <field name="objid_raw" type="string"/>
+                        </field>
+                   </body>
+                </success>
+                <fail status="200">
+                    <header>
+                       <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string"/>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetHostStatus" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                     <header/>
+                     <body>
+                       <field name="prtg-version" type="string"/>
+                       <field name="NewMessages" type="string"/>
+                       <field name="NewAlarms" type="string"/>
+                       <field name="Alarms" type="string"/>
+                        <field name="PartialAlarms" type="string"/>
+                        <field name="AckAlarms" type="string"/>
+                        <field name="UnusualSens" type="string"/>
+                        <field name="UpSens" type="string"/>
+                        <item name="WarnSens" type="string"/>
+                        <item name="PausedSens" type="string"/>
+                        <item name="UnknownSens" type="string"/>
+                        <item name="NewToDos" type="string"/>
+                        <item name="NewTickets" type="string"/>
+                        <item name="UserId" type="string"/>
+                        <item name="UserTimeZone" type="string"/>
+                        <item name="ToDos" type="string"/>
+                        <item name="Favs" type="string"/>
+                        <item name="Clock" type="string"/>
+                        <item name="Version" type="string"/>
+                        <item name="BackgroundTasks" type="string"/>
+                        <item name="CorrelationTasks" type="string"/>
+                        <item name="AutoDiscoTasks" type="string"/>
+                        <item name="ReportTasks" type="string"/>
+                        <item name="EditionType" type="string"/>
+                        <item name="PRTGUpdateAvailable" type="string"/>
+                        <item name="MaintExpiryDays" type="string"/>
+                        <item name="TrialExpiryDays" type="string"/>
+                        <item name="CommercialExpiryDays" type="string"/>
+                        <item name="Overloadprotection" type="string"/>
+                        <item name="ClusterType" type="string"/>
+                        <item name="ClusterNodeName" type="string"/>
+                        <item name="IsAdminUser" type="string"/>
+                        <item name="ReadOnlyUser" type="string"/>
+                        <item name="TicketUser" type="string"/>
+                        <item name="ReadOnlyAllowAcknowledge" type="string"/>
+                        <item name="LowMem" type="string"/>
+                        <item name="PRTGHost" type="string"/>
+                        <item name="MaxSensorCount" type="string"/>
+                        <item name="Activated" type="string"/>
+                        <item name="ECdeprecated" type="string"/>
+                        <item name="RecommenderEnabled" type="string"/>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string"/>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="DuplicateDevice" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/duplicateobject.htm?id={IDOfDeviceToClone}&amp;name={NewName}&amp;host={NewHostnameOrIPv4}&amp;username={username}&amp;passhash={passhash}&amp;targetid={TargetGroupID}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                     <header/>
+                     <body>
+                        <item name="Name" type="string"/>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string"/>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="DuplicateSensor" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/duplicateobject.htm?id={IDOfSensorToClone}&amp;name={NewName}&amp;username={username}&amp;passhash={passhash}&amp;targetid={TargetDeviceID}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                     <header/>
+                     <body>
+                        <item name="Name" type="string"/>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string"/>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="ChangingDeviceOrSensor" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/deleteobject.htm?id={IDOfChangingObject}&amp;username={username}&amp;passhash={passhash}&amp;name={PropertyName}&amp;value={NewValue}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                     <header/>
+                     <body>
+                        <item name="Name" type="string"/>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string"/>
+                    </body>
+                </fail>
+            </response>
+        </operation>         
+        <operation name="DeleteDeviceOrSensor" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/deleteobject.htm?id={IDOfDeletedObject}&amp;username={username}&amp;passhash={passhash}&amp;approve=1</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                     <header/>
+                     <body>
+                        <item name="Name" type="string"/>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string"/>
+                    </body>
+                </fail>
+            </response>
+        </operation>                         
+    </operations>
+</invoker>

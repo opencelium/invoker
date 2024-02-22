@@ -1,1 +1,788 @@
-/opt/backend/resources/invokers/subscription/servicenowIncident.xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--
+   ~// Copyright (C) <2020> <becon GmbH>
+   ~//
+   ~// This file is licensed under the OpenCelium license agreement.
+   ~//
+   ~// If you purchased an OpenCelium subscription you can use this file
+   ~// under the terms of the OpenCelium license agreement.
+   ~// License agreement and license key will be shipped with the order
+   ~// confirmation.
+-->
+<invoker type="RESTful">
+    <name>ServiceNow-Incident</name>
+    <description>Incident management is a series of steps taken to identify, analyze, and resolve critical incidents which could lead to issues in an organization. Creates / Updates Incidents and Articles</description>
+    <hint></hint>
+    <icon>service-now.png</icon>
+    <requiredData>
+        <item name="url" type="string" visibility="public" />
+        <item name="username" type="string" visibility="public" />
+        <item name="password" type="string" visibility="protected" />
+        <item name="basic" type="string" visibility="private">Basic {username:password}</item>
+    </requiredData>
+    <authType>basic</authType>
+    <operations>
+        <operation name="SysProperties" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/now/table/sys_properties</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="result" type="array">
+                            <field name="is_private" type="string"/>
+                            <field name="sys_replace_on_upgrade" type="string"/>
+                            <field name="ignore_cache" type="string"/>
+                            <field name="sys_mod_count" type="string"/>
+                            <field name="description" type="string"/>
+                            <field name="sys_updated_on" type="string"/>
+                            <field name="suffix" type="string"/>
+                            <field name="sys_tags" type="string"/>
+                            <field name="type" type="string"/>
+                            <field name="sys_class_name" type="string"/>
+                            <field name="sys_id" type="string"/>
+                            <field name="sys_update_name" type="string"/>
+                            <field name="sys_updated_by" type="string"/>
+                            <field name="write_roles" type="string"/>
+                            <field name="sys_created_on" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="read_roles" type="string"/>
+                            <field name="sys_name" type="string"/>
+                            <field name="choices" type="string"/>
+                            <field name="sys_customer_update" type="string"/>
+                            <field name="value" type="string"/>
+                            <field name="sys_created_by" type="string"/>
+                            <field name="sys_policy" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="IncidentCreate" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/api/now/table/incident?sysparm_fields=sys_id</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                    <field name="short_description" type="string"/>
+                    <field name="description" type="string"/>
+                    <field name="state" type="string"/>
+                    <field name="priority" type="string"/>
+                    <field name="origin_id" type="string"/>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="result" type="object">
+                            <field name="sys_id" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="IncidentUpdate" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/api/now/table/incident/{REPLACE-WITH-SYSID}?sysparm_fields=sys_id</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                    <field name="parent" type="string"/>
+                    <field name="u_erstzuweisungsgruppe" type="object">
+                        <field name="link" type="string"/>
+                        <field name="value" type="string"/>
+                    </field>
+                    <field name="state" type="string"/>
+                    <field name="contract" type="string"/>
+                    <field name="impact" type="string"/>
+                    <field name="active" type="string"/>
+                    <field name="priority" type="string"/>
+                    <field name="short_description" type="string"/>
+                    <field name="expected_start" type="string"/>
+                    <field name="caller_id" type="object">
+                        <field name="link" type="string"/>
+                        <field name="value" type="string"/>
+                    </field>
+                    <field name="subcategory" type="string"/>
+                    <field name="u_department" type="string"/>
+                    <field name="assignment_group" type="object">
+                        <field name="link" type="string"/>
+                        <field name="value" type="string"/>
+                    </field>
+                    <field name="cause" type="string"/>
+                    <field name="description" type="string"/>
+                    <field name="origin_id" type="string"/>
+                    <field name="close_notes" type="string"/>
+                    <field name="contact_type" type="string"/>
+                    <field name="urgency" type="string"/>
+                    <field name="problem_id" type="string"/>
+                    <field name="company" type="object">
+                        <field name="link" type="string"/>
+                        <field name="value" type="string"/>
+                    </field>
+                    <field name="severity" type="string"/>
+                    <field name="comments" type="string"/>
+                    <field name="approval" type="string"/>
+                    <field name="category" type="string"/>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="result" type="object">
+                            <field name="sys_id" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="IncidentAddComment" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/api/now/table/incident/{REPLACE-WITH-SYSID}?sysparm_fields=sys_id</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                    <field name="comments" type="string"/>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="result" type="object">
+                            <field name="sys_id" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="IncidentGetAllActive" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/now/table/incident?active=true&amp;sysparm_fields=sys_id,origin_id,short_description</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="result" type="array">
+                            <field name="sys_id" type="string"/>
+                            <field name="short_description" type="string"/>
+                            <field name="origin_id" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="IncidentGetSpecific" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/now/table/incident/{REPLACE-WITH-SYSID}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="result" type="object">
+                            <field name="parent" type="string"/>
+                            <field name="u_erstzuweisungsgruppe" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="caused_by" type="string"/>
+                            <field name="watch_list" type="string"/>
+                            <field name="u_sla_def_reaction_breached" type="string"/>
+                            <field name="upon_reject" type="string"/>
+                            <field name="sys_updated_on" type="string"/>
+                            <field name="u_reappearance" type="string"/>
+                            <field name="u_partner_assignment_group" type="string"/>
+                            <field name="origin_table" type="string"/>
+                            <field name="approval_history" type="string"/>
+                            <field name="skills" type="string"/>
+                            <field name="number" type="string"/>
+                            <field name="u_entity" type="string"/>
+                            <field name="state" type="string"/>
+                            <field name="sys_created_by" type="string"/>
+                            <field name="knowledge" type="string"/>
+                            <field name="order" type="string"/>
+                            <field name="u_power_users" type="string"/>
+                            <field name="cmdb_ci" type="string"/>
+                            <field name="cmdb_ci_business_app" type="string"/>
+                            <field name="u_customer_impact" type="string"/>
+                            <field name="contract" type="string"/>
+                            <field name="impact" type="string"/>
+                            <field name="active" type="string"/>
+                            <field name="priority" type="string"/>
+                            <field name="sys_domain_path" type="string"/>
+                            <field name="u_cal_start" type="string"/>
+                            <field name="business_duration" type="string"/>
+                            <field name="group_list" type="string"/>
+                            <field name="u_sla_def_processing_breached" type="string"/>
+                            <field name="universal_request" type="string"/>
+                            <field name="short_description" type="string"/>
+                            <field name="u_security_relevant" type="string"/>
+                            <field name="correlation_display" type="string"/>
+                            <field name="work_start" type="string"/>
+                            <field name="u_demand_number" type="string"/>
+                            <field name="additional_assignee_list" type="string"/>
+                            <field name="notify" type="string"/>
+                            <field name="sys_class_name" type="string"/>
+                            <field name="closed_by" type="string"/>
+                            <field name="follow_up" type="string"/>
+                            <field name="reopened_by" type="string"/>
+                            <field name="u_ast_contract" type="string"/>
+                            <field name="reassignment_count" type="string"/>
+                            <field name="u_cmdb_ci" type="string"/>
+                            <field name="assigned_to" type="string"/>
+                            <field name="u_provider" type="string"/>
+                            <field name="u_anfrager_wahr" type="string"/>
+                            <field name="u_wait_for_reason" type="string"/>
+                            <field name="u_plan_knowledge" type="string"/>
+                            <field name="u_device_number" type="string"/>
+                            <field name="agile_story" type="string"/>
+                            <field name="u_korrespondenz" type="string"/>
+                            <field name="u_reopen_count" type="string"/>
+                            <field name="upon_approval" type="string"/>
+                            <field name="correlation_id" type="string"/>
+                            <field name="u_sla_resolution_due_date" type="string"/>
+                            <field name="u_major_incident" type="string"/>
+                            <field name="u_has_attachment" type="string"/>
+                            <field name="task_effective_number" type="string"/>
+                            <field name="u_outage" type="string"/>
+                            <field name="resolved_by" type="string"/>
+                            <field name="u_has_children" type="string"/>
+                            <field name="sys_updated_by" type="string"/>
+                            <field name="opened_by" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="u_exchange_hardware" type="string"/>
+                            <field name="u_subject_msg_to_provider" type="string"/>
+                            <field name="user_input" type="string"/>
+                            <field name="sys_created_on" type="string"/>
+                            <field name="sys_domain" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="task_for" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="route_reason" type="string"/>
+                            <field name="calendar_stc" type="string"/>
+                            <field name="u_anfrager" type="string"/>
+                            <field name="closed_at" type="string"/>
+                            <field name="u_cal_end" type="string"/>
+                            <field name="u_parent_incident" type="string"/>
+                            <field name="u_work_notes_list" type="string"/>
+                            <field name="business_service" type="string"/>
+                            <field name="business_impact" type="string"/>
+                            <field name="rfc" type="string"/>
+                            <field name="time_worked" type="string"/>
+                            <field name="u_external_watch_list" type="string"/>
+                            <field name="expected_start" type="string"/>
+                            <field name="opened_at" type="string"/>
+                            <field name="u_partner_number" type="string"/>
+                            <field name="work_end" type="string"/>
+                            <field name="caller_id" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="reopened_time" type="string"/>
+                            <field name="resolved_at" type="string"/>
+                            <field name="subcategory" type="string"/>
+                            <field name="u_department" type="string"/>
+                            <field name="assignment_group" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="business_stc" type="string"/>
+                            <field name="cause" type="string"/>
+                            <field name="description" type="string"/>
+                            <field name="origin_id" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="calendar_duration" type="string"/>
+                            <field name="close_notes" type="string"/>
+                            <field name="u_roadmap_relevant" type="string"/>
+                            <field name="sys_id" type="string"/>
+                            <field name="contact_type" type="string"/>
+                            <field name="u_partner_state" type="string"/>
+                            <field name="urgency" type="string"/>
+                            <field name="problem_id" type="string"/>
+                            <field name="company" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="u_msg_to_provider" type="string"/>
+                            <field name="u_partner_ticket_sys_id" type="string"/>
+                            <field name="u_partner_waiting_for" type="string"/>
+                            <field name="activity_due" type="string"/>
+                            <field name="u_resolved_sdk" type="string"/>
+                            <field name="severity" type="string"/>
+                            <field name="u_external_reference" type="string"/>
+                            <field name="comments" type="string"/>
+                            <field name="u_no_sla" type="string"/>
+                            <field name="u_awaiting_for" type="string"/>
+                            <field name="approval" type="string"/>
+                            <field name="due_date" type="string"/>
+                            <field name="sys_mod_count" type="string"/>
+                            <field name="sys_tags" type="string"/>
+                            <field name="u_kedb" type="string"/>
+                            <field name="u_propagate_to_children" type="string"/>
+                            <field name="u_close_code" type="string"/>
+                            <field name="location" type="string"/>
+                            <field name="category" type="string"/>
+                            <field name="u_additional_comment_state" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="IncidentGetComments" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/now/table/incident/{REPLACE-WITH-SYSID}?sysparm_display_value=true&amp;sysparm_fields=sys_id,comments</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="result" type="object">
+                            <field name="sys_id" type="string"/>
+                            <field name="comments" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="IncidentGetCommentsByJournal" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/now/table/sys_journal_field?element_id={REPLACE-WITH-SYSID}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="result" type="array">
+                            <field name="sys_id" type="string"/>
+                            <field name="sys_created_on" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="element_id" type="string"/>
+                            <field name="sys_tags" type="string"/>
+                            <field name="value" type="string"/>
+                            <field name="sys_created_by" type="string"/>
+                            <field name="element" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="UserGetAllActive" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/now/table/sys_user?sysparm_fields=sys_id,name&amp;active=true</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="result" type="array">
+                            <field name="sys_id" type="string"/>
+                            <field name="name" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="UserGetSpecific" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/now/table/sys_user/{REPLACE-WITH-SYSID}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="result" type="object">
+                            <field name="calendar_integration" type="string"/>
+                            <field name="country" type="string"/>
+                            <field name="last_login_time" type="string"/>
+                            <field name="source" type="string"/>
+                            <field name="sys_updated_on" type="string"/>
+                            <field name="building" type="string"/>
+                            <field name="web_service_access_only" type="string"/>
+                            <field name="notification" type="string"/>
+                            <field name="enable_multifactor_authn" type="string"/>
+                            <field name="sys_updated_by" type="string"/>
+                            <field name="sso_source" type="string"/>
+                            <field name="sys_created_on" type="string"/>
+                            <field name="sys_domain" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="state" type="string"/>
+                            <field name="sys_created_by" type="string"/>
+                            <field name="zip" type="string"/>
+                            <field name="home_phone" type="string"/>
+                            <field name="time_format" type="string"/>
+                            <field name="last_login" type="string"/>
+                            <field name="u_meldeberechtigt" type="string"/>
+                            <field name="active" type="string"/>
+                            <field name="average_daily_fte" type="string"/>
+                            <field name="sys_domain_path" type="string"/>
+                            <field name="u_extern" type="string"/>
+                            <field name="phone" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="employee_number" type="string"/>
+                            <field name="gender" type="string"/>
+                            <field name="failed_attempts" type="string"/>
+                            <field name="user_name" type="string"/>
+                            <field name="title" type="string"/>
+                            <field name="sys_class_name" type="string"/>
+                            <field name="sys_id" type="string"/>
+                            <field name="federated_id" type="string"/>
+                            <field name="internal_integration_user" type="string"/>
+                            <field name="mobile_phone" type="string"/>
+                            <field name="street" type="string"/>
+                            <field name="u_office" type="string"/>
+                            <field name="company" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="department" type="string"/>
+                            <field name="first_name" type="string"/>
+                            <field name="email" type="string"/>
+                            <field name="introduction" type="string"/>
+                            <field name="preferred_language" type="string"/>
+                            <field name="manager" type="string"/>
+                            <field name="u_code" type="string"/>
+                            <field name="auditor" type="string"/>
+                            <field name="sys_mod_count" type="string"/>
+                            <field name="last_name" type="string"/>
+                            <field name="avatar" type="string"/>
+                            <field name="middle_name" type="string"/>
+                            <field name="sys_tags" type="string"/>
+                            <field name="time_zone" type="string"/>
+                            <field name="schedule" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="u_room" type="string"/>
+                            <field name="date_format" type="string"/>
+                            <field name="location" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="GroupGetAllActive" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/now/table/sys_user_group?sysparm_fields=sys_id,name&amp;active=true</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="result" type="array">
+                            <field name="sys_id" type="string"/>
+                            <field name="name" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="GroupGetSpecific" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/now/table/sys_user_group/{REPLACE-WITH-SYSID}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="result" type="object">
+                            <field name="parent" type="string"/>
+                            <field name="u_abteilung" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="description" type="string"/>
+                            <field name="source" type="string"/>
+                            <field name="sys_updated_on" type="string"/>
+                            <field name="type" type="string"/>
+                            <field name="points" type="string"/>
+                            <field name="sys_id" type="string"/>
+                            <field name="managed_domain" type="string"/>
+                            <field name="sys_updated_by" type="string"/>
+                            <field name="default_assignee" type="string"/>
+                            <field name="sys_created_on" type="string"/>
+                            <field name="sys_domain" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="company" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="email" type="string"/>
+                            <field name="sys_created_by" type="string"/>
+                            <field name="manager" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="sys_mod_count" type="string"/>
+                            <field name="active" type="string"/>
+                            <field name="average_daily_fte" type="string"/>
+                            <field name="u_organisation" type="string"/>
+                            <field name="sys_domain_path" type="string"/>
+                            <field name="sys_tags" type="string"/>
+                            <field name="hourly_rate" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="u_gruppentyp" type="string"/>
+                            <field name="exclude_manager" type="string"/>
+                            <field name="include_members" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="CompanyGetAllActive" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/now/table/core_company?sysparm_fields=sys_id,name&amp;active=true</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="result" type="array">
+                            <field name="sys_id" type="string"/>
+                            <field name="name" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="CompanyGetSpecific" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/now/table/core_company/{REPLACE-WITH-SYSID}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="result" type="object">
+                            <field name="banner_image_light" type="string"/>
+                            <field name="country" type="string"/>
+                            <field name="parent" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="u_default_specialist_approver" type="string"/>
+                            <field name="notes" type="string"/>
+                            <field name="stock_symbol" type="string"/>
+                            <field name="u_centrally_served" type="string"/>
+                            <field name="discount" type="string"/>
+                            <field name="sys_updated_on" type="string"/>
+                            <field name="apple_icon" type="string"/>
+                            <field name="u_financial_approval" type="string"/>
+                            <field name="sys_updated_by" type="string"/>
+                            <field name="fiscal_year" type="string"/>
+                            <field name="sso_source" type="string"/>
+                            <field name="sys_created_on" type="string"/>
+                            <field name="contact" type="string"/>
+                            <field name="sys_domain" type="object">
+                                <field name="link" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="stock_price" type="string"/>
+                            <field name="banner_image" type="string"/>
+                            <field name="state" type="string"/>
+                            <field name="u_short_name" type="string"/>
+                            <field name="sys_created_by" type="string"/>
+                            <field name="longitude" type="string"/>
+                            <field name="zip" type="string"/>
+                            <field name="profits" type="string"/>
+                            <field name="active" type="string"/>
+                            <field name="canonical" type="string"/>
+                            <field name="sys_domain_path" type="string"/>
+                            <field name="fax_phone" type="string"/>
+                            <field name="phone" type="string"/>
+                            <field name="banner_text" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="coordinates_retrieved_on" type="string"/>
+                            <field name="u_specialist_approval" type="string"/>
+                            <field name="hash" type="string"/>
+                            <field name="primary" type="string"/>
+                            <field name="latitude_old" type="string"/>
+                            <field name="u_is_a_division" type="string"/>
+                            <field name="city" type="string"/>
+                            <field name="longitude_old" type="string"/>
+                            <field name="u_email" type="string"/>
+                            <field name="latitude" type="string"/>
+                            <field name="u_default_financial_approver" type="string"/>
+                            <field name="sys_class_name" type="string"/>
+                            <field name="manufacturer" type="string"/>
+                            <field name="sys_id" type="string"/>
+                            <field name="market_cap" type="string"/>
+                            <field name="num_employees" type="string"/>
+                            <field name="rank_tier" type="string"/>
+                            <field name="street" type="string"/>
+                            <field name="vendor" type="string"/>
+                            <field name="lat_long_error" type="string"/>
+                            <field name="vendor_type" type="string"/>
+                            <field name="revenue_per_year" type="string"/>
+                            <field name="website" type="string"/>
+                            <field name="publicly_traded" type="string"/>
+                            <field name="sys_mod_count" type="string"/>
+                            <field name="sys_tags" type="string"/>
+                            <field name="u_mail_domain" type="string"/>
+                            <field name="vendor_manager" type="string"/>
+                            <field name="customer" type="string"/>
+                            <field name="u_release_manager" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+    </operations>
+</invoker>

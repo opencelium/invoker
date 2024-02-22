@@ -1,2 +1,4 @@
 # ignore files
+open
+subscription
 update_invokers.sh

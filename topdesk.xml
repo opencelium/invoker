@@ -1,1 +1,2145 @@
-/opt/backend/resources/invokers/subscription/topdesk.xml
+<invoker type="RESTful">
+	<name>Topdesk</name>
+	<description>This API provides endpoints for defining, modifying and accessing customer-specific business resources. The Asset Management API supports adding arbitrary number of fields and widgets to these and also supports defining basic relationship rules between them.The term 'asset' represents any business resource in the broader sense. They are grouped into 'categories' - by the 'resourceCategory' property - based on their major traits, which may differ substantially for tangible entities and abstract resource definitions. Resource categories define rules, introduce restrictions, but they also provide access to additional APIs specific for them. Basically all Asset Management endpoints can be used for all resource categories, taking the pre-defined restrictions into consideration.Currently the following resource categories are supported:&lt;ul&gt;&lt;li&gt;&lt;b&gt;asset&lt;/b&gt; - The default resource category for representing identifiable entities.&lt;/li&gt;&lt;li&gt;&lt;b&gt;stock&lt;/b&gt; - A stock, in the common sense, that assets can be linked to. A pre-defined link type exists, which represents that an asset is in stock. Check the 'Asset links' section about how to put or remove assets to/from stocks.&lt;/li&gt;&lt;/ul&gt;</description>
+	<hint>This interface provides a basic auth. Check out the documentation https://developers.topdesk.com</hint>
+	<authType>basic</authType>
+	<requiredData>
+		<item name="url" type="string" visibility="public">https://{topdesk_host}/tas/api/assetmgmt</item>
+		<item name="username" type="string" visibility="public"/>
+		<item name="password" type="string" visibility="protected"/>
+		<item name="token" type="string" visibility="private">Basic {username:password}</item>
+	</requiredData>
+	<operations>
+		<operation name="getLinkedAssets" type="test">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assetLinks</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="archived" type="boolean"/>
+						<field name="archivedAsset" type="boolean"/>
+						<field name="assetIcon" type="object">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+							<field name="url16" type="string"/>
+							<field name="url32" type="string"/>
+						</field>
+						<field name="assetId" type="string"/>
+						<field name="capabilityId" type="string"/>
+						<field name="capabilityName" type="string"/>
+						<field name="linkId" type="string"/>
+						<field name="linkType" type="string"/>
+						<field name="name" type="string"/>
+						<field name="status" type="string"/>
+						<field name="summary" type="string"/>
+						<field name="type" type="string"/>
+					</body>
+				</success>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="link" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="capabilityId" type="string"/>
+					<field name="sourceId" type="string"/>
+					<field name="targetId" type="string"/>
+					<field name="type" type="string"/>
+				</body>
+				<endpoint>{url}/assetLinks</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="archived" type="boolean"/>
+						<field name="archivedAsset" type="boolean"/>
+						<field name="assetIcon" type="object">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+							<field name="url16" type="string"/>
+							<field name="url32" type="string"/>
+						</field>
+						<field name="assetId" type="string"/>
+						<field name="capabilityId" type="string"/>
+						<field name="capabilityName" type="string"/>
+						<field name="linkId" type="string"/>
+						<field name="linkType" type="string"/>
+						<field name="name" type="string"/>
+						<field name="status" type="string"/>
+						<field name="summary" type="string"/>
+						<field name="type" type="string"/>
+					</body>
+				</success>
+				<fail status="400"/>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="possibleRelations" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assetLinks/possibleRelations</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array"/>
+				</success>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="unlink" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assetLinks/{relationId}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="archived" type="boolean"/>
+						<field name="archivedAsset" type="boolean"/>
+						<field name="assetIcon" type="object">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+							<field name="url16" type="string"/>
+							<field name="url32" type="string"/>
+						</field>
+						<field name="assetId" type="string"/>
+						<field name="capabilityId" type="string"/>
+						<field name="capabilityName" type="string"/>
+						<field name="linkId" type="string"/>
+						<field name="linkType" type="string"/>
+						<field name="name" type="string"/>
+						<field name="status" type="string"/>
+						<field name="summary" type="string"/>
+						<field name="type" type="string"/>
+					</body>
+				</success>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="getAssetStatusValues" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assetStatuses</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="results" type="array">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="object">
+						<field name="errors" type="array">
+							<field name="appliesTo" type="array"/>
+							<field name="detail" type="string"/>
+							<field name="errorCode" type="string"/>
+						</field>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="getAssets" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assets</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/x.topdesk-am-assets-v1+json" format="json" type="object">
+						<field name="columns" type="array">
+							<field name="@etag" type="string"/>
+							<field name="displayName" type="string"/>
+							<field name="fieldName" type="string"/>
+							<field name="fieldType" type="string"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="properties" type="object"/>
+							<field name="resourceKey" type="string"/>
+							<field name="valueType" type="string"/>
+						</field>
+						<field name="dataSet" type="array"/>
+						<field name="functionalities" type="array">
+							<field name="name" type="string"/>
+							<field name="parameters" type="object"/>
+						</field>
+						<field name="resources" type="object"/>
+						<field name="settings" type="object"/>
+						<field name="templates" type="array">
+							<field name="archived" type="boolean"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="icon" type="string"/>
+							<field name="id" type="string"/>
+							<field name="inheritance" type="object">
+								<field name="location" type="boolean"/>
+								<field name="person" type="boolean"/>
+							</field>
+							<field name="properties" type="object"/>
+							<field name="text" type="string"/>
+						</field>
+					</body>
+				</success>
+				<success status="206">
+					<body data="application/x.topdesk-am-assets-v1+json" format="json" type="object">
+						<field name="columns" type="array">
+							<field name="@etag" type="string"/>
+							<field name="displayName" type="string"/>
+							<field name="fieldName" type="string"/>
+							<field name="fieldType" type="string"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="properties" type="object"/>
+							<field name="resourceKey" type="string"/>
+							<field name="valueType" type="string"/>
+						</field>
+						<field name="dataSet" type="array"/>
+						<field name="functionalities" type="array">
+							<field name="name" type="string"/>
+							<field name="parameters" type="object"/>
+						</field>
+						<field name="resources" type="object"/>
+						<field name="settings" type="object"/>
+						<field name="templates" type="array">
+							<field name="archived" type="boolean"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="icon" type="string"/>
+							<field name="id" type="string"/>
+							<field name="inheritance" type="object">
+								<field name="location" type="boolean"/>
+								<field name="person" type="boolean"/>
+							</field>
+							<field name="properties" type="object"/>
+							<field name="text" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="createAsset" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="dropdownField" type="string"/>
+					<field name="numberField" type="string"/>
+					<field name="textField" type="string"/>
+					<field name="type_id" type="string"/>
+				</body>
+				<endpoint>{url}/assets</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="data" type="object"/>
+						<field name="fields" type="object"/>
+						<field name="functionalities" type="array">
+							<field name="name" type="string"/>
+							<field name="parameters" type="object"/>
+						</field>
+						<field name="metadata" type="object">
+							<field name="@etag" type="string"/>
+							<field name="archived" type="boolean"/>
+							<field name="autoNumbering" type="object">
+								<field name="enabled" type="boolean"/>
+								<field name="minLength" type="plaintext"/>
+								<field name="prefix" type="string"/>
+								<field name="startIndex" type="plaintext"/>
+							</field>
+							<field name="defaultTemplateName" type="string"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="icon" type="object">
+								<field name="id" type="string"/>
+								<field name="name" type="string"/>
+								<field name="url16" type="string"/>
+								<field name="url32" type="string"/>
+							</field>
+							<field name="resourceCategory" type="string"/>
+							<field name="settings" type="object">
+								<field name="visibleOnSSP" type="boolean"/>
+							</field>
+							<field name="template" type="object">
+								<field name="required" type="array"/>
+								<field name="tabs" type="array">
+									<field name="columns" type="array">
+										<field name="size" type="string"/>
+										<field name="widgets" type="array">
+											<field name="resourceKey" type="string"/>
+											<field name="title" type="string"/>
+										</field>
+									</field>
+									<field name="resourceKey" type="string"/>
+								</field>
+							</field>
+							<field name="templateId" type="string"/>
+							<field name="templateName" type="string"/>
+						</field>
+						<field name="settings" type="object"/>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="object">
+						<field name="errors" type="array">
+							<field name="fieldName" type="string"/>
+							<field name="fieldTitle" type="string"/>
+							<field name="message" type="string"/>
+						</field>
+					</body>
+				</fail>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="assign" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/x.topdesk-am-assignment-links-v1+json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/x.topdesk-am-assignment-links-v0+json" format="json" type="object">
+					<field name="assetIds" type="array"/>
+					<field name="branchId" type="string"/>
+					<field name="linkToId" type="string"/>
+					<field name="linkType" type="string"/>
+				</body>
+				<endpoint>{url}/assets/assignments</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/x.topdesk-am-assignment-links-v0+json" format="json" type="array">
+						<field name="branch" type="object">
+							<field name="archived" type="boolean"/>
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+							<field name="specification" type="string"/>
+						</field>
+						<field name="linkId" type="string"/>
+						<field name="location" type="object">
+							<field name="archived" type="boolean"/>
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+							<field name="roomNumber" type="string"/>
+							<field name="specification" type="string"/>
+						</field>
+						<field name="person" type="object">
+							<field name="archived" type="boolean"/>
+							<field name="avatar" type="string"/>
+							<field name="branchName" type="string"/>
+							<field name="function" type="string"/>
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="personGroup" type="object">
+							<field name="archived" type="boolean"/>
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="400"/>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="getBlankAsset" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assets/blank</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="data" type="object"/>
+						<field name="fields" type="object"/>
+						<field name="functionalities" type="array">
+							<field name="name" type="string"/>
+							<field name="parameters" type="object"/>
+						</field>
+						<field name="metadata" type="object">
+							<field name="@etag" type="string"/>
+							<field name="archived" type="boolean"/>
+							<field name="autoNumbering" type="object">
+								<field name="enabled" type="boolean"/>
+								<field name="minLength" type="plaintext"/>
+								<field name="prefix" type="string"/>
+								<field name="startIndex" type="plaintext"/>
+							</field>
+							<field name="defaultTemplateName" type="string"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="icon" type="object">
+								<field name="id" type="string"/>
+								<field name="name" type="string"/>
+								<field name="url16" type="string"/>
+								<field name="url32" type="string"/>
+							</field>
+							<field name="resourceCategory" type="string"/>
+							<field name="settings" type="object">
+								<field name="visibleOnSSP" type="boolean"/>
+							</field>
+							<field name="template" type="object">
+								<field name="required" type="array"/>
+								<field name="tabs" type="array">
+									<field name="columns" type="array">
+										<field name="size" type="string"/>
+										<field name="widgets" type="array">
+											<field name="resourceKey" type="string"/>
+											<field name="title" type="string"/>
+										</field>
+									</field>
+									<field name="resourceKey" type="string"/>
+								</field>
+							</field>
+							<field name="templateId" type="string"/>
+							<field name="templateName" type="string"/>
+						</field>
+						<field name="settings" type="object"/>
+					</body>
+				</success>
+				<fail status="400"/>
+				<fail status="403"/>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="deleteAssets" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="unids" type="array"/>
+				</body>
+				<endpoint>{url}/assets/delete</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="deleted" type="array"/>
+						<field name="failed" type="array"/>
+						<field name="missing" type="array"/>
+						<field name="unauthorized" type="array"/>
+					</body>
+				</success>
+			</response>
+		</operation>
+		<operation name="deleteGridFieldAsset" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="string"/>
+				<endpoint>{url}/assets/deleteGridFieldAsset</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="deleted" type="array"/>
+						<field name="etag" type="string"/>
+						<field name="failed" type="array"/>
+						<field name="missing" type="array"/>
+						<field name="unauthorized" type="array"/>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="object">
+						<field name="errors" type="array">
+							<field name="fieldName" type="string"/>
+							<field name="fieldTitle" type="string"/>
+							<field name="message" type="string"/>
+						</field>
+					</body>
+				</fail>
+				<fail status="403"/>
+				<fail status="404"/>
+				<fail status="409"/>
+			</response>
+		</operation>
+		<operation name="getGridFieldValues" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assets/getGridFieldValues</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/x.topdesk-am-assets-v1+json" format="json" type="object">
+						<field name="columns" type="array">
+							<field name="@etag" type="string"/>
+							<field name="displayName" type="string"/>
+							<field name="fieldName" type="string"/>
+							<field name="fieldType" type="string"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="properties" type="object"/>
+							<field name="resourceKey" type="string"/>
+							<field name="valueType" type="string"/>
+						</field>
+						<field name="dataSet" type="array"/>
+						<field name="functionalities" type="array">
+							<field name="name" type="string"/>
+							<field name="parameters" type="object"/>
+						</field>
+						<field name="resources" type="object"/>
+						<field name="settings" type="object"/>
+						<field name="templates" type="array">
+							<field name="archived" type="boolean"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="icon" type="string"/>
+							<field name="id" type="string"/>
+							<field name="inheritance" type="object">
+								<field name="location" type="boolean"/>
+								<field name="person" type="boolean"/>
+							</field>
+							<field name="properties" type="object"/>
+							<field name="text" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="getGridFieldAssetById" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assets/gridFieldAsset</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="data" type="object"/>
+						<field name="fields" type="object"/>
+						<field name="functionalities" type="array">
+							<field name="name" type="string"/>
+							<field name="parameters" type="object"/>
+						</field>
+						<field name="metadata" type="object">
+							<field name="@etag" type="string"/>
+							<field name="archived" type="boolean"/>
+							<field name="autoNumbering" type="object">
+								<field name="enabled" type="boolean"/>
+								<field name="minLength" type="plaintext"/>
+								<field name="prefix" type="string"/>
+								<field name="startIndex" type="plaintext"/>
+							</field>
+							<field name="defaultTemplateName" type="string"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="icon" type="object">
+								<field name="id" type="string"/>
+								<field name="name" type="string"/>
+								<field name="url16" type="string"/>
+								<field name="url32" type="string"/>
+							</field>
+							<field name="resourceCategory" type="string"/>
+							<field name="settings" type="object">
+								<field name="visibleOnSSP" type="boolean"/>
+							</field>
+							<field name="template" type="object">
+								<field name="required" type="array"/>
+								<field name="tabs" type="array">
+									<field name="columns" type="array">
+										<field name="size" type="string"/>
+										<field name="widgets" type="array">
+											<field name="resourceKey" type="string"/>
+											<field name="title" type="string"/>
+										</field>
+									</field>
+									<field name="resourceKey" type="string"/>
+								</field>
+							</field>
+							<field name="templateId" type="string"/>
+							<field name="templateName" type="string"/>
+						</field>
+						<field name="settings" type="object"/>
+					</body>
+				</success>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="updateGridFieldAsset" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="@etag" type="string"/>
+					<field name="@status" type="string"/>
+					<field name="@statusLocked" type="boolean"/>
+					<field name="dropdownField" type="string"/>
+					<field name="numberField" type="string"/>
+					<field name="textField" type="string"/>
+				</body>
+				<endpoint>{url}/assets/gridFieldAsset</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="data" type="object"/>
+						<field name="fields" type="object"/>
+						<field name="functionalities" type="array">
+							<field name="name" type="string"/>
+							<field name="parameters" type="object"/>
+						</field>
+						<field name="metadata" type="object">
+							<field name="@etag" type="string"/>
+							<field name="archived" type="boolean"/>
+							<field name="autoNumbering" type="object">
+								<field name="enabled" type="boolean"/>
+								<field name="minLength" type="plaintext"/>
+								<field name="prefix" type="string"/>
+								<field name="startIndex" type="plaintext"/>
+							</field>
+							<field name="defaultTemplateName" type="string"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="icon" type="object">
+								<field name="id" type="string"/>
+								<field name="name" type="string"/>
+								<field name="url16" type="string"/>
+								<field name="url32" type="string"/>
+							</field>
+							<field name="resourceCategory" type="string"/>
+							<field name="settings" type="object">
+								<field name="visibleOnSSP" type="boolean"/>
+							</field>
+							<field name="template" type="object">
+								<field name="required" type="array"/>
+								<field name="tabs" type="array">
+									<field name="columns" type="array">
+										<field name="size" type="string"/>
+										<field name="widgets" type="array">
+											<field name="resourceKey" type="string"/>
+											<field name="title" type="string"/>
+										</field>
+									</field>
+									<field name="resourceKey" type="string"/>
+								</field>
+							</field>
+							<field name="templateId" type="string"/>
+							<field name="templateName" type="string"/>
+						</field>
+						<field name="settings" type="object"/>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="object">
+						<field name="errors" type="array">
+							<field name="fieldName" type="string"/>
+							<field name="fieldTitle" type="string"/>
+							<field name="message" type="string"/>
+						</field>
+					</body>
+				</fail>
+				<fail status="403"/>
+				<fail status="404"/>
+				<fail status="409"/>
+			</response>
+		</operation>
+		<operation name="linkKnowledgeItemToAssets" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="assetIds" type="array"/>
+					<field name="knowledgeItemId" type="string"/>
+				</body>
+				<endpoint>{url}/assets/linkedKnowledgeItem</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="results" type="array">
+							<field name="assetId" type="string"/>
+							<field name="linkId" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="400"/>
+				<fail status="403"/>
+				<fail status="409"/>
+			</response>
+		</operation>
+		<operation name="linkServiceToAssets" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="assetIds" type="array"/>
+					<field name="serviceId" type="string"/>
+				</body>
+				<endpoint>{url}/assets/linkedService</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="results" type="array">
+							<field name="assetId" type="string"/>
+							<field name="linkId" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="400"/>
+				<fail status="403"/>
+				<fail status="409"/>
+			</response>
+		</operation>
+		<operation name="linkTaskToAssets" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="assetIds" type="array"/>
+					<field name="taskId" type="string"/>
+					<field name="taskType" type="string"/>
+				</body>
+				<endpoint>{url}/assets/linkedTask</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="results" type="array">
+							<field name="assetId" type="string"/>
+							<field name="linkId" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="400"/>
+				<fail status="403"/>
+				<fail status="409"/>
+			</response>
+		</operation>
+		<operation name="getAssetsByTemplateId" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assets/templateId/{templateId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="results" type="array">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="object">
+						<field name="errors" type="array">
+							<field name="appliesTo" type="array"/>
+							<field name="detail" type="string"/>
+							<field name="errorCode" type="string"/>
+						</field>
+					</body>
+				</fail>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="createByImport" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object"/>
+				<endpoint>{url}/assets/templateId/{templateId}</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="201">
+					<body data="application/json" format="json" type="object">
+						<field name="id" type="string"/>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="object">
+						<field name="errors" type="array">
+							<field name="appliesTo" type="array"/>
+							<field name="detail" type="string"/>
+							<field name="errorCode" type="string"/>
+						</field>
+					</body>
+				</fail>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="modifyByImport" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object"/>
+				<endpoint>{url}/assets/templateId/{templateId}/{assetId}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="modified" type="boolean"/>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="object">
+						<field name="errors" type="array">
+							<field name="appliesTo" type="array"/>
+							<field name="detail" type="string"/>
+							<field name="errorCode" type="string"/>
+						</field>
+					</body>
+				</fail>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="archiveAssetByTemplateAndAssetId" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="reasonId" type="string"/>
+				</body>
+				<endpoint>{url}/assets/templateId/{templateId}/{assetId}/archive</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="400">
+					<body data="application/json" format="json" type="object">
+						<field name="errors" type="array">
+							<field name="appliesTo" type="array"/>
+							<field name="detail" type="string"/>
+							<field name="errorCode" type="string"/>
+						</field>
+					</body>
+				</fail>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="updateBranchLinks" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="ids" type="array"/>
+				</body>
+				<endpoint>{url}/assets/templateId/{templateId}/{assetId}/assignment/branches</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="linkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+						<field name="modified" type="boolean"/>
+						<field name="unlinkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="updateLocationLinks" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="ids" type="array"/>
+				</body>
+				<endpoint>{url}/assets/templateId/{templateId}/{assetId}/assignment/locations</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="linkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+						<field name="modified" type="boolean"/>
+						<field name="unlinkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="updatePersonGroupLinks" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="ids" type="array"/>
+				</body>
+				<endpoint>{url}/assets/templateId/{templateId}/{assetId}/assignment/personGroups</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="linkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+						<field name="modified" type="boolean"/>
+						<field name="unlinkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="updatePersonLinks" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="ids" type="array"/>
+				</body>
+				<endpoint>{url}/assets/templateId/{templateId}/{assetId}/assignment/persons</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="linkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+						<field name="modified" type="boolean"/>
+						<field name="unlinkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="removeMultipleAssignments" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="assetIds" type="array"/>
+				</body>
+				<endpoint>{url}/assets/unlink/{type}/{targetId}</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="successful" type="array"/>
+						<field name="summary" type="string"/>
+					</body>
+				</success>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="getAssetById" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assets/{assetId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="data" type="object"/>
+						<field name="fields" type="object"/>
+						<field name="functionalities" type="array">
+							<field name="name" type="string"/>
+							<field name="parameters" type="object"/>
+						</field>
+						<field name="metadata" type="object">
+							<field name="@etag" type="string"/>
+							<field name="archived" type="boolean"/>
+							<field name="autoNumbering" type="object">
+								<field name="enabled" type="boolean"/>
+								<field name="minLength" type="plaintext"/>
+								<field name="prefix" type="string"/>
+								<field name="startIndex" type="plaintext"/>
+							</field>
+							<field name="defaultTemplateName" type="string"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="icon" type="object">
+								<field name="id" type="string"/>
+								<field name="name" type="string"/>
+								<field name="url16" type="string"/>
+								<field name="url32" type="string"/>
+							</field>
+							<field name="resourceCategory" type="string"/>
+							<field name="settings" type="object">
+								<field name="visibleOnSSP" type="boolean"/>
+							</field>
+							<field name="template" type="object">
+								<field name="required" type="array"/>
+								<field name="tabs" type="array">
+									<field name="columns" type="array">
+										<field name="size" type="string"/>
+										<field name="widgets" type="array">
+											<field name="resourceKey" type="string"/>
+											<field name="title" type="string"/>
+										</field>
+									</field>
+									<field name="resourceKey" type="string"/>
+								</field>
+							</field>
+							<field name="templateId" type="string"/>
+							<field name="templateName" type="string"/>
+						</field>
+						<field name="settings" type="object"/>
+					</body>
+				</success>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="updateAssetById" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="@etag" type="string"/>
+					<field name="@status" type="string"/>
+					<field name="@statusLocked" type="boolean"/>
+					<field name="dropdownField" type="string"/>
+					<field name="numberField" type="string"/>
+					<field name="textField" type="string"/>
+				</body>
+				<endpoint>{url}/assets/{assetId}</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="data" type="object"/>
+						<field name="fields" type="object"/>
+						<field name="functionalities" type="array">
+							<field name="name" type="string"/>
+							<field name="parameters" type="object"/>
+						</field>
+						<field name="metadata" type="object">
+							<field name="@etag" type="string"/>
+							<field name="archived" type="boolean"/>
+							<field name="autoNumbering" type="object">
+								<field name="enabled" type="boolean"/>
+								<field name="minLength" type="plaintext"/>
+								<field name="prefix" type="string"/>
+								<field name="startIndex" type="plaintext"/>
+							</field>
+							<field name="defaultTemplateName" type="string"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="icon" type="object">
+								<field name="id" type="string"/>
+								<field name="name" type="string"/>
+								<field name="url16" type="string"/>
+								<field name="url32" type="string"/>
+							</field>
+							<field name="resourceCategory" type="string"/>
+							<field name="settings" type="object">
+								<field name="visibleOnSSP" type="boolean"/>
+							</field>
+							<field name="template" type="object">
+								<field name="required" type="array"/>
+								<field name="tabs" type="array">
+									<field name="columns" type="array">
+										<field name="size" type="string"/>
+										<field name="widgets" type="array">
+											<field name="resourceKey" type="string"/>
+											<field name="title" type="string"/>
+										</field>
+									</field>
+									<field name="resourceKey" type="string"/>
+								</field>
+							</field>
+							<field name="templateId" type="string"/>
+							<field name="templateName" type="string"/>
+						</field>
+						<field name="settings" type="object"/>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="object">
+						<field name="errors" type="array">
+							<field name="fieldName" type="string"/>
+							<field name="fieldTitle" type="string"/>
+							<field name="message" type="string"/>
+						</field>
+					</body>
+				</fail>
+				<fail status="403"/>
+				<fail status="404"/>
+				<fail status="409"/>
+			</response>
+		</operation>
+		<operation name="getActions" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assets/{assetId}/actions</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="actions" type="array">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="403"/>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="archiveAsset" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="reasonId" type="string"/>
+				</body>
+				<endpoint>{url}/assets/{assetId}/archive</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="data" type="object"/>
+						<field name="fields" type="object"/>
+						<field name="functionalities" type="array">
+							<field name="name" type="string"/>
+							<field name="parameters" type="object"/>
+						</field>
+						<field name="metadata" type="object">
+							<field name="@etag" type="string"/>
+							<field name="archived" type="boolean"/>
+							<field name="autoNumbering" type="object">
+								<field name="enabled" type="boolean"/>
+								<field name="minLength" type="plaintext"/>
+								<field name="prefix" type="string"/>
+								<field name="startIndex" type="plaintext"/>
+							</field>
+							<field name="defaultTemplateName" type="string"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="icon" type="object">
+								<field name="id" type="string"/>
+								<field name="name" type="string"/>
+								<field name="url16" type="string"/>
+								<field name="url32" type="string"/>
+							</field>
+							<field name="resourceCategory" type="string"/>
+							<field name="settings" type="object">
+								<field name="visibleOnSSP" type="boolean"/>
+							</field>
+							<field name="template" type="object">
+								<field name="required" type="array"/>
+								<field name="tabs" type="array">
+									<field name="columns" type="array">
+										<field name="size" type="string"/>
+										<field name="widgets" type="array">
+											<field name="resourceKey" type="string"/>
+											<field name="title" type="string"/>
+										</field>
+									</field>
+									<field name="resourceKey" type="string"/>
+								</field>
+							</field>
+							<field name="templateId" type="string"/>
+							<field name="templateName" type="string"/>
+						</field>
+						<field name="settings" type="object"/>
+					</body>
+				</success>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="getAssignments" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assets/{assetId}/assignments</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/x.topdesk-am-assignments-v1+json" format="json" type="object">
+						<field name="locations" type="array">
+							<field name="branch" type="object">
+								<field name="archived" type="boolean"/>
+								<field name="id" type="string"/>
+								<field name="name" type="string"/>
+								<field name="specification" type="string"/>
+							</field>
+							<field name="inheritanceParentId" type="string"/>
+							<field name="linkId" type="string"/>
+							<field name="linkedObjectType" type="string"/>
+							<field name="location" type="object">
+								<field name="archived" type="boolean"/>
+								<field name="id" type="string"/>
+								<field name="name" type="string"/>
+								<field name="roomNumber" type="string"/>
+								<field name="specification" type="string"/>
+							</field>
+						</field>
+						<field name="persons" type="array">
+							<field name="inheritanceParentId" type="string"/>
+							<field name="linkId" type="string"/>
+							<field name="linkedObjectType" type="string"/>
+							<field name="person" type="object">
+								<field name="archived" type="boolean"/>
+								<field name="avatar" type="string"/>
+								<field name="branchName" type="string"/>
+								<field name="function" type="string"/>
+								<field name="id" type="string"/>
+								<field name="name" type="string"/>
+							</field>
+							<field name="personGroup" type="object">
+								<field name="archived" type="boolean"/>
+								<field name="id" type="string"/>
+								<field name="name" type="string"/>
+							</field>
+						</field>
+					</body>
+				</success>
+				<fail status="403"/>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="assignById" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/x.topdesk-am-assignment-links-v1+json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/x.topdesk-am-assignment-links-v0+json" format="json" type="object">
+					<field name="assetIds" type="array"/>
+					<field name="branchId" type="string"/>
+					<field name="linkToId" type="string"/>
+					<field name="linkType" type="string"/>
+				</body>
+				<endpoint>{url}/assets/{assetId}/assignments</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/x.topdesk-am-assignment-links-v0+json" format="json" type="object">
+						<field name="branch" type="object">
+							<field name="archived" type="boolean"/>
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+							<field name="specification" type="string"/>
+						</field>
+						<field name="linkId" type="string"/>
+						<field name="location" type="object">
+							<field name="archived" type="boolean"/>
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+							<field name="roomNumber" type="string"/>
+							<field name="specification" type="string"/>
+						</field>
+						<field name="person" type="object">
+							<field name="archived" type="boolean"/>
+							<field name="avatar" type="string"/>
+							<field name="branchName" type="string"/>
+							<field name="function" type="string"/>
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="personGroup" type="object">
+							<field name="archived" type="boolean"/>
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="400"/>
+				<fail status="403"/>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="unassign" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assets/{assetId}/assignments/{linkId}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<fail status="403"/>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="copyAsset" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="numberOfCopies" type="plaintext"/>
+					<field name="prefix" type="string"/>
+					<field name="startAt" type="string"/>
+				</body>
+				<endpoint>{url}/assets/{assetId}/copy</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="dataset" type="array">
+							<field name="creationDate" type="string"/>
+							<field name="name" type="string"/>
+							<field name="unid" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="400"/>
+				<fail status="403"/>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="getCurrentItems" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assets/{assetId}/history/currentItems</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="items" type="array">
+							<field name="actor" type="string"/>
+							<field name="assignment" type="object"/>
+							<field name="callerId" type="string"/>
+							<field name="date" type="string"/>
+							<field name="field" type="object"/>
+							<field name="files" type="object"/>
+							<field name="id" type="string"/>
+							<field name="inheritanceParent" type="object">
+								<field name="iconId" type="string"/>
+								<field name="id" type="string"/>
+								<field name="name" type="string"/>
+							</field>
+							<field name="number" type="string"/>
+							<field name="operatorId" type="string"/>
+							<field name="summary" type="string"/>
+							<field name="type" type="string"/>
+						</field>
+						<field name="next" type="string"/>
+					</body>
+				</success>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="getPastItems" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assets/{assetId}/history/pastItems</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="items" type="array">
+							<field name="actor" type="string"/>
+							<field name="assignment" type="object"/>
+							<field name="callerId" type="string"/>
+							<field name="date" type="string"/>
+							<field name="field" type="object"/>
+							<field name="files" type="object"/>
+							<field name="id" type="string"/>
+							<field name="inheritanceParent" type="object">
+								<field name="iconId" type="string"/>
+								<field name="id" type="string"/>
+								<field name="name" type="string"/>
+							</field>
+							<field name="number" type="string"/>
+							<field name="operatorId" type="string"/>
+							<field name="summary" type="string"/>
+							<field name="type" type="string"/>
+						</field>
+						<field name="next" type="string"/>
+					</body>
+				</success>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="unarchiveAsset" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/assets/{assetId}/unarchive</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="data" type="object"/>
+						<field name="fields" type="object"/>
+						<field name="functionalities" type="array">
+							<field name="name" type="string"/>
+							<field name="parameters" type="object"/>
+						</field>
+						<field name="metadata" type="object">
+							<field name="@etag" type="string"/>
+							<field name="archived" type="boolean"/>
+							<field name="autoNumbering" type="object">
+								<field name="enabled" type="boolean"/>
+								<field name="minLength" type="plaintext"/>
+								<field name="prefix" type="string"/>
+								<field name="startIndex" type="plaintext"/>
+							</field>
+							<field name="defaultTemplateName" type="string"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="icon" type="object">
+								<field name="id" type="string"/>
+								<field name="name" type="string"/>
+								<field name="url16" type="string"/>
+								<field name="url32" type="string"/>
+							</field>
+							<field name="resourceCategory" type="string"/>
+							<field name="settings" type="object">
+								<field name="visibleOnSSP" type="boolean"/>
+							</field>
+							<field name="template" type="object">
+								<field name="required" type="array"/>
+								<field name="tabs" type="array">
+									<field name="columns" type="array">
+										<field name="size" type="string"/>
+										<field name="widgets" type="array">
+											<field name="resourceKey" type="string"/>
+											<field name="title" type="string"/>
+										</field>
+									</field>
+									<field name="resourceKey" type="string"/>
+								</field>
+							</field>
+							<field name="templateId" type="string"/>
+							<field name="templateName" type="string"/>
+						</field>
+						<field name="settings" type="object"/>
+					</body>
+				</success>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="get" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/capabilities</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="dataSet" type="array">
+							<field name="archived" type="boolean"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="icon" type="string"/>
+							<field name="id" type="string"/>
+							<field name="inheritance" type="object">
+								<field name="location" type="boolean"/>
+								<field name="person" type="boolean"/>
+							</field>
+							<field name="properties" type="object"/>
+							<field name="text" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="createCapability" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="name" type="string"/>
+				</body>
+				<endpoint>{url}/capabilities</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="@etag" type="string"/>
+						<field name="archiveReasonId" type="string"/>
+						<field name="archived" type="boolean"/>
+						<field name="inheritance" type="object">
+							<field name="location" type="boolean"/>
+							<field name="person" type="boolean"/>
+						</field>
+						<field name="name" type="string"/>
+						<field name="unid" type="string"/>
+					</body>
+				</success>
+				<fail status="400"/>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="getCapability" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/capabilities/{capabilityId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="capability" type="object">
+							<field name="@etag" type="string"/>
+							<field name="archiveReasonId" type="string"/>
+							<field name="archived" type="boolean"/>
+							<field name="inheritance" type="object">
+								<field name="location" type="boolean"/>
+								<field name="person" type="boolean"/>
+							</field>
+							<field name="name" type="string"/>
+							<field name="unid" type="string"/>
+						</field>
+						<field name="functionalities" type="array">
+							<field name="name" type="string"/>
+							<field name="parameters" type="object"/>
+						</field>
+					</body>
+				</success>
+			</response>
+		</operation>
+		<operation name="updateCapability" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="@etag" type="string"/>
+					<field name="inheritance" type="object">
+						<field name="location" type="boolean"/>
+						<field name="person" type="boolean"/>
+					</field>
+					<field name="name" type="string"/>
+				</body>
+				<endpoint>{url}/capabilities/{capabilityId}</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="@etag" type="string"/>
+						<field name="archiveReasonId" type="string"/>
+						<field name="archived" type="boolean"/>
+						<field name="inheritance" type="object">
+							<field name="location" type="boolean"/>
+							<field name="person" type="boolean"/>
+						</field>
+						<field name="name" type="string"/>
+						<field name="unid" type="string"/>
+					</body>
+				</success>
+				<fail status="400"/>
+				<fail status="403"/>
+				<fail status="409"/>
+			</response>
+		</operation>
+		<operation name="archiveCapability" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/capabilities/{capabilityId}/archive</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="@etag" type="string"/>
+						<field name="archiveReasonId" type="string"/>
+						<field name="archived" type="boolean"/>
+						<field name="inheritance" type="object">
+							<field name="location" type="boolean"/>
+							<field name="person" type="boolean"/>
+						</field>
+						<field name="name" type="string"/>
+						<field name="unid" type="string"/>
+					</body>
+				</success>
+				<fail status="400"/>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="unarchiveCapability" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/capabilities/{capabilityId}/unarchive</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="@etag" type="string"/>
+						<field name="archiveReasonId" type="string"/>
+						<field name="archived" type="boolean"/>
+						<field name="inheritance" type="object">
+							<field name="location" type="boolean"/>
+							<field name="person" type="boolean"/>
+						</field>
+						<field name="name" type="string"/>
+						<field name="unid" type="string"/>
+					</body>
+				</success>
+				<fail status="400"/>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="getCardTypeTemplates" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/cardTypes</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="cardTypes" type="array">
+							<field name="displayName" type="string"/>
+							<field name="fields" type="array">
+								<field name="defaultUniqueKey" type="boolean"/>
+								<field name="displayName" type="string"/>
+								<field name="key" type="string"/>
+								<field name="operations" type="object">
+									<field name="getCardType" type="string"/>
+									<field name="link" type="string"/>
+								</field>
+								<field name="readOnly" type="boolean"/>
+								<field name="required" type="boolean"/>
+								<field name="type" type="string"/>
+							</field>
+							<field name="key" type="string"/>
+							<field name="operations" type="object">
+								<field name="archive" type="string"/>
+								<field name="create" type="string"/>
+								<field name="getList" type="string"/>
+								<field name="modify" type="string"/>
+								<field name="open" type="string"/>
+							</field>
+						</field>
+					</body>
+				</success>
+			</response>
+		</operation>
+		<operation name="getDropdownValues" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/dropdowns/{dropdownId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="results" type="array">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="object">
+						<field name="errors" type="array">
+							<field name="appliesTo" type="array"/>
+							<field name="detail" type="string"/>
+							<field name="errorCode" type="string"/>
+						</field>
+					</body>
+				</fail>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="getOrCreateDropdownValue" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="name" type="string"/>
+				</body>
+				<endpoint>{url}/dropdowns/{dropdownId}</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="id" type="string"/>
+					</body>
+				</success>
+				<success status="201">
+					<body data="application/json" format="json" type="object">
+						<field name="id" type="string"/>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="object">
+						<field name="errors" type="array">
+							<field name="appliesTo" type="array"/>
+							<field name="detail" type="string"/>
+							<field name="errorCode" type="string"/>
+						</field>
+					</body>
+				</fail>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="getFieldById" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/fields/{fieldId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="@etag" type="string"/>
+						<field name="displayName" type="string"/>
+						<field name="fieldName" type="string"/>
+						<field name="fieldType" type="string"/>
+						<field name="functionalities" type="array">
+							<field name="name" type="string"/>
+							<field name="parameters" type="object"/>
+						</field>
+						<field name="properties" type="object"/>
+						<field name="resourceKey" type="string"/>
+						<field name="valueType" type="string"/>
+					</body>
+				</success>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="deleteField" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/fields/{fieldId}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<fail status="403"/>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="getAllAssets" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/import/assets</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="results" type="array">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="object">
+						<field name="errors" type="array">
+							<field name="appliesTo" type="array"/>
+							<field name="detail" type="string"/>
+							<field name="errorCode" type="string"/>
+						</field>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="replaceChild" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="ids" type="array"/>
+				</body>
+				<endpoint>{url}/import/assets/{assetId}/links/child</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="linkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+						<field name="modified" type="boolean"/>
+						<field name="unlinkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="replaceIncoming" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="ids" type="array"/>
+				</body>
+				<endpoint>{url}/import/assets/{assetId}/links/incoming/{linkTypeId}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="linkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+						<field name="modified" type="boolean"/>
+						<field name="unlinkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="replaceOutgoing" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="ids" type="array"/>
+				</body>
+				<endpoint>{url}/import/assets/{assetId}/links/outgoing/{linkTypeId}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="linkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+						<field name="modified" type="boolean"/>
+						<field name="unlinkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="replaceParent" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="ids" type="array"/>
+				</body>
+				<endpoint>{url}/import/assets/{assetId}/links/parent</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="linkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+						<field name="modified" type="boolean"/>
+						<field name="unlinkErrors" type="array">
+							<field name="errorCode" type="string"/>
+							<field name="id" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="404"/>
+			</response>
+		</operation>
+		<operation name="getAll" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/templates</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="dataSet" type="array">
+							<field name="archived" type="boolean"/>
+							<field name="functionalities" type="array">
+								<field name="name" type="string"/>
+								<field name="parameters" type="object"/>
+							</field>
+							<field name="icon" type="string"/>
+							<field name="id" type="string"/>
+							<field name="inheritance" type="object">
+								<field name="location" type="boolean"/>
+								<field name="person" type="boolean"/>
+							</field>
+							<field name="properties" type="object"/>
+							<field name="text" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="list" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/uploads</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="dataSet" type="array">
+							<field name="created" type="string"/>
+							<field name="creatorId" type="string"/>
+							<field name="id" type="string"/>
+							<field name="lengthInBytes" type="plaintext"/>
+							<field name="name" type="string"/>
+							<field name="operator" type="object">
+								<field name="dynamicName" type="string"/>
+								<field name="id" type="string"/>
+							</field>
+							<field name="url" type="string"/>
+						</field>
+					</body>
+				</success>
+			</response>
+		</operation>
+		<operation name="upload" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">multipart/form-data</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="" format="" type=""/>
+				<endpoint>{url}/uploads</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="dataSet" type="array">
+							<field name="created" type="string"/>
+							<field name="creatorId" type="string"/>
+							<field name="id" type="string"/>
+							<field name="lengthInBytes" type="plaintext"/>
+							<field name="name" type="string"/>
+							<field name="operator" type="object">
+								<field name="dynamicName" type="string"/>
+								<field name="id" type="string"/>
+							</field>
+							<field name="url" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="400"/>
+				<fail status="403"/>
+			</response>
+		</operation>
+		<operation name="deleteUpload" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/uploads/{uploadId}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="403"/>
+			</response>
+		</operation>
+	</operations>
+</invoker>

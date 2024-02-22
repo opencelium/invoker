@@ -1,1 +1,544 @@
-/opt/backend/resources/invokers/subscription/processmaker.xml
+<invoker type="RESTful">
+    <name>ProcessMaker</name>
+    <description>Automate form-intensive, approval-based processes across departments and systems. Empower business users from finance to IT to HR to design and run their own workflows — no coding experience required. </description>
+    <hint>This API provides a token authentication. Read the documentation here https://wiki.processmaker.com/REST_API</hint>
+    <requiredData>
+        <item name="url" type="string" visibility="public"/>
+        <item name="username" type="string" visibility="public"/>
+        <item name="password" type="string" visibility="protected"/>
+        <item name="client_id" type="string" visibility="public"/>
+        <item name="client_secret" type="string" visibility="protected"/>
+        <item name="workspace" type="string" visibility="public"/>        
+        <item name="token" type="string" visibility="private">%{body.access_token}</item>        
+    </requiredData>
+    <authType>token</authType>
+    <operations>
+        <operation name="CreateToken" type="test">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/{workspace}/oauth2/token</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                    <field name="grant_type" type="string">password</field> 
+                    <field name="scope" type="string">*</field>
+                    <field name="client_id" type="string">{client_id}</field>
+                    <field name="client_secret" type="string">{client_secret}</field>
+                    <field name="username" type="string">{username}</field>
+                    <field name="password" type="string">{password}</field>
+                </body>                   
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                        <field name="access_token" type="string"/>                     
+                        <field name="expires_in" type="string"/>
+                        <field name="token_type" type="string"/>
+                        <field name="scope" type="string"/>
+                        <field name="refresh_token" type="string"/>                     
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetProjects" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/1.0/{workspace}/project</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>                    
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="array" format="json" data="raw">
+                        <field name="prj_uid" type="string"/>                     
+                        <field name="prj_name" type="string"/>
+                        <field name="prj_description" type="string"/>
+                        <field name="prj_category" type="string"/>
+                        <field name="prj_type" type="string"/>                     
+                        <field name="prj_create_date" type="string"/>
+                        <field name="prj_update_date" type="string"/>
+		                <field name="prj_status" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>        
+        <operation name="GetProject" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/1.0/{workspace}/project/{PRJ_UID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>                    
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                        <field name="prj_uid" type="string"/>                     
+                        <field name="prj_name" type="string"/>
+                        <field name="prj_description" type="string"/>
+                        <field name="prj_create_date" type="string"/>
+                        <field name="prj_update_date" type="string"/>
+                        <field name="prj_author" type="string"/>
+                        <field name="diagrams" type="array">
+                            <field name="dia_uid" type="string"/>                     
+                            <field name="prj_uid" type="string"/>
+                            <field name="dia_name" type="string"/>
+                            <field name="dia_is_closable" type="string"/>
+                            <field name="pro_uid" type="string"/>
+                            <field name="activities" type="array">
+                                <field name="act_uid" type="string"/>                     
+                                <field name="act_name" type="string"/>
+                                <field name="act_type" type="string"/>
+                            </field>
+                        </field>                     
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetProjectVariables" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/1.0/{workspace}/project/{PRJ_UID}/variables</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>                    
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="array" format="json" data="raw">
+                        <field name="var_name" type="string"/>                     
+                        <field name="var_label" type="string"/>
+                        <field name="var_type" type="string"/>
+                        <field name="var_source" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>        
+        <operation name="GetCases" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/1.0/{workspace}/cases</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>                    
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="array" format="json" data="raw">
+                        <field name="pro_uid" type="string"/>
+                        <field name="tas_uid" type="string"/>                     
+                        <field name="app_uid" type="string"/>                     
+                        <field name="app_number" type="string"/>
+                        <field name="app_status" type="string"/>
+                        <field name="app_thread_status" type="string"/>
+                        <field name="app_title" type="string"/>
+                        <field name="app_pro_title" type="string"/>
+                        <field name="app_tas_title" type="string"/>
+                        <field name="app_current_user" type="string"/>
+                        <field name="app_del_previous_user" type="string"/>   
+                        <field name="app_create_date" type="string"/>
+                        <field name="app_finish_date" type="string"/>
+                        <field name="app_update_date" type="string"/>
+                        <field name="app_overdue_percentage" type="string"/>   
+                        <field name="appdelcr_app_tas_title" type="string"/>   
+                        <field name="app_status_label" type="string"/>   
+                        <field name="del_index" type="string"/>
+                        <field name="del_last_index" type="string"/>
+                        <field name="del_delegate_date" type="string"/>
+                        <field name="del_last_index" type="string"/>
+                        <field name="del_init_date" type="string"/>
+                        <field name="del_finish_date" type="string"/>
+                        <field name="del_task_due_date" type="string"/>                     
+                        <field name="del_risk_date" type="string"/>
+                        <field name="del_thread_status" type="string"/>  
+                        <field name="del_priority" type="string"/>
+                        <field name="del_duration" type="string"/>
+                        <field name="del_queue_duration" type="string"/>                     
+                        <field name="del_delay_duration" type="string"/>
+                        <field name="del_started" type="string"/>  
+                        <field name="del_finished" type="string"/>
+                        <field name="del_delayed" type="string"/>  
+                        <field name="usr_uid" type="string"/>
+                        <field name="usr_firstname" type="string"/>                     
+                        <field name="usr_lastname" type="string"/>
+                        <field name="usr_username" type="string"/>                     
+                        <field name="usrcr_usr_uid" type="string"/>
+                        <field name="usrcr_usr_firstname" type="string"/>                     
+                        <field name="usrcr_usr_lastname" type="string"/>
+                        <field name="usrcr_usr_username" type="string"/>   
+                        <field name="previous_usr_uid" type="string"/>
+                        <field name="previous_usr_firstname" type="string"/>
+                        <field name="previous_usr_lastname" type="string"/>
+                        <field name="previous_usr_username" type="string"/>  
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+ 	</operation>
+        <operation name="GetAllCases" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/1.0/{workspace}/cases/advanced-search/paged</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+   		      <field name="totalCount" type="string"/>
+                      <field name="data" type="array">
+                        <field name="pro_uid" type="string"/>
+                        <field name="tas_uid" type="string"/>
+                        <field name="app_uid" type="string"/>
+                        <field name="app_number" type="string"/>
+                        <field name="app_status" type="string"/>
+                        <field name="app_thread_status" type="string"/>
+                        <field name="app_title" type="string"/>
+                        <field name="app_pro_title" type="string"/>
+                        <field name="app_tas_title" type="string"/>
+                        <field name="app_current_user" type="string"/>
+                        <field name="app_del_previous_user" type="string"/>
+                        <field name="app_create_date" type="string"/>
+                        <field name="app_finish_date" type="string"/>
+                        <field name="app_update_date" type="string"/>
+                        <field name="app_overdue_percentage" type="string"/>
+                        <field name="appdelcr_app_tas_title" type="string"/>
+                        <field name="app_status_label" type="string"/>
+                        <field name="del_index" type="string"/>
+                        <field name="del_last_index" type="string"/>
+                        <field name="del_delegate_date" type="string"/>
+                        <field name="del_last_index" type="string"/>
+                        <field name="del_init_date" type="string"/>
+                        <field name="del_finish_date" type="string"/>
+                        <field name="del_task_due_date" type="string"/>
+                        <field name="del_risk_date" type="string"/>
+                        <field name="del_thread_status" type="string"/>
+                        <field name="del_priority" type="string"/>
+                        <field name="del_duration" type="string"/>
+                        <field name="del_queue_duration" type="string"/>
+                        <field name="del_delay_duration" type="string"/>
+                        <field name="del_started" type="string"/>
+                        <field name="del_finished" type="string"/>
+                        <field name="del_delayed" type="string"/>
+                        <field name="usr_uid" type="string"/>
+                        <field name="usr_firstname" type="string"/>
+                        <field name="usr_lastname" type="string"/>
+                        <field name="usr_username" type="string"/>
+                        <field name="usrcr_usr_uid" type="string"/>
+                        <field name="usrcr_usr_firstname" type="string"/>
+                        <field name="usrcr_usr_lastname" type="string"/>
+                        <field name="usrcr_usr_username" type="string"/>
+                        <field name="previous_usr_uid" type="string"/>
+                        <field name="previous_usr_firstname" type="string"/>
+                        <field name="previous_usr_lastname" type="string"/>
+			<field name="previous_usr_username" type="string"/>
+		      </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetCase" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/1.0/{workspace}/cases/{APP_UID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>                    
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                        <field name="app_uid" type="string"/>                     
+                        <field name="app_number" type="string"/>
+                        <field name="app_status" type="string"/>
+                        <field name="app_name" type="string"/>
+                        <field name="app_init_usr_uid" type="string"/>
+                        <field name="app_create_date" type="string"/>
+                        <field name="app_update_date" type="string"/>                        
+                        <field name="app_init_usr_username" type="string"/>
+                        <field name="pro_uid" type="string"/>
+                        <field name="pro_name" type="string"/>
+                        <field name="current_task" type="array">
+                            <field name="delStatus" type="string"/>                     
+                            <field name="delInitDate" type="string"/>
+                            <field name="delTaskDueDate" type="string"/>
+                            <field name="usr_name" type="string"/>
+                            <field name="tas_uid" type="string"/>
+                            <field name="tas_title" type="string"/>                     
+                            <field name="del_index" type="string"/>
+                            <field name="del_thread" type="string"/>
+                            <field name="del_thread_status" type="string"/>
+                            <field name="del_init_date" type="string"/>
+                            <field name="del_task_due_date" type="string"/>                                                        
+                        </field>                     
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetCaseCurrentTask" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/1.0/{workspace}/cases/{APP_UID}/current-task</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>                    
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                        <field name="tas_uid" type="string"/>                     
+                        <field name="tas_title" type="string"/>
+                        <field name="del_index" type="string"/>
+                        <field name="del_init_date" type="string"/>
+                        <field name="del_task_due_date" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="SetCaseVariable" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/1.0/{workspace}/cases/{APP_UID}/variable</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                    <body type="object" format="json" data="raw">
+                    </body>                  
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body/>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetCaseTasks" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/1.0/{workspace}/cases/{APP_UID}/tasks</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="array" format="json" data="raw">
+                        <field name="tas_uid" type="string"/>
+                        <field name="tas_title" type="string"/>
+                        <field name="tas_description" type="string"/>
+                        <field name="tas_start" type="string"/>
+                        <field name="tas_type" type="string"/>
+                        <field name="delegations" type="array">
+                            <field name="del_index" type="string"/>
+                            <field name="del_init_date" type="string"/>
+                            <field name="del_task_due_date" type="string"/>
+                            <field name="del_finish_date" type="string"/>
+                            <field name="del_duration" type="string"/>
+                        </field>
+                        <field name="status" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>	    
+        <operation name="GetCaseVariables" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/1.0/{workspace}/cases/{APP_UID}/variables</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                        <field name="Result" type="object">		       
+			<field name="SYS_LANG" type="string"/>
+                        <field name="SYS_SKIN" type="string"/>
+                        <field name="SYS_SYS" type="string"/>
+                        <field name="APPLICATION" type="string"/>
+                        <field name="PROCESS" type="string"/>
+                        <field name="TASK" type="string"/>
+                        <field name="INDEX" type="string"/>
+                        <field name="USER_LOGGED" type="string"/>
+			<field name="USR_USERNAME" type="string"/>
+			</field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetUser" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/1.0/{workspace}/user/{USER_UID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                    <body type="object" format="json" data="raw">
+                    </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                        <field name="usr_uid" type="string"/>
+                        <field name="usr_username" type="string"/>
+                        <field name="usr_firstname" type="string"/>
+                        <field name="usr_lastname" type="string"/>
+                        <field name="usr_email" type="string"/>
+                        <field name="usr_position" type="string"/>
+                    </body>    
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="SetNextTask" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/api/1.0/{workspace}/case/{APP_UID}/route-case</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="del_index" type="string"/>                    
+                    </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+	</operation>
+        <operation name="CancelCase" type="">
+            <request>
+                <method>PUT</method>
+		<endpoint>{url}/api/1.0/{workspace}/case/{APP_UID}/cancel</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                    <body type="object" format="json" data="raw">
+                    </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="DeleteCase" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/api/1.0/{workspace}/case/{APP_UID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                    <body type="object" format="json" data="raw">
+                    </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>		
+    </operations>
+</invoker>
