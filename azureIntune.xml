@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   ~// Copyright (C) <2022> <becon GmbH>
+   ~//
+   ~// This file is licensed under the OpenCelium license agreement.
+   ~//
+   ~// If you purchased an OpenCelium subscription you can use this file
+   ~// under the terms of the OpenCelium license agreement.
+   ~// License agreement and license key will be shipped with the order
+   ~// confirmation.
+-->
+<invoker type="RESTful">
+    <name>AzureIntune</name>
+    <description>Microsoft Intune is a cloud-based service that focuses on mobile device management (MDM) and mobile application management (MAM). You control how your organization’s devices are used, including mobile phones, tablets, and laptops. You can also configure specific policies to control applications. For example, you can prevent emails from being sent to people outside your organization. Intune also allows people in your organization to use their personal devices for school or work. On personal devices, Intune helps make sure your organization's data stays protected and can isolate organization data from personal data.</description>
+    <hint>This api provides a token auth. The resource https://graph.microsoft.com/ is used. Read the documentation here https://docs.microsoft.com/de-de/graph/api/resources/intune-device-mgt-conceptual?view=graph-rest-1.0</hint>
+    <icon>azure.png</icon>
+    <requiredData>
+        <item name="url" type="string" visibility="private">https://login.microsoftonline.com/</item>
+        <item name="tenant" type="string" visibility="public"/>
+        <item name="client_id" type="string" visibility="public"/>
+        <item name="client_secret" type="string" visibility="protected"/>
+        <item name="token" type="string" visibility="private">%{CreateAccessToken.body.access_token}</item>
+        <item name="resource" type="string" visibility="private">https://graph.microsoft.com/</item>
+    </requiredData>
+    <authType>token</authType>
+    <operations>
+        <operation name="CreateAccessToken" type="test">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/{tenant}/oauth2/token</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/x-www-form-urlencoded</item>
+                </header>
+                <body>
+                    <field name="grant_type" type="string">client_credentials</field>
+                    <field name="client_id" type="string">{client_id}</field>
+                    <field name="client_secret" type="string">{client_secret}</field>
+                    <field name="resource" type="string">{resource}</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body>
+                        <field name="token_type" type="string"/>
+                        <field name="expires_in" type="string"/>
+                        <field name="ext_expires_in" type="string"/>
+                        <field name="expires_on" type="string"/>
+                        <field name="not_before" type="string"/>
+                        <field name="resource" type="string"/>
+                        <field name="access_token" type="string"/>                        
+                    </body>
+                </success>
+                <fail status="400">
+                    <header>
+                        <item name="Content-Type" type="string">text/plain</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string"/>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetManagedDevices" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{resource}beta/deviceManagement/managedDevices</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string" >application/json</item>
+                    </header>
+                    <body>
+                        <field name="@odata.context" type="string"/>
+                        <field name="@odata.count" type="string"/>                        
+                        <field name="value" type="array">                        
+                            <field name="id" type="string"/>
+                            <field name="userId" type="string"/>
+                            <field name="deviceName" type="string"/>
+                            <field name="ownerType" type="string"/>
+                            <field name="managedDeviceOwnerType" type="string"/>
+                            <field name="managementState" type="string"/>
+                            <field name="enrolledDateTime" type="string"/>
+                            <field name="lastSyncDateTime" type="string"/>
+                            <field name="chassisType" type="string"/>
+                            <field name="operatingSystem" type="string"/>
+                            <field name="deviceType" type="string"/>
+                            <field name="complianceState" type="string"/>
+                            <field name="jailBroken" type="string"/>
+                            <field name="managementAgent" type="string"/>
+                            <field name="osVersion" type="string"/>
+                            <field name="easActivated" type="string"/>
+                            <field name="easDeviceId" type="string"/>
+                            <field name="easActivationDateTime" type="string"/>
+                            <field name="aadRegistered" type="string"/>
+                            <field name="azureADRegistered" type="string"/>
+                            <field name="deviceEnrollmentType" type="string"/>
+                            <field name="lostModeState" type="string"/>
+                            <field name="activationLockBypassCode" type="string"/>
+                            <field name="emailAddress" type="string"/>
+                            <field name="azureActiveDirectoryDeviceId" type="string"/>
+                            <field name="azureADDeviceId" type="string"/>
+                            <field name="deviceRegistrationState" type="string"/>
+                            <field name="deviceCategoryDisplayName" type="string"/>
+                            <field name="isSupervised" type="string"/>
+                            <field name="exchangeLastSuccessfulSyncDateTime" type="string"/>
+                            <field name="exchangeAccessState" type="string"/>
+                            <field name="exchangeAccessStateReason" type="string"/>
+                            <field name="remoteAssistanceSessionUrl" type="string"/>
+                            <field name="remoteAssistanceSessionErrorDetails" type="string"/>
+                            <field name="isEncrypted" type="string"/>
+                            <field name="userPrincipalName" type="string"/>
+                            <field name="model" type="string"/>
+                            <field name="manufacturer" type="string"/>
+                            <field name="imei" type="string"/>
+                            <field name="complianceGracePeriodExpirationDateTime" type="string"/>
+                            <field name="serialNumber" type="string"/>
+                            <field name="phoneNumber" type="string"/>
+                            <field name="androidSecurityPatchLevel" type="string"/>
+                            <field name="userDisplayName" type="string"/>
+                            <field name="configurationManagerClientEnabledFeatures" type="string"/>
+                            <field name="wiFiMacAddress" type="string"/>
+                            <field name="deviceHealthAttestationState" type="string"/>
+                            <field name="subscriberCarrier" type="string"/>
+                            <field name="meid" type="string"/>
+                            <field name="totalStorageSpaceInBytes" type="string"/>
+                            <field name="freeStorageSpaceInBytes" type="string"/>
+                            <field name="managedDeviceName" type="string"/>
+                            <field name="partnerReportedThreatState" type="string"/>
+                            <field name="retireAfterDateTime" type="string"/>
+                            <field name="preferMdmOverGroupPolicyAppliedDateTime" type="string"/>
+                            <field name="autopilotEnrolled" type="string"/>
+                            <field name="requireUserEnrollmentApproval" type="string"/>
+                            <field name="managementCertificateExpirationDate" type="string"/>
+                            <field name="iccid" type="string"/>
+                            <field name="udid" type="string"/>
+                            <field name="roleScopeTagIds" type="string"/>
+                            <field name="windowsActiveMalwareCount" type="string"/>
+                            <field name="windowsRemediatedMalwareCount" type="string"/>
+                            <field name="notes" type="string"/>
+                            <field name="configurationManagerClientHealthState" type="string"/>
+                            <field name="configurationManagerClientInformation" type="string"/>
+                            <field name="ethernetMacAddress" type="string"/>
+                            <field name="physicalMemoryInBytes" type="string"/>
+                            <field name="processorArchitecture" type="string"/>
+                            <field name="specificationVersion" type="string"/>
+                            <field name="joinType" type="string"/>
+                            <field name="skuFamily" type="string"/>
+                            <field name="skuNumber" type="string"/>
+                            <field name="managementFeatures" type="string"/>
+                            <field name="enrollmentProfileName" type="string"/>
+                            <field name="bootstrapTokenEscrowed" type="string"/>
+                            <field name="deviceFirmwareConfigurationInterfaceManaged" type="string"/>
+                            <field name="hardwareInformation" type="object">
+                                <field name="serialNumber" type="string"/>
+                                <field name="totalStorageSpace" type="string"/>
+                                <field name="freeStorageSpace" type="string"/>
+                                <field name="imei" type="string"/>
+                                <field name="meid" type="string"/>
+                                <field name="manufacturer" type="string"/>
+                                <field name="model" type="string"/>
+                                <field name="phoneNumber" type="string"/>
+                                <field name="subscriberCarrier" type="string"/>
+                                <field name="cellularTechnology" type="string"/>
+                                <field name="wifiMac" type="string"/>
+                                <field name="operatingSystemLanguage" type="string"/>
+                                <field name="isSupervised" type="string"/>
+                                <field name="isEncrypted" type="string"/>
+                                <field name="batterySerialNumber" type="string"/>
+                                <field name="batteryHealthPercentage" type="string"/>
+                                <field name="batteryChargeCycles" type="string"/>
+                                <field name="isSharedDevice" type="string"/>
+                                <field name="tpmSpecificationVersion" type="string"/>
+                                <field name="operatingSystemEdition" type="string"/>
+                                <field name="deviceFullQualifiedDomainName" type="string"/>
+                                <field name="deviceGuardVirtualizationBasedSecurityHardwareRequirementState" type="string"/>
+                                <field name="deviceGuardVirtualizationBasedSecurityState" type="string"/>
+                                <field name="deviceGuardLocalSystemAuthorityCredentialGuardState" type="string"/>
+                                <field name="osBuildNumber" type="string"/>
+                                <field name="operatingSystemProductType" type="string"/>
+                                <field name="ipAddressV4" type="string"/>
+                                <field name="subnetAddress" type="string"/>
+                                <field name="esimIdentifier" type="string"/>
+                                <field name="systemManagementBIOSVersion" type="string"/>
+                                <field name="tpmManufacturer" type="string"/>
+                                <field name="tpmVersion" type="string"/>
+                                <field name="wiredIPv4Addresses" type="string"/>
+                                <field name="batteryLevelPercentage" type="string"/>
+                                <field name="residentUsersCount" type="string"/>
+                                <field name="productName" type="string"/>
+                                <field name="deviceLicensingStatus" type="string"/>
+                                <field name="deviceLicensingLastErrorCode" type="string"/>
+                                <field name="deviceLicensingLastErrorDescription" type="string"/>
+                                <field name="sharedDeviceCachedUsers" type="string"/>
+                            </field>
+                            <field name="deviceActionResults" type="array"/>
+                            <field name="usersLoggedOn" type="array">
+                                <field name="userId" type="string"/>
+                                <field name="lastLogOnDateTime" type="string"/>
+                            </field>
+                            <field name="chromeOSDeviceInfo" type="array"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string" >application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string">1</field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetUsers" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{resource}beta/users?$top=999</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string" >application/json</item>
+                    </header>
+                    <body>
+                        <field name="@odata.context" type="string"/>
+                        <field name="@odata.count" type="string"/>                        
+                        <field name="value" type="array">                        
+                            <field name="id" type="string"/>
+                            <field name="deletedDateTime" type="string"/>
+                            <field name="accountEnabled" type="string"/>
+                            <field name="ageGroup" type="string"/>
+                            <field name="businessPhones" type="array"/>
+                            <field name="city" type="string"/>
+                            <field name="createdDateTime" type="string"/>
+                            <field name="creationType" type="string"/>
+                            <field name="companyName" type="string"/>
+                            <field name="consentProvidedForMinor" type="string"/>
+                            <field name="country" type="string"/>
+                            <field name="department" type="string"/>
+                            <field name="displayName" type="string"/>
+                            <field name="employeeId" type="string"/>
+                            <field name="employeeHireDate" type="string"/>
+                            <field name="employeeType" type="string"/>
+                            <field name="faxNumber" type="string"/>
+                            <field name="givenName" type="string"/>
+                            <field name="imAddresses" type="array"/>
+                            <field name="infoCatalogs" type="array"/>
+                            <field name="isManagementRestricted" type="string"/>
+                            <field name="isResourceAccount" type="string"/>
+                            <field name="jobTitle" type="string"/>
+                            <field name="legalAgeGroupClassification" type="string"/>
+                            <field name="mail" type="string"/>
+                            <field name="mailNickname" type="string"/>
+                            <field name="mobilePhone" type="string"/>
+                            <field name="onPremisesDistinguishedName" type="string"/>
+                            <field name="officeLocation" type="string"/>
+                            <field name="onPremisesDomainName" type="string"/>
+                            <field name="onPremisesImmutableId" type="string"/>
+                            <field name="onPremisesLastSyncDateTime" type="string"/>
+                            <field name="onPremisesSecurityIdentifier" type="string"/>
+                            <field name="onPremisesSamAccountName" type="string"/>
+                            <field name="onPremisesSyncEnabled" type="string"/>
+                            <field name="onPremisesUserPrincipalName" type="string"/>
+                            <field name="otherMails" type="array"/>
+                            <field name="passwordPolicies" type="string"/>
+                            <field name="postalCode" type="string"/>
+                            <field name="preferredDataLocation" type="string"/>
+                            <field name="preferredLanguage" type="string"/>
+                            <field name="proxyAddresses" type="array"/>
+                            <field name="refreshTokensValidFromDateTime" type="string"/>
+                            <field name="securityIdentifier" type="string"/>
+                            <field name="showInAddressList" type="string"/>
+                            <field name="signInSessionsValidFromDateTime" type="string"/>
+                            <field name="state" type="string"/>
+                            <field name="streetAddress" type="string"/>
+                            <field name="surname" type="string"/>
+                            <field name="usageLocation" type="string"/>
+                            <field name="userPrincipalName" type="string"/>
+                            <field name="externalUserConvertedOn" type="string"/>
+                            <field name="externalUserState" type="string"/>
+                            <field name="externalUserStateChangeDateTime" type="string"/>
+                            <field name="userType" type="string"/>
+                            <field name="employeeOrgData" type="string"/>
+                            <field name="assignedLicenses" type="array">
+                                <field name="assignedDateTime" type="string"/>  
+                                <field name="capabilityStatus" type="string"/>  
+                                <field name="service" type="string"/>   
+                                <field name="servicePlanId" type="string"/>
+                            </field>
+                            <field name="authorizationInfo" type="object">
+                                    <field name="certificateUserIds" type="array"/>
+                            </field>
+                            <field name="deviceKeys" type="array"/>
+                            <field name="identities" type="array">
+                                <field name="signInType" type="string"/>  
+                                <field name="issuer" type="string"/>  
+                                <field name="issuerAssignedId" type="string"/>   
+                                <field name="servicePlanId" type="string"/>
+                            </field>
+                            <field name="onPremisesExtensionAttributes" type="object"/>
+                            <field name="onPremisesProvisioningErrors" type="array"/>
+                            <field name="passwordProfile" type="object">
+                                    <field name="password" type="string"/>
+                                    <field name="forceChangePasswordNextSignIn" type="string"/>
+                                    <field name="forceChangePasswordNextSignInWithMfa" type="string"/>
+                            </field>
+                            <field name="provisionedPlans" type="array">
+                                <field name="capabilityStatus" type="string"/>  
+                                <field name="provisioningStatus" type="string"/>  
+                                <field name="service" type="string"/>   
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string" >application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string">1</field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetUserManagedDevices" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{resource}beta/users/{USERID}/managedDevices</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string" >application/json</item>
+                    </header>
+                    <body>
+                        <field name="@odata.context" type="string"/>
+                        <field name="@odata.count" type="string"/>                        
+                        <field name="value" type="array">                        
+                            <field name="id" type="string"/>
+                            <field name="userId" type="string"/>
+                            <field name="deviceName" type="string"/>
+                            <field name="ownerType" type="string"/>
+                            <field name="managedDeviceOwnerType" type="string"/>
+                            <field name="managementState" type="string"/>
+                            <field name="enrolledDateTime" type="string"/>
+                            <field name="lastSyncDateTime" type="string"/>
+                            <field name="chassisType" type="string"/>
+                            <field name="operatingSystem" type="string"/>
+                            <field name="deviceType" type="string"/>
+                            <field name="complianceState" type="string"/>
+                            <field name="jailBroken" type="string"/>
+                            <field name="managementAgent" type="string"/>
+                            <field name="osVersion" type="string"/>
+                            <field name="easActivated" type="string"/>
+                            <field name="easDeviceId" type="string"/>
+                            <field name="easActivationDateTime" type="string"/>
+                            <field name="aadRegistered" type="string"/>
+                            <field name="azureADRegistered" type="string"/>
+                            <field name="deviceEnrollmentType" type="string"/>
+                            <field name="lostModeState" type="string"/>
+                            <field name="activationLockBypassCode" type="string"/>
+                            <field name="emailAddress" type="string"/>
+                            <field name="azureActiveDirectoryDeviceId" type="string"/>
+                            <field name="azureADDeviceId" type="string"/>
+                            <field name="deviceRegistrationState" type="string"/>
+                            <field name="deviceCategoryDisplayName" type="string"/>
+                            <field name="isSupervised" type="string"/>
+                            <field name="exchangeLastSuccessfulSyncDateTime" type="string"/>
+                            <field name="exchangeAccessState" type="string"/>
+                            <field name="exchangeAccessStateReason" type="string"/>
+                            <field name="remoteAssistanceSessionUrl" type="string"/>
+                            <field name="remoteAssistanceSessionErrorDetails" type="string"/>
+                            <field name="isEncrypted" type="string"/>
+                            <field name="userPrincipalName" type="string"/>
+                            <field name="model" type="string"/>
+                            <field name="manufacturer" type="string"/>
+                            <field name="imei" type="string"/>
+                            <field name="complianceGracePeriodExpirationDateTime" type="string"/>
+                            <field name="serialNumber" type="string"/>
+                            <field name="phoneNumber" type="string"/>
+                            <field name="androidSecurityPatchLevel" type="string"/>
+                            <field name="userDisplayName" type="string"/>
+                            <field name="configurationManagerClientEnabledFeatures" type="string"/>
+                            <field name="wiFiMacAddress" type="string"/>
+                            <field name="deviceHealthAttestationState" type="string"/>
+                            <field name="subscriberCarrier" type="string"/>
+                            <field name="meid" type="string"/>
+                            <field name="totalStorageSpaceInBytes" type="string"/>
+                            <field name="freeStorageSpaceInBytes" type="string"/>
+                            <field name="managedDeviceName" type="string"/>
+                            <field name="partnerReportedThreatState" type="string"/>
+                            <field name="retireAfterDateTime" type="string"/>
+                            <field name="preferMdmOverGroupPolicyAppliedDateTime" type="string"/>
+                            <field name="autopilotEnrolled" type="string"/>
+                            <field name="requireUserEnrollmentApproval" type="string"/>
+                            <field name="managementCertificateExpirationDate" type="string"/>
+                            <field name="iccid" type="string"/>
+                            <field name="udid" type="string"/>
+                            <field name="roleScopeTagIds" type="string"/>
+                            <field name="windowsActiveMalwareCount" type="string"/>
+                            <field name="windowsRemediatedMalwareCount" type="string"/>
+                            <field name="notes" type="string"/>
+                            <field name="configurationManagerClientHealthState" type="string"/>
+                            <field name="configurationManagerClientInformation" type="string"/>
+                            <field name="ethernetMacAddress" type="string"/>
+                            <field name="physicalMemoryInBytes" type="string"/>
+                            <field name="processorArchitecture" type="string"/>
+                            <field name="specificationVersion" type="string"/>
+                            <field name="joinType" type="string"/>
+                            <field name="skuFamily" type="string"/>
+                            <field name="skuNumber" type="string"/>
+                            <field name="managementFeatures" type="string"/>
+                            <field name="enrollmentProfileName" type="string"/>
+                            <field name="bootstrapTokenEscrowed" type="string"/>
+                            <field name="deviceFirmwareConfigurationInterfaceManaged" type="string"/>
+                            <field name="hardwareInformation" type="object">
+                                <field name="serialNumber" type="string"/>
+                                <field name="totalStorageSpace" type="string"/>
+                                <field name="freeStorageSpace" type="string"/>
+                                <field name="imei" type="string"/>
+                                <field name="meid" type="string"/>
+                                <field name="manufacturer" type="string"/>
+                                <field name="model" type="string"/>
+                                <field name="phoneNumber" type="string"/>
+                                <field name="subscriberCarrier" type="string"/>
+                                <field name="cellularTechnology" type="string"/>
+                                <field name="wifiMac" type="string"/>
+                                <field name="operatingSystemLanguage" type="string"/>
+                                <field name="isSupervised" type="string"/>
+                                <field name="isEncrypted" type="string"/>
+                                <field name="batterySerialNumber" type="string"/>
+                                <field name="batteryHealthPercentage" type="string"/>
+                                <field name="batteryChargeCycles" type="string"/>
+                                <field name="isSharedDevice" type="string"/>
+                                <field name="tpmSpecificationVersion" type="string"/>
+                                <field name="operatingSystemEdition" type="string"/>
+                                <field name="deviceFullQualifiedDomainName" type="string"/>
+                                <field name="deviceGuardVirtualizationBasedSecurityHardwareRequirementState" type="string"/>
+                                <field name="deviceGuardVirtualizationBasedSecurityState" type="string"/>
+                                <field name="deviceGuardLocalSystemAuthorityCredentialGuardState" type="string"/>
+                                <field name="osBuildNumber" type="string"/>
+                                <field name="operatingSystemProductType" type="string"/>
+                                <field name="ipAddressV4" type="string"/>
+                                <field name="subnetAddress" type="string"/>
+                                <field name="esimIdentifier" type="string"/>
+                                <field name="systemManagementBIOSVersion" type="string"/>
+                                <field name="tpmManufacturer" type="string"/>
+                                <field name="tpmVersion" type="string"/>
+                                <field name="wiredIPv4Addresses" type="string"/>
+                                <field name="batteryLevelPercentage" type="string"/>
+                                <field name="residentUsersCount" type="string"/>
+                                <field name="productName" type="string"/>
+                                <field name="deviceLicensingStatus" type="string"/>
+                                <field name="deviceLicensingLastErrorCode" type="string"/>
+                                <field name="deviceLicensingLastErrorDescription" type="string"/>
+                                <field name="sharedDeviceCachedUsers" type="string"/>
+                            </field>
+                            <field name="deviceActionResults" type="array"/>
+                            <field name="usersLoggedOn" type="array">
+                                <field name="userId" type="string"/>
+                                <field name="lastLogOnDateTime" type="string"/>
+                            </field>
+                            <field name="chromeOSDeviceInfo" type="array"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header>
+                        <item name="Content-Type" type="string" >application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string">1</field>
+                    </body>
+                </fail>
+            </response>
+        </operation>        
+    </operations>
+</invoker>

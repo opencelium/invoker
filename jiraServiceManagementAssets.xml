@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--
+   ~// Copyright (C) <2020> <becon GmbH>
+   ~//
+   ~// This file is licensed under the OpenCelium license agreement.
+   ~//
+   ~// If you purchased an OpenCelium subscription you can use this file
+   ~// under the terms of the OpenCelium license agreement.
+   ~// License agreement and license key will be shipped with the order
+   ~// confirmation.
+-->
+<invoker type="RESTful">
+    <name>JiraServiceManagement-Assets</name>
+    <description>With Jira Service Management, you can easily receive, track, manage, and resolve requests from your team’s customers. Customers can send requests by email, a customizable help center, and an embeddable widget. Jira Service Management makes it easier to categorize service requests, incidents, problems, and changes by organizing and prioritizing these requests in a single place, and keeps your team on track with goals.</description>
+    <hint>Read here how to create a personal token https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/ and API documentation https://developer.atlassian.com/cloud/assets/rest/</hint>
+    <icon>jiraservicemanagement.png</icon>
+    <requiredData>
+        <item name="url" type="string" visibility="public" />
+        <item name="username" type="string" visibility="public" />
+        <item name="apikey" type="string" visibility="protected" />
+        <item name="basic" type="string" visibility="private">Basic {username:apikey}</item>
+        <item name="workspaceid" type="string" visibility="private">%{workspace.body.values[0].workspaceId}</item>
+    </requiredData>
+    <authType>basic</authType>
+    <operations>
+        <operation name="workspace" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/servicedeskapi/assets/workspace</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="size" type="string"/>
+                        <field name="start" type="string"/>
+                        <field name="limit" type="string"/>
+                        <field name="isLastPage" type="string"/>
+                        <field name="_links" type="object">
+                            <field name="self" type="string"/>
+                            <field name="base" type="string"/>
+                            <field name="context" type="string"/>
+                        </field>
+                        <field name="values" type="array">
+                            <field name="workspaceId" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetObjectSchema" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>https://api.atlassian.com/jsm/assets/workspace/{workspaceid}/v1/objectschema/list</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="startAt" type="string"/>
+                        <field name="maxResults" type="string"/>
+                        <field name="total" type="string"/>
+                        <field name="values" type="array">
+                            <field name="workspaceId" type="string"/>
+                            <field name="globalId" type="string"/>
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="objectSchemaKey" type="string"/>
+                            <field name="status" type="string"/>
+                            <field name="description" type="string"/>
+                            <field name="atlassianTemplateId" type="string"/>
+                            <field name="created" type="string"/>
+                            <field name="updated" type="string"/>
+                            <field name="objectCount" type="string"/>
+                            <field name="objectTypeCount" type="string"/>
+                            <field name="canManage" type="string"/>
+                            <field name="idAsInt" type="string"/>
+                        </field>
+                        <field name="isLast" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetObjectSchemaObjectTypes" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>https://api.atlassian.com/jsm/assets/workspace/{workspaceid}/v1/objectschema/{REPLACE-WITH-SCHEMAID}/objecttypes</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="workspaceId" type="string"/>
+                        <field name="globalId" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="name" type="string"/>
+                        <field name="type" type="string"/>
+                        <field name="icon" type="object">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="url16" type="string"/>
+                            <field name="url48" type="string"/>
+                        </field>
+                        <field name="position" type="string"/>
+                        <field name="created" type="string"/>
+                        <field name="updated" type="string"/>
+                        <field name="objectCount" type="string"/>
+                        <field name="objectSchemaId" type="string"/>
+                        <field name="inherited" type="string"/>
+                        <field name="abstractObjectType" type="string"/>
+                        <field name="parentObjectTypeInherited" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetObjecttypeAttributes" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>https://api.atlassian.com/jsm/assets/workspace/{workspaceid}/v1/objecttype/{RPLACE-WITH-OBJTYPEID}/attributes</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="workspaceId" type="string"/>
+                        <field name="globalId" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="objectType" type="object">
+                            <field name="workspaceId" type="string"/>
+                            <field name="globalId" type="string"/>
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="type" type="string"/>
+                            <field name="icon" type="object">
+                                <field name="id" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="url16" type="string"/>
+                                <field name="url48" type="string"/>
+                            </field>
+                            <field name="position" type="string"/>
+                            <field name="created" type="string"/>
+                            <field name="updated" type="string"/>
+                            <field name="objectCount" type="string"/>
+                            <field name="objectSchemaId" type="string"/>
+                            <field name="inherited" type="string"/>
+                            <field name="abstractObjectType" type="string"/>
+                            <field name="parentObjectTypeInherited" type="string"/>
+                        </field>
+                        <field name="name" type="string"/>
+                        <field name="label" type="string"/>
+                        <field name="type" type="string"/>
+                        <field name="defaultType" type="object">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                        </field>
+                        <field name="editable" type="string"/>
+                        <field name="system" type="string"/>
+                        <field name="sortable" type="string"/>
+                        <field name="summable" type="string"/>
+                        <field name="indexed" type="string"/>
+                        <field name="minimumCardinality" type="string"/>
+                        <field name="maximumCardinality" type="string"/>
+                        <field name="removable" type="string"/>
+                        <field name="hidden" type="string"/>
+                        <field name="includeChildObjectTypes" type="string"/>
+                        <field name="uniqueAttribute" type="string"/>
+                        <field name="options" type="string"/>
+                        <field name="position" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetObjectById" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>https://api.atlassian.com/jsm/assets/workspace/{workspaceid}/v1/object/{REPLACE-WITH-OBJECTID}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="workspaceId" type="string"/>
+                        <field name="globalId" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="label" type="string"/>
+                        <field name="objectKey" type="string"/>
+                        <field name="avatar" type="object">
+                            <field name="workspaceId" type="string"/>
+                            <field name="url16" type="string"/>
+                            <field name="url48" type="string"/>
+                            <field name="url72" type="string"/>
+                            <field name="url144" type="string"/>
+                            <field name="url288" type="string"/>
+                            <field name="objectId" type="string"/>
+                            <field name="mediaClientConfig" type="object">
+                                <field name="clientId" type="string"/>
+                                <field name="issuer" type="string"/>
+                                <field name="mediaBaseUrl" type="string"/>
+                                <field name="mediaJwtToken" type="string"/>
+                                <field name="fileId" type="string"/>
+                                <field name="tokenLifespanInMinutes" type="string"/>
+                            </field>
+                        </field>
+                        <field name="objectType" type="object">
+                            <field name="workspaceId" type="string"/>
+                            <field name="globalId" type="string"/>
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="type" type="string"/>
+                            <field name="icon" type="object">
+                                <field name="id" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="url16" type="string"/>
+                                <field name="url48" type="string"/>
+                            </field>
+                            <field name="position" type="string"/>
+                            <field name="created" type="string"/>
+                            <field name="updated" type="string"/>
+                            <field name="objectCount" type="string"/>
+                            <field name="parentObjectTypeId" type="string"/>
+                            <field name="objectSchemaId" type="string"/>
+                            <field name="inherited" type="string"/>
+                            <field name="abstractObjectType" type="string"/>
+                            <field name="parentObjectTypeInherited" type="string"/>
+                        </field>
+                        <field name="created" type="string"/>
+                        <field name="updated" type="string"/>
+                        <field name="hasAvatar" type="string"/>
+                        <field name="timestamp" type="string"/>
+                        <field name="attributes" type="array">
+                            <field name="workspaceId" type="string"/>
+                            <field name="globalId" type="string"/>
+                            <field name="id" type="string"/>
+                            <field name="objectTypeAttribute" type="object">
+                                <field name="workspaceId" type="string"/>
+                                <field name="globalId" type="string"/>
+                                <field name="id" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="type" type="string"/>
+                                <field name="defaultType" type="object">
+                                    <field name="id" type="string"/>
+                                    <field name="name" type="string"/>
+                                </field>
+                                <field name="editable" type="string"/>
+                                <field name="system" type="string"/>
+                                <field name="sortable" type="string"/>
+                                <field name="summable" type="string"/>
+                                <field name="indexed" type="string"/>
+                                <field name="minimumCardinality" type="string"/>
+                                <field name="maximumCardinality" type="string"/>
+                                <field name="removable" type="string"/>
+                                <field name="hidden" type="string"/>
+                                <field name="includeChildObjectTypes" type="string"/>
+                                <field name="uniqueAttribute" type="string"/>
+                                <field name="options" type="string"/>
+                                <field name="position" type="string"/>
+                            </field>
+                            <field name="objectTypeAttributeId" type="string"/>
+                            <field name="objectAttributeValues" type="array">
+                                <field name="value" type="string"/>
+                                <field name="displayValue" type="string"/>
+                                <field name="searchValue" type="string"/>
+                                <field name="referencedType" type="string"/>
+                            </field>
+                            <field name="objectId" type="string"/>
+                        </field>
+                        <field name="extendedInfo" type="object">
+                            <field name="openIssuesExists" type="string"/>
+                            <field name="attachmentsExists" type="string"/>
+                        </field>
+                        <field name="_links" type="object">
+                            <field name="self" type="string"/>
+                        </field>
+                        <field name="name" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetObjectWithFilter" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>https://api.atlassian.com/jsm/assets/workspace/{workspaceid}/v1/object/aql</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                    <field name="qlQuery" type="string">name = {REPLACE-WITH-NAME}</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="startAt" type="string"/>
+                        <field name="maxResults" type="string"/>
+                        <field name="total" type="string"/>
+                        <field name="values" type="array">
+                            <field name="workspaceId" type="string"/>
+                            <field name="globalId" type="string"/>
+                            <field name="id" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="objectKey" type="string"/>
+                            <field name="avatar" type="object">
+                                <field name="workspaceId" type="string"/>
+                                <field name="url16" type="string"/>
+                                <field name="url48" type="string"/>
+                                <field name="url72" type="string"/>
+                                <field name="url144" type="string"/>
+                                <field name="url288" type="string"/>
+                                <field name="objectId" type="string"/>
+                                <field name="mediaClientConfig" type="object">
+                                    <field name="clientId" type="string"/>
+                                    <field name="issuer" type="string"/>
+                                    <field name="mediaBaseUrl" type="string"/>
+                                    <field name="mediaJwtToken" type="string"/>
+                                    <field name="fileId" type="string"/>
+                                    <field name="tokenLifespanInMinutes" type="string"/>
+                                </field>
+                            </field>
+                            <field name="objectType" type="object">
+                                <field name="workspaceId" type="string"/>
+                                <field name="globalId" type="string"/>
+                                <field name="id" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="type" type="string"/>
+                                <field name="icon" type="object">
+                                    <field name="id" type="string"/>
+                                    <field name="name" type="string"/>
+                                    <field name="url16" type="string"/>
+                                    <field name="url48" type="string"/>
+                                </field>
+                                <field name="position" type="string"/>
+                                <field name="created" type="string"/>
+                                <field name="updated" type="string"/>
+                                <field name="objectCount" type="string"/>
+                                <field name="parentObjectTypeId" type="string"/>
+                                <field name="objectSchemaId" type="string"/>
+                                <field name="inherited" type="string"/>
+                                <field name="abstractObjectType" type="string"/>
+                                <field name="parentObjectTypeInherited" type="string"/>
+                            </field>
+                            <field name="created" type="string"/>
+                            <field name="updated" type="string"/>
+                            <field name="hasAvatar" type="string"/>
+                            <field name="timestamp" type="string"/>
+                            <field name="attributes" type="array">
+                                <field name="workspaceId" type="string"/>
+                                <field name="globalId" type="string"/>
+                                <field name="id" type="string"/>
+                                <field name="objectTypeAttributeId" type="string"/>
+                                <field name="objectAttributeValues" type="array">
+                                    <field name="value" type="string"/>
+                                    <field name="displayValue" type="string"/>
+                                    <field name="searchValue" type="string"/>
+                                    <field name="referencedType" type="string"/>
+                                </field>
+                                <field name="objectId" type="string"/>
+                            </field>
+                            <field name="_links" type="object">
+                                <field name="self" type="string"/>
+                            </field>
+                            <field name="name" type="string"/>
+                        </field>
+                        <field name="last" type="string"/>
+                        <field name="isLast" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetAllObjects" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>https://api.atlassian.com/jsm/assets/workspace/{workspaceid}/v1/object/aql</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                    <field name="qlQuery" type="string">name is not EMPTY</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="startAt" type="string"/>
+                        <field name="maxResults" type="string"/>
+                        <field name="total" type="string"/>
+                        <field name="values" type="array">
+                            <field name="workspaceId" type="string"/>
+                            <field name="globalId" type="string"/>
+                            <field name="id" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="objectKey" type="string"/>
+                            <field name="avatar" type="object">
+                                <field name="workspaceId" type="string"/>
+                                <field name="url16" type="string"/>
+                                <field name="url48" type="string"/>
+                                <field name="url72" type="string"/>
+                                <field name="url144" type="string"/>
+                                <field name="url288" type="string"/>
+                                <field name="objectId" type="string"/>
+                                <field name="mediaClientConfig" type="object">
+                                    <field name="clientId" type="string"/>
+                                    <field name="issuer" type="string"/>
+                                    <field name="mediaBaseUrl" type="string"/>
+                                    <field name="mediaJwtToken" type="string"/>
+                                    <field name="fileId" type="string"/>
+                                    <field name="tokenLifespanInMinutes" type="string"/>
+                                </field>
+                            </field>
+                            <field name="objectType" type="object">
+                                <field name="workspaceId" type="string"/>
+                                <field name="globalId" type="string"/>
+                                <field name="id" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="type" type="string"/>
+                                <field name="icon" type="object">
+                                    <field name="id" type="string"/>
+                                    <field name="name" type="string"/>
+                                    <field name="url16" type="string"/>
+                                    <field name="url48" type="string"/>
+                                </field>
+                                <field name="position" type="string"/>
+                                <field name="created" type="string"/>
+                                <field name="updated" type="string"/>
+                                <field name="objectCount" type="string"/>
+                                <field name="parentObjectTypeId" type="string"/>
+                                <field name="objectSchemaId" type="string"/>
+                                <field name="inherited" type="string"/>
+                                <field name="abstractObjectType" type="string"/>
+                                <field name="parentObjectTypeInherited" type="string"/>
+                            </field>
+                            <field name="created" type="string"/>
+                            <field name="updated" type="string"/>
+                            <field name="hasAvatar" type="string"/>
+                            <field name="timestamp" type="string"/>
+                            <field name="attributes" type="array">
+                                <field name="workspaceId" type="string"/>
+                                <field name="globalId" type="string"/>
+                                <field name="id" type="string"/>
+                                <field name="objectTypeAttributeId" type="string"/>
+                                <field name="objectAttributeValues" type="array">
+                                    <field name="value" type="string"/>
+                                    <field name="displayValue" type="string"/>
+                                    <field name="searchValue" type="string"/>
+                                    <field name="referencedType" type="string"/>
+                                </field>
+                                <field name="objectId" type="string"/>
+                            </field>
+                            <field name="_links" type="object">
+                                <field name="self" type="string"/>
+                            </field>
+                            <field name="name" type="string"/>
+                        </field>
+                        <field name="last" type="string"/>
+                        <field name="isLast" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="CreateObject" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>https://api.atlassian.com/jsm/assets/workspace/{workspaceid}/v1/object/create</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                    <field name="objectTypeId" type="string"/>
+                    <field name="attributes" type="array">
+                        <field name="objectTypeAttributeId" type="string"/>
+                        <field name="objectAttributeValues" type="array">
+                            <field name="value" type="string"/>
+                        </field>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="workspaceId" type="string"/>
+                        <field name="globalId" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="label" type="string"/>
+                        <field name="objectKey" type="string"/>
+                        <field name="avatar" type="object">
+                            <field name="workspaceId" type="string"/>
+                            <field name="url16" type="string"/>
+                            <field name="url48" type="string"/>
+                            <field name="url72" type="string"/>
+                            <field name="url144" type="string"/>
+                            <field name="url288" type="string"/>
+                            <field name="objectId" type="string"/>
+                            <field name="mediaClientConfig" type="object">
+                                <field name="clientId" type="string"/>
+                                <field name="issuer" type="string"/>
+                                <field name="mediaBaseUrl" type="string"/>
+                                <field name="mediaJwtToken" type="string"/>
+                                <field name="fileId" type="string"/>
+                                <field name="tokenLifespanInMinutes" type="string"/>
+                            </field>
+                        </field>
+                        <field name="objectType" type="object">
+                            <field name="workspaceId" type="string"/>
+                            <field name="globalId" type="string"/>
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="type" type="string"/>
+                            <field name="icon" type="object">
+                                <field name="id" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="url16" type="string"/>
+                                <field name="url48" type="string"/>
+                            </field>
+                            <field name="position" type="string"/>
+                            <field name="created" type="string"/>
+                            <field name="updated" type="string"/>
+                            <field name="objectCount" type="string"/>
+                            <field name="parentObjectTypeId" type="string"/>
+                            <field name="objectSchemaId" type="string"/>
+                            <field name="inherited" type="string"/>
+                            <field name="abstractObjectType" type="string"/>
+                            <field name="parentObjectTypeInherited" type="string"/>
+                        </field>
+                        <field name="created" type="string"/>
+                        <field name="updated" type="string"/>
+                        <field name="hasAvatar" type="string"/>
+                        <field name="timestamp" type="string"/>
+                        <field name="_links" type="object">
+                            <field name="self" type="string"/>
+                        </field>
+                        <field name="name" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+        <operation name="UpdateObject" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>https://api.atlassian.com/jsm/assets/workspace/{workspaceid}/v1/object/{REPLACE-WITH-OBJECTID}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                    <field name="objectTypeId" type="string"/>
+                    <field name="attributes" type="array">
+                        <field name="objectTypeAttributeId" type="string"/>
+                        <field name="objectAttributeValues" type="array">
+                            <field name="value" type="string"/>
+                        </field>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header />
+                    <body type="object" format="json" data="raw">
+                        <field name="workspaceId" type="string"/>
+                        <field name="globalId" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="label" type="string"/>
+                        <field name="objectKey" type="string"/>
+                        <field name="avatar" type="object">
+                            <field name="workspaceId" type="string"/>
+                            <field name="url16" type="string"/>
+                            <field name="url48" type="string"/>
+                            <field name="url72" type="string"/>
+                            <field name="url144" type="string"/>
+                            <field name="url288" type="string"/>
+                            <field name="objectId" type="string"/>
+                            <field name="mediaClientConfig" type="object">
+                                <field name="clientId" type="string"/>
+                                <field name="issuer" type="string"/>
+                                <field name="mediaBaseUrl" type="string"/>
+                                <field name="mediaJwtToken" type="string"/>
+                                <field name="fileId" type="string"/>
+                                <field name="tokenLifespanInMinutes" type="string"/>
+                            </field>
+                        </field>
+                        <field name="objectType" type="object">
+                            <field name="workspaceId" type="string"/>
+                            <field name="globalId" type="string"/>
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="type" type="string"/>
+                            <field name="icon" type="object">
+                                <field name="id" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="url16" type="string"/>
+                                <field name="url48" type="string"/>
+                            </field>
+                            <field name="position" type="string"/>
+                            <field name="created" type="string"/>
+                            <field name="updated" type="string"/>
+                            <field name="objectCount" type="string"/>
+                            <field name="parentObjectTypeId" type="string"/>
+                            <field name="objectSchemaId" type="string"/>
+                            <field name="inherited" type="string"/>
+                            <field name="abstractObjectType" type="string"/>
+                            <field name="parentObjectTypeInherited" type="string"/>
+                        </field>
+                        <field name="created" type="string"/>
+                        <field name="updated" type="string"/>
+                        <field name="hasAvatar" type="string"/>
+                        <field name="timestamp" type="string"/>
+                        <field name="attributes" type="array">
+                            <field name="workspaceId" type="string"/>
+                            <field name="globalId" type="string"/>
+                            <field name="id" type="string"/>
+                            <field name="objectTypeAttribute" type="object">
+                                <field name="workspaceId" type="string"/>
+                                <field name="globalId" type="string"/>
+                                <field name="id" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="type" type="string"/>
+                                <field name="defaultType" type="object">
+                                    <field name="id" type="string"/>
+                                    <field name="name" type="string"/>
+                                </field>
+                                <field name="editable" type="string"/>
+                                <field name="system" type="string"/>
+                                <field name="sortable" type="string"/>
+                                <field name="summable" type="string"/>
+                                <field name="indexed" type="string"/>
+                                <field name="minimumCardinality" type="string"/>
+                                <field name="maximumCardinality" type="string"/>
+                                <field name="removable" type="string"/>
+                                <field name="hidden" type="string"/>
+                                <field name="includeChildObjectTypes" type="string"/>
+                                <field name="uniqueAttribute" type="string"/>
+                                <field name="options" type="string"/>
+                                <field name="position" type="string"/>
+                            </field>
+                            <field name="objectTypeAttributeId" type="string"/>
+                            <field name="objectAttributeValues" type="array">
+                                <field name="value" type="string"/>
+                                <field name="displayValue" type="string"/>
+                                <field name="searchValue" type="string"/>
+                                <field name="referencedType" type="string"/>
+                            </field>
+                            <field name="objectId" type="string"/>
+                        </field>
+                        <field name="_links" type="object">
+                            <field name="self" type="string"/>
+                        </field>
+                        <field name="name" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header />
+                    <body />
+                </fail>
+            </response>
+        </operation>
+    </operations>
+</invoker>

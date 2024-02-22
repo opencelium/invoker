@@ -1,0 +1,228 @@
+<invoker type="RESTful">
+    <name>Baramundi Management Suite</name>
+    <description>The baramundi Management Suite, is a versatile tool that will unleash your full IT potential. Stay in control and maximize your productivity by automating routine tasks. The Unified Endpoint Management Software can be installed and implemented quickly, is intuitive to use, has a modular structure and offers a high level of usability and transparency.</description>
+    <hint>This interface provides a basic auth.</hint>
+    <requiredData>
+        <item name="url" type="string" visibility="public"/>
+        <item name="username" type="string" visibility="public"/>
+        <item name="password" type="string" visibility="public"/>
+        <item name="token" type="string" visibility="private">Basic {username:password}</item>
+    </requiredData>
+    <authType>basic</authType>
+    <operations>
+        <operation name="GetVersion" type="test">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/version.json</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                        <field name="SupportedVersions" type="array"/>
+                        <field name="CurrentVersion" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>             {
+        <operation name="GetEndpoints" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/v1.1/Endpoints.json</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="array" format="json" data="raw">
+                        <field name="Id" type="string"/>
+                        <field name="Type" type="string"/>
+                        <field name="GuidGroup" type="string"/>
+                        <field name="DisplayName" type="string"/>
+                        <field name="HostName" type="string"/>
+                        <field name="Domain" type="string"/>
+                        <field name="PrimaryMAC" type="string"/>
+                        <field name="MACList" type="string"/>
+                        <field name="LogicalMAC" type="string"/>
+                        <field name="PrimaryIP" type="string"/>
+                        <field name="PrimarySubnetMask" type="string"/>
+                        <field name="GuidIpNetwork" type="string"/>
+                        <field name="IPList" type="string"/>
+                        <field name="GuidHardwareProfile" type="string"/>
+                        <field name="OperatingSystem" type="string"/>
+                        <field name="Options" type="string"/>
+                        <field name="Comments" type="string"/>
+                        <field name="PrimaryUser" type="string"/>
+                        <field name="ClientAgentState" type="string"/>
+                        <field name="Activity" type="string"/>
+                        <field name="LastChange" type="string"/>
+                        <field name="LastSeen" type="string"/>
+                        <field name="OSVersionString" type="string"/>
+                        <field name="OSVersionMajor" type="string"/>
+                        <field name="OSVersionBuild" type="string"/>
+                        <field name="LastUser" type="string"/>
+                        <field name="IEVersionString" type="string"/>
+                        <field name="CPUDescription" type="string"/>
+                        <field name="CPUType" type="string"/>
+                        <field name="CPUSpeed" type="string"/>
+                        <field name="TotalMemory" type="string"/>
+                        <field name="DriveCSize" type="string"/>
+                        <field name="DriveCFree" type="string"/>
+                        <field name="GuidOrgUnit" type="string"/>
+                        <field name="CustomStateTime" type="string"/>
+                        <field name="CustomStateText" type="string"/>
+                        <field name="BMSServer" type="string"/>
+                        <field name="ClientAgentVersion" type="string"/>
+                        <field name="GuidJobPreinstallApp" type="string"/>
+                        <field name="GuidJobPostinstallApp" type="string"/>
+                        <field name="Priority" type="string"/>
+                        <field name="GuidBootEnvironment" type="string"/>
+                        <field name="LocaleId" type="string"/>
+                        <field name="Architecture" type="string"/>
+                        <field name="CurrentUserSID" type="string"/>
+                        <field name="WOLSent" type="string"/>
+                        <field name="LastBoot" type="string"/>
+                        <field name="EnergyScheme" type="string"/>
+                        <field name="EnergySchemeId" type="string"/>
+                        <field name="CPUCountPhysical" type="string"/>
+                        <field name="CPUCountLogical" type="string"/>
+                        <field name="CPUCountTotalCores" type="string"/>
+                        <field name="Manufacturer" type="string"/>
+                        <field name="ModelName" type="string"/>
+                        <field name="SerialNumber" type="string"/>
+                        <field name="ExtendedInternetMode" type="string"/>
+                        <field name="LastChannel" type="string"/>
+                        <field name="Mode" type="string"/>
+                        <field name="OSVersionPatchLevel" type="string"/>
+                        <field name="OSReleaseId" type="string"/>
+                        <field name="OSServiceBranch" type="string"/>
+                        <field name="TPMData" type="object">
+                            <field name="Version" type="string"/>
+                        </field>
+                        <field name="StorageMedia" type="array">
+                            <field name="Name" type="string"/>
+                            <field name="ByteSize" type="string"/>
+                            <field name="BusType" type="string"/>
+                            <field name="PartitionStyle" type="string"/>
+                            <field name="StorageVolumes" type="array">
+                                <field name="DriveLetter" type="string"/>
+                                <field name="Label" type="string"/>
+                                <field name="FileSystem" type="string"/>
+                                <field name="FileSystemType" type="string"/>
+                                <field name="ByteSize" type="string"/>
+                                <field name="ByteSizeRemaining" type="string"/>
+                                <field name="IsSystemVolume" type="string"/>
+                                <field name="BitLockerVolumeData" type="object">
+                                    <field name="EncryptionPercentage" type="string"/>
+                                    <field name="LockStatus" type="string"/>
+                                </field>
+                                <field name="VolumeId" type="string"/>
+                                <field name="PartitionType" type="string"/>
+                            </field>
+                        </field>
+                        <field name="VirusAndThreadProtectionStatus" type="string"/>
+                        <field name="AutomaticUpdateStatus" type="string"/>
+                        <field name="FirewallAndNetworkProtectionStatus" type="string"/>
+                        <field name="AppAndBrowserControlStatus" type="string"/>
+                        <field name="WindowsSecurityServiceStatus" type="string"/>
+                        <field name="UserAccountControlStatus" type="string"/>
+                        <field name="SecurityCenterUser" type="string"/>
+                        <field name="BitLockerNetworkUnlockStatus" type="string"/>
+                        <field name="IsBitLockerStartupPinEnabled" type="string"/>
+                        <field name="IsBitLockerStartupUsbKeyEnabled" type="string"/>
+                        <field name="TargetReleaseVersion" type="string"/>
+                        <field name="UpdateDownloadMode" type="string"/>
+                        <field name="OSDisplayVersion" type="string"/>
+                        <field name="MicrosoftDefenderData" type="object">
+                            <field name="AntimalwareEngineVersion" type="string"/>
+                            <field name="AntimalwareProductVersion" type="string"/>
+                            <field name="AntimalwareRunningMode" type="string"/>
+                            <field name="AntimalwareServiceActive" type="string"/>
+                            <field name="AntimalwareServiceVersion" type="string"/>
+                            <field name="AntispywareActive" type="string"/>
+                            <field name="AntispywareDefinitionCreation" type="string"/>
+                            <field name="AntispywareDefinitionVersion" type="string"/>
+                            <field name="AntivirusActive" type="string"/>
+                            <field name="AntivirusDefinitionCreation" type="string"/>
+                            <field name="AntivirusDefinitionVersion" type="string"/>
+                            <field name="BehaviorMonitoringActive" type="string"/>
+                            <field name="LastFullScanEndTime" type="string"/>
+                            <field name="IoavProtectionActive" type="string"/>
+                            <field name="TamperProtectionActive" type="string"/>
+                            <field name="NetworkInspectionSystemActive" type="string"/>
+                            <field name="NetworkInspectionSystemEngineVersion" type="string"/>
+                            <field name="NetworkInspectionSystemDefinitionCreation" type="string"/>
+                            <field name="NetworkInspectionSystemDefinitionVersion" type="string"/>
+                            <field name="OnAccessProtectionActive" type="string"/>
+                            <field name="LastQuickScanEndTime" type="string"/>
+                            <field name="RealTimeProtectionActive" type="string"/>
+                            <field name="RealTimeScanDirection" type="string"/>
+                            <field name="ActiveThreats" type="string"/>
+                            <field name="ResolvedThreats" type="string"/>
+                        </field>
+                        <field name="DoNotDisturbActive" type="string"/>
+                        <field name="WindowsModernManagementData" type="object">
+                            <field name="ModernManagementState" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>
+       <operation name="GetInventoryDataWMIScanFilterByEndpoint" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/v1.1/InventoryDataWMIScans.json?EndpointID={ID}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                        <field name="EndpointId" type="string"/>
+                        <field name="Scans" type="array">
+                            <field name="Time" type="string"/>
+                            <field name="Template" type="string"/>
+                            <field name="Data" type="array">
+                                <field name="ClassName" type="string"/>
+                                <field name="Items" type="array">
+                                    <field name="Properties" type="array">
+                                        <field name="Name" type="string"/>
+                                        <field name="Value" type="string"/>
+                                    </field>
+                                </field>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>             
+    </operations>
+</invoker>

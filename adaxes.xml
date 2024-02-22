@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
+    <name>Adaxes</name>
+    <description>Adaxes is a management and automation solution that provides enhanced administration experience to Active Directory, Exchange and Microsoft 365 environments.</description>
+    <hint>This interface provides a token auth. Read here the api documentation https://www.adaxes.com/sdk/REST_Authentication/</hint>
+    <requiredData>
+        <item name="url" type="string" visibility="public"/>
+        <item name="username" type="string" visibility="public"/>
+        <item name="password" type="string" visibility="public"/>        
+        <item name="sessionId" type="string" visibility="private">%{createAuthSession.body.sessionId}</item>
+        <item name="token" type="string" visibility="private">%{createAuth.body.token}</item>
+    </requiredData>
+    <authType>token</authType>
+    <operations>
+        <operation name="createAuthSession" type="test">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/api/authSessions/create</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body data="raw" format="json" type="object">
+			<field name="username" type="string">{username}</field>
+			<field name="password" type="string">{password}</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="sessionId" type="string"/>
+                        <field name="totpState" type="string"/>
+                        <field name="changePasswordReason" type="string"/>
+                        <field name="expiresAtUtc" type="string"/>                        
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>   
+                    <body/>
+                </fail>
+            </response>
+       </operation>
+        <operation name="createAuth" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/api/auth</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="sessionId" type="string">{sessionId}</field>
+                    <field name="type" type="string">0</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="string"/>
+                        <field name="token" type="string"/>
+                        <field name="sid" type="string"/>
+                        <field name="expiresAtUtc" type="string"/>
+                        <field name="applications" type="array"/>                          
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>   
+                    <body/>
+                </fail>
+            </response>
+       </operation>       
+       <operation name="GetDirectoryObjectUser" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/directoryObjects?directoryObject={DN}&amp;properties=personalTitle,givenName,sn,name,cn,l,company,department,mail,employeeNumber,mobile,telephoneNumber,streetAddress,postalCode,thumbnailPhoto,objectSid,sAMAccountName,managedby,member</endpoint>
+                <header>
+                    <item name="Adm-Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="accountStatus" type="object">
+                            <field name="isDisabled" type="string"/>
+                            <field name="isLocked" type="string"/>
+                            <field name="expirationDate" type="string"/>
+                        </field>
+                        <field name="passwordStatus" type="object">
+                            <field name="whenChanged" type="string"/>
+                            <field name="expirationStatus" type="string"/>
+                            <field name="expirationDate" type="string"/>
+                        </field>
+                        <field name="guid" type="string"/>
+                        <field name="dn" type="string"/>
+                        <field name="displayName" type="string"/>
+                        <field name="objectType" type="string"/>
+                        <field name="objectTypeCode" type="string"/>
+                        <field name="domainName" type="string"/>
+                        <field name="properties" type="object">
+                            <field name="personalTitle" type="array"/>
+                            <field name="givenName" type="array"/>
+                            <field name="sn" type="array"/>
+                            <field name="name" type="array"/>
+                            <field name="cn" type="array"/>
+                            <field name="l" type="array"/>
+                            <field name="company" type="array"/>
+                            <field name="department" type="array"/>
+                            <field name="mail" type="array"/>
+                            <field name="employeeNumber" type="array"/>
+                            <field name="mobile" type="array"/>
+                            <field name="telephoneNumber" type="array"/>
+                            <field name="streetAddress" type="array"/>
+                            <field name="postalCode" type="array"/>
+                            <field name="thumbnailPhoto" type="array"/>
+                            <field name="objectSid" type="array"/>
+                            <field name="sAMAccountName" type="array"/>
+                            <field name="managedby" type="array"/>
+                            <field name="member" type="array"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>       
+       <operation name="SearchDirectoryObjectUser" type="">
+                       <request>
+                <method>GET</method>
+                <endpoint>{url}/api/directoryObjects/search?baseObject={BASEOBJ}&amp;filter={FILTER}&amp;oneLevel={ONELEVEL}&amp;sizeLimit={SIZELIMIT}&amp;properties=personalTitle,givenName,sn,name,cn,l,company,department,mail,employeeNumber,mobile,telephoneNumber,streetAddress,postalCode,thumbnailPhoto,objectSid,sAMAccountName,managedby,member</endpoint>
+                <header>
+                    <item name="Adm-Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="array">
+                        <field name="accountStatus" type="object">
+                            <field name="isDisabled" type="string"/>
+                            <field name="isLocked" type="string"/>
+                            <field name="expirationDate" type="string"/>
+                        </field>
+                        <field name="passwordStatus" type="object">
+                            <field name="whenChanged" type="string"/>
+                            <field name="expirationStatus" type="string"/>
+                            <field name="expirationDate" type="string"/>
+                        </field>
+                        <field name="guid" type="string"/>
+                        <field name="dn" type="string"/>
+                        <field name="displayName" type="string"/>
+                        <field name="objectType" type="string"/>
+                        <field name="objectTypeCode" type="string"/>
+                        <field name="domainName" type="string"/>
+                        <field name="properties" type="object">
+                            <field name="personalTitle" type="array"/>
+                            <field name="givenName" type="array"/>
+                            <field name="sn" type="array"/>
+                            <field name="name" type="array"/>
+                            <field name="cn" type="array"/>
+                            <field name="l" type="array"/>
+                            <field name="company" type="array"/>
+                            <field name="department" type="array"/>
+                            <field name="mail" type="array"/>
+                            <field name="employeeNumber" type="array"/>
+                            <field name="mobile" type="array"/>
+                            <field name="telephoneNumber" type="array"/>
+                            <field name="streetAddress" type="array"/>
+                            <field name="postalCode" type="array"/>
+                            <field name="thumbnailPhoto" type="array"/>
+                            <field name="objectSid" type="array"/>
+                            <field name="sAMAccountName" type="array"/>
+                            <field name="managedby" type="array"/>
+                            <field name="member" type="array"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>  
+    </operations>
+</invoker>
