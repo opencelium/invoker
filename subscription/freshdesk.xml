@@ -1,0 +1,383 @@
+<invoker type="RESTful">
+    <name>FreshDesk</name>
+    <description>Freshdesk is a cloud-based customer support platform that was founded with the mission of enabling companies of all sizes to provide great customer service. Our goal is simple: make it easy for brands to talk to their customers and make it easy for users to get in touch with businesses.</description>
+    <hint>This interface provides the token auth. Check out the documentation https://developers.freshdesk.com/api</hint>
+    <requiredData>
+        <item name="url" type="string" visibility="public"/>
+        <item name="username" type="string" visibility="public"/>
+        <item name="password" type="string" visibility="public"/>
+        <item name="token" type="string" visibility="private">Basic {username:password}</item>        
+    </requiredData>
+    <authType>basic</authType>
+    <operations>
+        <operation name="GetTickets" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/v2/tickets</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>                    
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="array" format="json" data="raw">
+                        <field name="id" type="string"/>                     
+                        <field name="subject" type="string"/>
+                        <field name="priority" type="string"/>
+                        <field name="type" type="string"/>
+                        <field name="requester_id" type="string"/>                     
+                        <field name="group_id" type="string"/>
+                        <field name="status" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="SearchTickets" type="test">
+            <request>
+                <method>GET</method>
+		<endpoint>{url}/api/v2/search/tickets?query=</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>                    
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                        <field name="results" type="array">    
+                            <field name="id" type="string"/>                     
+                            <field name="subject" type="string"/>
+                            <field name="priority" type="string"/>
+                            <field name="type" type="string"/>
+                            <field name="requester_id" type="string"/>                     
+                            <field name="group_id" type="string"/>
+                            <field name="status" type="string"/>
+			    <field name="description" type="string"/>
+			    <field name="description_text" type="string"/>
+                            <field name="freshdeskid" type="string"/>				    
+                        </field>    
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>        
+        <operation name="GetTicket" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/v2/tickets/{ID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>                    
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                        <field name="id" type="string"/>
+                        <field name="subject" type="string"/>
+                        <field name="group_id" type="string"/>
+                        <field name="requester_id" type="string"/>
+                        <field name="type" type="string"/>
+                        <field name="due_by" type="string"/>
+                        <field name="fr_due_by" type="string"/>
+                        <field name="description" type="string"/>
+                        <field name="status" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetTicketConversation" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/v2/tickets/{ID}/conversations</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>                    
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="array" format="json" data="raw">
+                        <field name="id" type="string"/>                    
+                        <field name="ticket_id" type="string"/>
+                        <field name="user_id" type="string"/>
+                        <field name="body" type="string"/>
+                        <field name="body_text" type="string"/>
+                        <field name="from_email" type="string"/>
+                        <field name="to_emails" type="string"/>
+                        <field name="attachments" type="array">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="content_type" type="string"/>
+                            <field name="size" type="string"/>
+                            <field name="attachment_url" type="string"/>
+                            <field name="thumb_url" type="string"/>                                                                                                                                                       
+                        </field>
+                        <field name="created_at" type="string"/>
+                        <field name="updated_at" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>                 
+        <operation name="CreateTicket" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/api/v2/tickets</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="subject" type="string"/>
+                        <field name="description" type="string"/>
+                        <field name="priority" type="string"/>
+                        <field name="type" type="string"/>
+                        <field name="requester_id" type="string"/>                     
+                        <field name="group_id" type="string"/>
+                        <field name="status" type="string"/>
+                    </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                    </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="id" type="string"/>
+                        <field name="subject" type="string"/>
+                        <field name="group_id" type="string"/>
+                        <field name="requester_id" type="string"/>
+                        <field name="type" type="string"/>
+                        <field name="due_by" type="string"/>
+                        <field name="fr_due_by" type="string"/>
+                        <field name="description" type="string"/>
+                        <field name="status" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="CreateTicketNote" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/api/v2/tickets/{ID}/notes/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="body" type="string"/>
+                        <field name="incoming" type="string"/>
+                        <field name="notify_emails" type="array"/>
+                        <field name="user_id" type="string"/>
+                        <field name="private" type="string"/>                     
+                    </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                    </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="id" type="string"/>
+                        <field name="body" type="string"/>
+                        <field name="body_text" type="string"/>
+                        <field name="incoming" type="string"/>
+                        <field name="private" type="string"/>
+                        <field name="user_id" type="string"/>
+                        <field name="support_email" type="string"/>
+                        <field name="ticket_id" type="string"/>
+                        <field name="notified_to" type="array"/>
+                        <field name="attachments" type="array"/>                        
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="UpdateNoteAttachment" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/api/v2/conversations/{ID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>                    
+                    <item name="Content-Type" type="string">multipart/form-data</item>
+                </header>
+                    <body type="text" format="json" data="raw">
+                        <field name="attachments[]" type="string"/>
+                        <field name="body" type="string"/>                  
+                    </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                    </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="id" type="string"/>
+                        <field name="body" type="string"/>
+                        <field name="body_text" type="string"/>
+                        <field name="incoming" type="string"/>
+                        <field name="private" type="string"/>
+                        <field name="user_id" type="string"/>
+                        <field name="support_email" type="string"/>
+                        <field name="ticket_id" type="string"/>
+                        <field name="attachments" type="array">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="content_type" type="string"/>
+                            <field name="file_size" type="string"/>
+                            <field name="attachment_url" type="string"/>
+                        </field>                        
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>                
+        <operation name="UpdateTicket" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/api/v2/tickets/{ID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="subject" type="string"/>
+                        <field name="description" type="string"/>
+                        <field name="priority" type="string"/>
+                        <field name="type" type="string"/>
+                        <field name="requester_id" type="string"/>                     
+                        <field name="group_id" type="string"/>
+                        <field name="status" type="number"/>
+                    </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                    </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="id" type="string"/>
+                        <field name="subject" type="string"/>
+                        <field name="group_id" type="string"/>
+                        <field name="requester_id" type="string"/>
+                        <field name="type" type="string"/>
+                        <field name="due_by" type="string"/>
+                        <field name="fr_due_by" type="string"/>
+                        <field name="description" type="string"/>
+                        <field name="status" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="DeleteTicket" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/api/v2/tickets/{ID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                    <body/>
+            </request>
+            <response>
+                <success status="204">
+                    <header>
+                    </header>
+                    <body/>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>                 
+        <operation name="GetAgent" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/v2/agents/{id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                    </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="id" type="string"/>
+                        <field name="contact" type="object">
+                            <field name="email" type="string"/>
+                            <field name="name" type="string"/>                            
+                        </field>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetContact" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/v2/contacts/{id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>                    
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                    </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="id" type="string"/>
+                        <field name="email" type="string"/>
+                        <field name="name" type="string"/>                            
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>        
+    </operations>
+</invoker>

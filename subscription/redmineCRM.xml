@@ -1,0 +1,663 @@
+<invoker type="RESTful">
+    <name>Redmine CRM Plugin</name>
+    <description>The Redmine CRM is a light add-on but adds many features— workflows, sales funnels, charts and reports.</description>
+    <hint>This interface provides a basic auth. Read here the documentation https://www.redmineup.com/pages/help/crm/listing-contacts-api</hint>
+    <requiredData>
+        <item name="url" type="string" visibility="public"/>
+        <item name="username" type="string" visibility="public"/>
+        <item name="password" type="string" visibility="public"/>
+            <item name="token" type="string" visibility="private">Basic {username:password}</item>
+    </requiredData>
+    <authType>basic</authType>
+    <operations>
+        <operation name="GetContacts" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/contacts.json</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                    <field name="contacts" type="array">
+                        <field name="id" type="string"/>
+                        <field name="avatar" type="object">
+                            <field name="attachment_id" type="string"/>
+                        </field>
+                        <field name="is_company" type="string"/>
+                        <field name="first_name" type="string"/>
+                        <field name="last_name" type="string"/>
+                        <field name="middle_name" type="string"/>
+                        <field name="company" type="string"/>
+                        <field name="website" type="string"/>
+                        <field name="skype_name" type="string"/>
+                        <field name="birthday" type="string"/>
+                        <field name="job_title" type="string"/>
+                        <field name="background" type="string"/>
+                        <field name="author" type="object">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                        </field>
+                        <field name="address" type="object">
+                            <field name="street" type="string"/>
+                            <field name="city" type="string"/>
+                            <field name="region" type="string"/>
+                            <field name="country" type="string"/>
+                            <field name="country_code" type="string"/>
+                            <field name="postcode" type="string"/>    
+                            <field name="full_address" type="object">
+                                <field name="id" type="string"/>
+                                <field name="street1" type="string"/>
+                                <field name="street2" type="string"/>
+                                <field name="city" type="string"/>
+                                <field name="region" type="string"/>
+                                <field name="postcode" type="string"/>
+                                <field name="country_code" type="string"/>
+                                <field name="full_address" type="string"/>
+                                <field name="address_type" type="string"/>
+                                <field name="addressable_id" type="string"/>
+                                <field name="addressable_type" type="string"/>
+                                <field name="created_at" type="string"/>
+                                <field name="updated_at" type="string"/>
+                            </field>
+                        </field>
+                        <field name="tag_list" type="array"/>
+                        <field name="custom_fields" type="array">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>    
+                        </field>
+                        <field name="created_on" type="string"/>
+                        <field name="updated_on" type="string"/>   
+                    </field>
+                    <field name="total_count" type="string"/>
+                    <field name="offset" type="string"/>
+                    <field name="limit" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetContact" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/contacts/{ID}.json</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                    <field name="contacts" type="object">
+                        <field name="id" type="string"/>
+                        <field name="avatar" type="object">
+                            <field name="attachment_id" type="string"/>
+                        </field>
+                        <field name="is_company" type="string"/>
+                        <field name="first_name" type="string"/>
+                        <field name="last_name" type="string"/>
+                        <field name="middle_name" type="string"/>
+                        <field name="company" type="string"/>
+                        <field name="website" type="string"/>
+                        <field name="skype_name" type="string"/>
+                        <field name="birthday" type="string"/>
+                        <field name="job_title" type="string"/>
+                        <field name="background" type="string"/>
+                        <field name="author" type="object">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                        </field>
+                        <field name="address" type="object">
+                            <field name="street" type="string"/>
+                            <field name="city" type="string"/>
+                            <field name="region" type="string"/>
+                            <field name="country" type="string"/>
+                            <field name="country_code" type="string"/>
+                            <field name="postcode" type="string"/>    
+                            <field name="full_address" type="object">
+                                <field name="id" type="string"/>
+                                <field name="street1" type="string"/>
+                                <field name="street2" type="string"/>
+                                <field name="city" type="string"/>
+                                <field name="region" type="string"/>
+                                <field name="postcode" type="string"/>
+                                <field name="country_code" type="string"/>
+                                <field name="full_address" type="string"/>
+                                <field name="address_type" type="string"/>
+                                <field name="addressable_id" type="string"/>
+                                <field name="addressable_type" type="string"/>
+                                <field name="created_at" type="string"/>
+                                <field name="updated_at" type="string"/>
+                            </field>
+                        </field>
+                        <field name="tag_list" type="array"/>
+                        <field name="custom_fields" type="array">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>    
+                        </field>
+                        <field name="created_on" type="string"/>
+                        <field name="updated_on" type="string"/>   
+                    </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="CreateContact" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/contacts.json</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                    <field name="contacts" type="object">
+                        <field name="project_id" type="string"/>
+                        <field name="is_company" type="string"/>
+                        <field name="first_name" type="string"/>
+                        <field name="last_name" type="string"/>
+                        <field name="phone" type="string"/>
+                        <field name="email" type="string"/>                        
+                        <field name="middle_name" type="string"/>
+                        <field name="company" type="string"/>
+                        <field name="website" type="string"/>
+                        <field name="skype_name" type="string"/>
+                        <field name="birthday" type="string"/>
+                        <field name="job_title" type="string"/>
+                        <field name="background" type="string"/>
+                        <field name="address_attributes" type="object">
+                            <field name="street1" type="string"/>
+                            <field name="city" type="string"/>
+                            <field name="region" type="string"/>
+                            <field name="country" type="string"/>
+                            <field name="country_code" type="string"/>
+                            <field name="postcode" type="string"/>    
+                        </field>
+                        <field name="tag_list" type="array"/>
+                        <field name="custom_fields" type="array">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>    
+                        </field>
+                        <field name="assigned_to_id" type="string"/>
+                        <field name="visibility" type="string"/>
+                    </field>
+                    </body>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                    <field name="contact" type="object">
+                        <field name="id" type="string"/>
+                        <field name="is_company" type="string"/>
+                        <field name="first_name" type="string"/>
+                        <field name="last_name" type="string"/>
+                        <field name="phone" type="string"/>
+                        <field name="email" type="string"/>                             
+                        <field name="middle_name" type="string"/>
+                        <field name="company" type="string"/>
+                        <field name="website" type="string"/>
+                        <field name="skype_name" type="string"/>
+                        <field name="birthday" type="string"/>
+                        <field name="job_title" type="string"/>
+                        <field name="background" type="string"/>
+                        <field name="author" type="object">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                        </field>
+                        <field name="address" type="object">
+                            <field name="street" type="string"/>
+                            <field name="city" type="string"/>
+                            <field name="region" type="string"/>
+                            <field name="country" type="string"/>
+                            <field name="country_code" type="string"/>
+                            <field name="postcode" type="string"/>    
+                        </field>
+                        <field name="tag_list" type="array"/>
+                        <field name="custom_fields" type="array">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>    
+                        </field>
+                        <field name="created_on" type="string"/>
+                        <field name="updated_on" type="string"/>
+                        <field name="projects" type="array"/>   
+                    </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="UpdateContact" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/contacts/{ID}.json</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                    <field name="contact" type="object">
+                        <field name="project_id" type="string"/>
+                        <field name="is_company" type="string"/>
+                        <field name="first_name" type="string"/>
+                        <field name="last_name" type="string"/>
+                        <field name="middle_name" type="string"/>
+                        <field name="company" type="string"/>
+                        <field name="website" type="string"/>
+                        <field name="skype_name" type="string"/>
+                        <field name="birthday" type="string"/>
+                        <field name="job_title" type="string"/>
+                        <field name="background" type="string"/>
+                        <field name="address_attributes" type="object">
+                            <field name="street1" type="string"/>
+                            <field name="city" type="string"/>
+                            <field name="region" type="string"/>
+                            <field name="country" type="string"/>
+                            <field name="country_code" type="string"/>
+                            <field name="postcode" type="string"/>    
+                        </field>
+                        <field name="tag_list" type="array"/>
+                        <field name="custom_fields" type="array">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>    
+                        </field>
+                        <field name="assigned_to_id" type="string"/>
+                        <field name="visibility" type="string"/>
+                    </field>
+                    </body>
+            </request>
+            <response>
+                <success status="204">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                    <field name="contacts" type="object">
+                        <field name="id" type="string"/>
+                        <field name="is_company" type="string"/>
+                        <field name="first_name" type="string"/>
+                        <field name="last_name" type="string"/>
+                        <field name="middle_name" type="string"/>
+                        <field name="company" type="string"/>
+                        <field name="website" type="string"/>
+                        <field name="skype_name" type="string"/>
+                        <field name="birthday" type="string"/>
+                        <field name="job_title" type="string"/>
+                        <field name="background" type="string"/>
+                        <field name="author" type="object">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                        </field>
+                        <field name="address" type="object">
+                            <field name="street" type="string"/>
+                            <field name="city" type="string"/>
+                            <field name="region" type="string"/>
+                            <field name="country" type="string"/>
+                            <field name="country_code" type="string"/>
+                            <field name="postcode" type="string"/>    
+                        </field>
+                        <field name="tag_list" type="array"/>
+                        <field name="custom_fields" type="array">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>    
+                        </field>
+                        <field name="created_on" type="string"/>
+                        <field name="updated_on" type="string"/>
+                        <field name="projects" type="array"/>   
+                    </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="AddContactToProject" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/contacts/{ID}/projects.json</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                    <field name="project" type="object">
+                        <field name="id" type="string"/>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body/>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="DeleteContactFromProject" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/contacts/{ID}/projects/{PROJECTID}.json</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body/>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetDeals" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/deals.json</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                    <field name="deal" type="array">
+                        <field name="id" type="string"/>
+                       <field name="name" type="string"/>
+                        <field name="contact_id" type="string"/>
+                        <field name="price" type="string"/>
+                        <field name="currency" type="string"/>
+                        <field name="probability" type="string"/>
+                        <field name="due_date" type="string"/>
+                        <field name="background" type="string"/>
+                        <field name="status_id" type="string"/>
+                        <field name="category_id" type="string"/>
+                        <field name="assigned_to_id" type="string"/>
+                        <field name="author" type="object">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                        </field>
+                        <field name="custom_fields" type="array">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>    
+                        </field>
+                        <field name="created_on" type="string"/>
+                        <field name="updated_on" type="string"/>
+                        <field name="projects" type="array"/>   
+                    </field>
+                    <field name="total_count" type="string"/>
+                    <field name="offset" type="string"/>
+                    <field name="limit" type="string"/>                    
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetDeal" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/deals/{ID}.json</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                    <field name="deal" type="object">
+                        <field name="id" type="string"/>
+                       <field name="name" type="string"/>
+                        <field name="contact_id" type="string"/>
+                        <field name="price" type="string"/>
+                        <field name="currency" type="string"/>
+                        <field name="probability" type="string"/>
+                        <field name="due_date" type="string"/>
+                        <field name="background" type="string"/>
+                        <field name="status_id" type="string"/>
+                        <field name="category_id" type="string"/>
+                        <field name="assigned_to_id" type="string"/>
+                        <field name="author" type="object">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                        </field>
+                        <field name="custom_fields" type="array">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>    
+                        </field>
+                        <field name="created_on" type="string"/>
+                        <field name="updated_on" type="string"/>
+                        <field name="projects" type="array"/>   
+                    </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>                 
+        <operation name="CreateDeal" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/deals.json</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                    <field name="deal" type="object">
+                        <field name="project_id" type="string"/>
+                        <field name="name" type="string"/>
+                        <field name="contact_id" type="string"/>
+                        <field name="price" type="string"/>
+                        <field name="currency" type="string"/>
+                        <field name="probability" type="string"/>
+                        <field name="due_date" type="string"/>
+                        <field name="background" type="string"/>
+                        <field name="status_id" type="string"/>
+                        <field name="category_id" type="string"/>
+                        <field name="assigned_to_id" type="string"/>
+                        <field name="custom_fields" type="array">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>    
+                        </field>
+                    </field>
+                    </body>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                    <field name="deal" type="object">
+                        <field name="id" type="string"/>
+                       <field name="name" type="string"/>
+                        <field name="contact_id" type="string"/>
+                        <field name="price" type="string"/>
+                        <field name="currency" type="string"/>
+                        <field name="probability" type="string"/>
+                        <field name="due_date" type="string"/>
+                        <field name="background" type="string"/>
+                        <field name="status_id" type="string"/>
+                        <field name="category_id" type="string"/>
+                        <field name="assigned_to_id" type="string"/>
+                        <field name="author" type="object">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                        </field>
+                        <field name="custom_fields" type="array">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>    
+                        </field>
+                        <field name="created_on" type="string"/>
+                        <field name="updated_on" type="string"/>
+                        <field name="projects" type="array"/>   
+                    </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="UpdateDeal" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/deals/{ID}.json</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                    <field name="deal" type="object">
+                        <field name="project_id" type="string"/>
+                        <field name="name" type="string"/>
+                        <field name="contact_id" type="string"/>
+                        <field name="price" type="string"/>
+                        <field name="currency" type="string"/>
+                        <field name="probability" type="string"/>
+                        <field name="due_date" type="string"/>
+                        <field name="background" type="string"/>
+                        <field name="status_id" type="string"/>
+                        <field name="category_id" type="string"/>
+                        <field name="assigned_to_id" type="string"/>
+                        <field name="custom_fields" type="array">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>    
+                        </field>
+                    </field>
+                    </body>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                    <field name="deal" type="object">
+                        <field name="id" type="string"/>
+                       <field name="name" type="string"/>
+                        <field name="contact_id" type="string"/>
+                        <field name="price" type="string"/>
+                        <field name="currency" type="string"/>
+                        <field name="probability" type="string"/>
+                        <field name="due_date" type="string"/>
+                        <field name="background" type="string"/>
+                        <field name="status_id" type="string"/>
+                        <field name="category_id" type="string"/>
+                        <field name="assigned_to_id" type="string"/>
+                        <field name="author" type="object">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                        </field>
+                        <field name="custom_fields" type="array">
+                            <field name="id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>    
+                        </field>
+                        <field name="created_on" type="string"/>
+                        <field name="updated_on" type="string"/>
+                        <field name="projects" type="array"/>   
+                    </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetDealStatuses" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/deals_statuses.json</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                    <field name="deals_statuses" type="array">
+                        <field name="id" type="string"/>
+                        <field name="name" type="string"/>
+                        <field name="position" type="string"/>
+                        <field name="is_default" type="string"/>
+                        <field name="status_type" type="string"/>
+                        <field name="color" type="string"/>
+                    </field>
+                    <field name="total_count" type="string"/>                        
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetDealCategories" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/deal_categories.json</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                    <field name="deal_categories" type="array">
+                        <field name="id" type="string"/>
+                        <field name="name" type="string"/>
+                    </field>
+                    <field name="total_count" type="string"/>                        
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>                                          
+    </operations>
+</invoker>

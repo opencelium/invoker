@@ -1,0 +1,838 @@
+<invoker type="RESTful">
+    <name>XenOrchestra</name>
+    <description>Xen Orchestra is designed to give you the tools you need to administrate your Citrix Hypervisor (XenServer) pools and enjoy a complete overview of your whole infrastructure. No agent to install on your hosts, you can access everything from anywhere and from any devices.</description>
+    <hint>This interface provides a token auth. Read the documentation here https://xen-orchestra.com/docs/restapi.html</hint>
+    <requiredData>
+        <item name="url" type="string" visibility="public"/>
+        <item name="authenticationToken" type="string" visibility="protected"/>
+    </requiredData>
+    <authType>apikey</authType>
+    <operations>
+        <operation name="GetVersion" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body type="object" format="json" data="raw">
+                        <field name="token" type="string"/>
+                        <field name="refreshToken" type="string"/>
+                        <field name="benutzerCode" type="string"/>
+                        <field name="benutzerRechte" type="string"/>
+                        <field name="kundennummer" type="string"/>
+                        <field name="module" type="string"/>
+                        <field name="needsPasswordChange" type="string"/>                        
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>                     
+        <operation name="GetVMS" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/vms</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="array" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw"/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetVM" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/vms/{ID}</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="type" type="string"/>
+                        <field name="auto_poweron" type="string"/>
+                        <field name="expNestedHvm" type="string"/>
+                        <field name="mainIpAddress" type="string"/>
+                        <field name="high_availability" type="string"/>
+                        <field name="power_state" type="string"/>
+                        <field name="hasVendorDevice" type="string"/>
+                        <field name="startDelay" type="string"/>
+                        <field name="startTime" type="string"/>
+                        <field name="secureBoot" type="string"/>
+                        <field name="managementAgentDetected" type="string"/>
+                        <field name="pvDriversDetected" type="string"/>
+                        <field name="pvDriversVersion" type="string"/>
+                        <field name="pvDriversUpToDate" type="string"/>
+                        <field name="vga" type="string"/>
+                        <field name="videoram" type="string"/>
+                        <field name="coresPerSocket" type="string"/>
+                        <field name="cpuWeight" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="uuid" type="string"/>
+                        <field name="$pool" type="string"/>
+                        <field name="$poolId" type="string"/>
+                        <field name="_xapiRef" type="string"/>
+                        <field name="$container" type="string"/>
+                        <field name="installTime" type="string"/>
+                        <field name="name_description" type="string"/>
+                        <field name="name_label" type="string"/>
+                        <field name="blockedOperations" type="object"/>
+                        <field name="current_operations" type="object"/>
+                        <field name="snapshots" type="array"/>
+                        <field name="VGPUs" type="array"/>
+                        <field name="$VGPUs" type="array"/>
+                        <field name="addresses" type="object">
+                            <field name="0/ipv4/0" type="string"/>
+                            <field name="0/ipv6/0" type="string"/>
+                        </field>
+                        <field name="bios_strings" type="object">
+                            <field name="bios-vendor" type="string"/>
+                            <field name="bios-version" type="string"/>
+                            <field name="system-manufacturer" type="string"/>
+                            <field name="system-product-name" type="string"/>
+                            <field name="system-version" type="string"/>
+                            <field name="system-serial-number" type="string"/>
+                            <field name="enclosure-asset-tag" type="string"/>
+                            <field name="hp-rombios" type="string"/>
+                            <field name="oem-1" type="string"/>
+                            <field name="oem-2"  type="string"/>
+                        </field>
+                        <field name="boot" type="object">
+                            <field name="order" type="string"/>
+                        </field>
+                        <field name="CPUs" type="object">
+                            <field name="max" type="string"/>
+                            <field name="number" type="string"/>
+                        </field>
+                        <field name="memory" type="object">
+                            <field name="dynamic" type="array"/>
+                            <field name="static" type="array"/>
+                            <field name="size" type="string"/>
+                        </field>
+                        <field name="other" type="object">
+                            <field name="import_task" type="string"/>
+                            <field name="base_template_name" type="string"/>
+                            <field name="mac_seed" type="string"/>
+                            <field name="install-methods" type="string"/>
+                        </field>
+                        <field name="os_version" type="object">
+                            <field name="name" type="string"/>
+                            <field name="uname" type="string"/>
+                            <field name="distro" type="string"/>
+                            <field name="major" type="string"/>
+                            <field name="minor" type="string"/>
+                        </field>
+                        <field name="tags" type="array"/>
+                        <field name="VIFs" type="array"/>
+                        <field name="virtualizationMode" type="string"/>
+                        <field name="xenTools" type="object">
+                            <field name="major" type="string"/>
+                            <field name="minor" type="string"/>
+                            <field name="version" type="string"/>
+                        </field>
+                        <field name="$VBDs" type="array"/>                        
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw"/>
+                </fail>
+            </response>
+        </operation>        
+        <operation name="GetHosts" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/hosts</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="array" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw"/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetHost" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/host/{ID}</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="array" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="id" type="string"/>
+                        <field name="type" type="string"/>
+                        <field name="uuid" type="string"/>
+                        <field name="$pool" type="string"/>
+                        <field name="$poolId" type="string"/>
+                        <field name="_xapiRef" type="string"/>
+                        <field name="powerOnMode" type="string"/>
+                        <field name="power_state" type="string"/>
+                        <field name="startTime" type="string"/>
+                        <field name="agentStartTime" type="string"/>
+                        <field name="rebootRequired" type="string"/>
+                        <field name="version" type="string"/>
+                        <field name="productBrand" type="string"/>
+                        <field name="hvmCapable" type="string"/>
+                        <field name="license_expiry" type="string"/>
+                        <field name="name_description" type="string"/>
+                        <field name="name_label" type="string"/>
+                        <field name="address" type="string"/>
+                        <field name="build" type="string"/>
+                        <field name="hostname" type="string"/>
+                        <field name="iscsiIqn" type="string"/>
+                        <field name="zstdSupported" type="string"/>
+                        <field name="enabled" type="string"/>
+                        <field name="controlDomain" type="string"/>
+                        <field name="current_operations" type="object"/>
+                        <field name="logging" type="object"/>
+                        <field name="tags" type="array"/>
+                        <field name="supplementalPacks" type="array"/>
+                        <field name="CPUs" type="object">
+                            <field name="cpu_count" type="string"/>
+                            <field name="socket_count" type="string"/>
+                            <field name="vendor" type="string"/>
+                            <field name="speed" type="string"/>
+                            <field name="modelname" type="string"/>
+                            <field name="family" type="string"/>
+                            <field name="model" type="string"/>
+                            <field name="stepping" type="string"/>
+                            <field name="flags" type="string"/>
+                            <field name="features" type="string"/>
+                            <field name="features_pv" type="string"/>
+                            <field name="features_hvm" type="string"/>
+                        </field>
+                        <field name="bios_strings" type="object">
+                            <field name="bios-vendor" type="string"/>
+                            <field name="bios-version" type="string"/>
+                            <field name="system-manufacturer" type="string"/>
+                            <field name="system-product-name" type="string"/>
+                            <field name="system-version" type="string"/>
+                            <field name="system-serial-number" type="string"/>
+                            <field name="oem-1" type="string"/>
+                            <field name="oem-2" type="string"/>
+                            <field name="oem-3" type="string"/>
+                            <field name="oem-4" type="string"/>
+                            <field name="oem-5" type="string"/>
+                            <field name="oem-6" type="string"/>
+                            <field name="oem-7" type="string"/>
+                            <field name="oem-8" type="string"/>
+                            <field name="oem-9" type="string"/>
+                            <field name="oem-10" type="string"/>
+                            <field name="hp-rombios" type="string"/>
+                        </field>
+                        <field name="chipset_info" type="object">
+                             <field name="iommu" type="string"/>
+                        </field>
+                        <field name="cpus" type="object">
+                            <field name="cores" type="string"/>
+                            <field name="sockets" type="string"/>
+                        </field>
+                        <field name="license_params" type="object">
+                            <field name="sku_type" type="string"/>
+                            <field name="version" type="string"/>
+                            <field name="serialnumber" type="string"/>
+                            <field name="sockets" type="string"/>
+                            <field name="productcode" type="string"/>
+                            <field name="expiry" type="string"/>
+                            <field name="grace" type="string"/>
+                            <field name="license_type" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="company" type="string"/>
+                            <field name="address1" type="string"/>
+                            <field name="address2" type="string"/>
+                            <field name="city" type="string"/>
+                            <field name="state" type="string"/>
+                            <field name="postalcode" type="string"/>
+                            <field name="country" type="string"/>
+                            <field name="sku_marketing_name" type="string"/>
+                            <field name="restrict_vswitch_controller" type="string"/>
+                            <field name="restrict_lab" type="string"/>
+                            <field name="restrict_stage" type="string"/>
+                            <field name="restrict_storagelink" type="string"/>
+                            <field name="restrict_storagelink_site_recovery" type="string"/>
+                            <field name="restrict_web_selfservice" type="string"/>
+                            <field name="restrict_web_selfservice_manager" type="string"/>
+                            <field name="restrict_hotfix_apply" type="string"/>
+                            <field name="restrict_export_resource_data" type="string"/>
+                            <field name="restrict_read_caching" type="string"/>
+                            <field name="restrict_cifs" type="string"/>
+                            <field name="restrict_health_check" type="string"/>
+                            <field name="restrict_xcm" type="string"/>
+                            <field name="restrict_vm_memory_introspection" type="string"/>
+                            <field name="restrict_batch_hotfix_apply" type="string"/>
+                            <field name="restrict_vlan" type="string"/>
+                            <field name="restrict_qos" type="string"/>
+                            <field name="restrict_pool_attached_storage" type="string"/>
+                            <field name="restrict_netapp" type="string"/>
+                            <field name="restrict_equalogic" type="string"/>
+                            <field name="restrict_pooling" type="string"/>
+                            <field name="enable_xha" type="string"/>
+                            <field name="restrict_marathon" type="string"/>
+                            <field name="restrict_email_alerting" type="string"/>
+                            <field name="restrict_historical_performance" type="string"/>
+                            <field name="restrict_wlb" type="string"/>
+                            <field name="restrict_rbac" type="string"/>
+                            <field name="restrict_dmc" type="string"/>
+                            <field name="restrict_checkpoint" type="string"/>
+                            <field name="restrict_cpu_masking" type="string"/>
+                            <field name="restrict_connection" type="string"/>
+                            <field name="platform_filter" type="string"/>
+                            <field name="regular_nag_dialog" type="string"/>
+                            <field name="restrict_vmpr" type="string"/>
+                            <field name="restrict_vmss" type="string"/>
+                            <field name="restrict_intellicache" type="string"/>
+                            <field name="restrict_gpu" type="string"/>
+                            <field name="restrict_dr" type="string"/>
+                            <field name="restrict_vif_locking" type="string"/>
+                            <field name="restrict_storage_xen_motion" type="string"/>
+                            <field name="restrict_vgpu" type="string"/>
+                            <field name="restrict_integrated_gpu_passthrough" type="string"/>
+                            <field name="restrict_vss" type="string"/>
+                            <field name="restrict_guest_agent_auto_update" type="string"/>
+                            <field name="restrict_pci_device_for_auto_update" type="string"/>
+                            <field name="restrict_xen_motion" type="string"/>
+                            <field name="restrict_guest_ip_setting" type="string"/>
+                            <field name="restrict_ad" type="string"/>
+                            <field name="restrict_ssl_legacy_switch" type="string"/>
+                            <field name="restrict_nested_virt" type="string"/>
+                            <field name="restrict_live_patching" type="string"/>
+                            <field name="restrict_set_vcpus_number_live" type="string"/>
+                            <field name="restrict_pvs_proxy" type="string"/>
+                        </field>
+                        <field name="license_server" type="object">
+                             <field name="address" type="string"/>
+                             <field name="port" type="string"/>
+                        </field>
+                        <field name="memory" type="object">
+                             <field name="usage" type="string"/>
+                             <field name="size" type="string"/>
+                        </field>
+                        <field name="multipathing" type="string"/>
+                        <field name="otherConfig" type="object">
+                             <field name="agent_start_time" type="string"/>
+                             <field name="boot_time" type="string"/>
+                             <field name="iscsi_iqn" type="string"/>
+                        </field>
+                        <field name="patches" type="array"/>
+                        <field name="PIFs" type="array"/>
+                        <field name="$PIFs" type="array"/>
+                        <field name="PCIs" type="array"/>
+                        <field name="$PCIs" type="array"/>
+                        <field name="PGPUs" type="array"/>
+                        <field name="$PGPUs" type="array"/>
+                        <field name="$PBDs" type="array"/>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetPools" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/pools</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="array" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw"/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetPool" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/pools/{ID}</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="array" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="current_operations" type="object"/>
+                        <field name="tags" type="array"/>
+                        <field name="default_SR" type="string"/>
+                        <field name="HA_enabled" type="string"/>
+                        <field name="master" type="string"/>
+                        <field name="name_description" type="string"/>
+                        <field name="name_label" type="string"/>
+                        <field name="xosanPackInstallationTime" type="string"/>
+                        <field name="zstdSupported" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="type" type="string"/>
+                        <field name="uuid" type="string"/>
+                        <field name="$pool" type="string"/>
+                        <field name="$poolId" type="string"/>
+                        <field name="_xapiRef" type="string"/>
+                        <field name="otherConfig" type="object"/>
+                        <field name="cpus" type="object">
+                            <field name="cores" type="string"/>
+                            <field name="sockets" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetNetworks" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/networks</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="array" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw"/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetNetwork" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/networks/{ID}</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="array" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="other_config" type="object"/>
+                        <field name="tags" type="array"/>
+                        <field name="PIFs" type="array"/>
+                        <field name="VIFs" type="array"/>
+                        <field name="current_operations" type="object"/>
+                        <field name="automatic" type="string"/>
+                        <field name="bridge" type="string"/>
+                        <field name="defaultIsLocked" type="string"/>
+                        <field name="MTU" type="string"/>
+                        <field name="name_description" type="string"/>
+                        <field name="name_label" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="type" type="string"/>
+                        <field name="uuid" type="string"/>
+                        <field name="$pool" type="string"/>
+                        <field name="$poolId" type="string"/>
+                        <field name="_xapiRef" type="string"/>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetStorages" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/srs</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="array" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw"/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetStorage" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/srs/{ID}</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="array" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="type" type="string"/>
+                        <field name="content_type" type="string"/>
+                        <field name="physical_usage" type="string"/>
+                        <field name="inMaintenanceMode" type="string"/>
+                        <field name="name_description" type="string"/>
+                        <field name="name_label" type="string"/>
+                        <field name="size" type="string"/>
+                        <field name="shared" type="string"/>
+                        <field name="SR_type" type="string"/>
+                        <field name="usage" type="string"/>
+                        <field name="$container" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="uuid" type="string"/>
+                        <field name="$pool" type="string"/>
+                        <field name="$poolId" type="string"/>
+                        <field name="_xapiRef" type="string"/>
+                        <field name="$PBDs" type="array"/>
+                        <field name="tags" type="array"/>
+                        <field name="VDIs" type="array"/>
+                        <field name="sm_config" type="object"/>
+                        <field name="current_operations" type="object"/>
+                        <field name="other_config" type="object">
+                            <field name="xensource_internal" type="string"/>
+                            <field name="xenserver_tools_sr" type="string"/>
+                            <field name="i18n-key" type="string"/>
+                            <field name="i18n-original-value-name_label" type="string"/>
+                            <field name="i18n-original-value-name_description" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetVirtualBlockDevices" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/vdbs</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="array" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw"/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetVirtualBlockDevice" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/vdbs/{ID}</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="array" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="type" type="string"/>
+                        <field name="attached" type="string"/>
+                        <field name="bootable" type="string"/>
+                        <field name="device" type="string"/>
+                        <field name="is_cd_drive" type="string"/>
+                        <field name="position" type="string"/>
+                        <field name="read_only" type="string"/>
+                        <field name="VDI" type="string"/>
+                        <field name="VM" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="uuid" type="string"/>
+                        <field name="$pool" type="string"/>
+                        <field name="$poolId" type="string"/>
+                        <field name="_xapiRef" type="string"/>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetVirtualDiskImages" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/vdis</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="array" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw"/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetVirtualDiskImage" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/vdis/{ID}</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="array" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="type" type="string"/>
+                        <field name="missing" type="string"/>
+                        <field name="name_description" type="string"/>
+                        <field name="name_label" type="string"/>
+                        <field name="size" type="string"/>
+                        <field name="usage" type="string"/>
+                        <field name="VDI_type" type="string"/>
+                        <field name="$SR" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="uuid" type="string"/>
+                        <field name="$pool" type="string"/>
+                        <field name="$poolId" type="string"/>
+                        <field name="_xapiRef" type="string"/>
+                        <field name="snapshots" type="array"/>
+                        <field name="tags" type="array"/>
+                        <field name="$VBDs" type="array"/>
+                        <field name="current_operations" type="object"/>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetVirtualNetworkInterfaces" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/vifs</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="array" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw"/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetVirtualNetworkInterface" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/v0/vifs/{ID}</endpoint>
+                <header>
+                    <item name="Cookie" type="string">authenticationToken={authenticationToken}</item>
+                    <item name="Content-Type" type="string">application/json</item>                    
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="array" format="json" data="raw">
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body type="object" format="json" data="raw">
+                        <field name="allowedIpv4Addresses" type="array"/>
+                        <field name="allowedIpv6Addresses" type="array"/>
+                        <field name="other_config" type="object"/>
+                        <field name="type" type="string"/>
+                        <field name="attached" type="string"/>
+                        <field name="device" type="string"/>
+                        <field name="lockingMode" type="string"/>
+                        <field name="MAC" type="string"/>
+                        <field name="MTU" type="string"/>
+                        <field name="txChecksumming" type="string"/>
+                        <field name="$network" type="string"/>
+                        <field name="$VM" type="string"/>
+                        <field name="id" type="string"/>
+                        <field name="uuid" type="string"/>
+                        <field name="$pool" type="string"/>
+                        <field name="$poolId" type="string"/>
+                        <field name="_xapiRef" type="string"/>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+    </operations>
+</invoker>

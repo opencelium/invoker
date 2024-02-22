@@ -1,0 +1,2690 @@
+<invoker type="openapi">
+	<name>STARFACE</name>
+	<description>STARFACE is the future-proof, multi-award-winning, hybrid telephone system for your company and thus meets the highest demands for your modern business communication. Thanks to STARFACE, the communication services can be seamlessly integrated into the IT-supported business processes of your company - regardless of the platform on Mac or Windows. Thanks to the future-proof platform, STARFACE can also be integrated into different CRM and ERP systems, thus ensuring smooth communication flows throughout the company.</description>
+	<hint>This interface provides a basic auth.</hint>
+	<authType>basic</authType>
+	<requiredData>
+		<item name="url" type="string" visibility="public">/</item>
+		<item name="username" type="string" visibility="public"/>
+		<item name="password" type="string" visibility="protected"/>
+		<item name="token" type="string" visibility="private">Basic {username:password}</item>
+	</requiredData>
+	<operations>
+		<operation name="getDefaultTexts" type="test">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/conferenceConfiguration/defaults</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="eMailBody" type="string"/>
+						<field name="eMailSubject" type="string"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getGroups" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/groups</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="groupexternalnumber" type="string"/>
+						<field name="groupinternalnumber" type="string"/>
+						<field name="groupname" type="string"/>
+						<field name="id" type="plaintext"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="createGroup" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="assignableNumbers" type="array">
+						<field name="assigned" type="boolean"/>
+						<field name="countryCode" type="string"/>
+						<field name="exitCode" type="string"/>
+						<field name="extension" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="intern" type="boolean"/>
+						<field name="localAreaCode" type="string"/>
+					</field>
+					<field name="assignableUsers" type="array">
+						<field name="assigned" type="boolean"/>
+						<field name="firstname" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="lastname" type="string"/>
+					</field>
+					<field name="chatGroup" type="boolean"/>
+					<field name="groupId" type="string"/>
+					<field name="id" type="plaintext"/>
+					<field name="name" type="string"/>
+					<field name="voicemail" type="boolean"/>
+				</body>
+				<endpoint>{url}/groups</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="saveGroup" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="assignableNumbers" type="array">
+						<field name="assigned" type="boolean"/>
+						<field name="countryCode" type="string"/>
+						<field name="exitCode" type="string"/>
+						<field name="extension" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="intern" type="boolean"/>
+						<field name="localAreaCode" type="string"/>
+					</field>
+					<field name="assignableUsers" type="array">
+						<field name="assigned" type="boolean"/>
+						<field name="firstname" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="lastname" type="string"/>
+					</field>
+					<field name="chatGroup" type="boolean"/>
+					<field name="groupId" type="string"/>
+					<field name="id" type="plaintext"/>
+					<field name="name" type="string"/>
+					<field name="voicemail" type="boolean"/>
+				</body>
+				<endpoint>{url}/groups</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getPhoneNumberAssignment" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/phonenumberconfig/phonenumbers/{phoneNumberId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="accountId" type="plaintext"/>
+						<field name="phoneNumberId" type="plaintext"/>
+						<field name="serviceId" type="plaintext"/>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="object">
+						<field name="accountId" type="plaintext"/>
+						<field name="phoneNumberId" type="plaintext"/>
+						<field name="serviceId" type="plaintext"/>
+					</body>
+				</fail>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="deletePhoneNumberAssignment" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/phonenumberconfig/phonenumbers/{phoneNumberId}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="400"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getLogin" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/login</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="loginType" type="string"/>
+						<field name="nonce" type="string"/>
+						<field name="secret" type="string"/>
+					</body>
+				</success>
+				<fail status="500">
+					<body data="application/json" format="json" type="object">
+						<field name="loginType" type="string"/>
+						<field name="nonce" type="string"/>
+						<field name="secret" type="string"/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="login" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="loginType" type="string"/>
+					<field name="nonce" type="string"/>
+					<field name="secret" type="string"/>
+				</body>
+				<endpoint>{url}/login</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="token" type="string"/>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="object">
+						<field name="token" type="string"/>
+					</body>
+				</fail>
+				<fail status="500">
+					<body data="application/json" format="json" type="object">
+						<field name="token" type="string"/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="logout" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/login</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getPhoneNumbers" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/phonenumbers</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="assignedGroupAccountId" type="plaintext"/>
+						<field name="assignedModuleInstanceId" type="string"/>
+						<field name="assignedServiceId" type="plaintext"/>
+						<field name="assignedUserAccountId" type="plaintext"/>
+						<field name="exitCode" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="localPrefix" type="string"/>
+						<field name="nationalPrefix" type="string"/>
+						<field name="number" type="string"/>
+						<field name="numberBlockId" type="plaintext"/>
+						<field name="type" type="string"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getPhoneConfig" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/phoneconfig</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="callWaiting" type="boolean"/>
+						<field name="displayNumberId" type="plaintext"/>
+						<field name="doNotDisturb" type="boolean"/>
+						<field name="primaryPhoneId" type="plaintext"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="putPhoneConfig" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/phoneconfig</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<success status="204"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getCallService" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/callservices/{serviceId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="label" type="string"/>
+						<field name="serviceId" type="plaintext"/>
+						<field name="serviceName" type="string"/>
+					</body>
+				</success>
+				<fail status="404">
+					<body data="application/json" format="json" type="object">
+						<field name="label" type="string"/>
+						<field name="serviceId" type="plaintext"/>
+						<field name="serviceName" type="string"/>
+					</body>
+				</fail>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getPermissions" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/permissions</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="description" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="permission" type="string"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getFmcPhones" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/fmcPhones</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="active" type="boolean"/>
+						<field name="confirm" type="boolean"/>
+						<field name="delay" type="plaintext"/>
+						<field name="fmcSchedule" type="array">
+							<field name="friday" type="boolean"/>
+							<field name="monday" type="boolean"/>
+							<field name="saturday" type="boolean"/>
+							<field name="sunday" type="boolean"/>
+							<field name="thursday" type="boolean"/>
+							<field name="timeBegin" type="string"/>
+							<field name="timeEnd" type="string"/>
+							<field name="tuesday" type="boolean"/>
+							<field name="wednesday" type="boolean"/>
+						</field>
+						<field name="id" type="string"/>
+						<field name="number" type="string"/>
+						<field name="telephoneId" type="string"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="postFmcPhone" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="active" type="boolean"/>
+					<field name="confirm" type="boolean"/>
+					<field name="delay" type="plaintext"/>
+					<field name="fmcSchedule" type="array">
+						<field name="friday" type="boolean"/>
+						<field name="monday" type="boolean"/>
+						<field name="saturday" type="boolean"/>
+						<field name="sunday" type="boolean"/>
+						<field name="thursday" type="boolean"/>
+						<field name="timeBegin" type="string"/>
+						<field name="timeEnd" type="string"/>
+						<field name="tuesday" type="boolean"/>
+						<field name="wednesday" type="boolean"/>
+					</field>
+					<field name="id" type="string"/>
+					<field name="number" type="string"/>
+					<field name="telephoneId" type="string"/>
+				</body>
+				<endpoint>{url}/fmcPhones</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="201"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getTag" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/contacts/tags/{tagId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="alias" type="string"/>
+						<field name="id" type="string"/>
+						<field name="name" type="string"/>
+						<field name="owner" type="string"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="putTag" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="alias" type="string"/>
+					<field name="id" type="string"/>
+					<field name="name" type="string"/>
+					<field name="owner" type="string"/>
+				</body>
+				<endpoint>{url}/contacts/tags/{tagId}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="deleteTag" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/contacts/tags/{tagId}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="listAssignedPhones" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/phoneconfig/phones</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="active" type="boolean"/>
+						<field name="isIFMC" type="boolean"/>
+						<field name="phoneId" type="plaintext"/>
+						<field name="phoneName" type="string"/>
+						<field name="userId" type="plaintext"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="assignPhone" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/phoneconfig/phones</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<success status="201"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getAvatar" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/avatar</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="image/png" format="json" type="string"/>
+				</success>
+				<fail status="404"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="putAvatar" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">image/gif</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="image/png" format="json" type="string"/>
+				<endpoint>{url}/users/{userId}/avatar</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="404"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="deleteAvatar" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/avatar</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="404"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getPhoneNumber" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/phonenumbers/{phoneNumberId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="assignedGroupAccountId" type="plaintext"/>
+						<field name="assignedModuleInstanceId" type="string"/>
+						<field name="assignedServiceId" type="plaintext"/>
+						<field name="assignedUserAccountId" type="plaintext"/>
+						<field name="exitCode" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="localPrefix" type="string"/>
+						<field name="nationalPrefix" type="string"/>
+						<field name="number" type="string"/>
+						<field name="numberBlockId" type="plaintext"/>
+						<field name="type" type="string"/>
+					</body>
+				</success>
+				<fail status="404">
+					<body data="application/json" format="json" type="object">
+						<field name="assignedGroupAccountId" type="plaintext"/>
+						<field name="assignedModuleInstanceId" type="string"/>
+						<field name="assignedServiceId" type="plaintext"/>
+						<field name="assignedUserAccountId" type="plaintext"/>
+						<field name="exitCode" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="localPrefix" type="string"/>
+						<field name="nationalPrefix" type="string"/>
+						<field name="number" type="string"/>
+						<field name="numberBlockId" type="plaintext"/>
+						<field name="type" type="string"/>
+					</body>
+				</fail>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getFmcPhone" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/fmcPhones/{fmcId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="active" type="boolean"/>
+						<field name="confirm" type="boolean"/>
+						<field name="delay" type="plaintext"/>
+						<field name="fmcSchedule" type="array">
+							<field name="friday" type="boolean"/>
+							<field name="monday" type="boolean"/>
+							<field name="saturday" type="boolean"/>
+							<field name="sunday" type="boolean"/>
+							<field name="thursday" type="boolean"/>
+							<field name="timeBegin" type="string"/>
+							<field name="timeEnd" type="string"/>
+							<field name="tuesday" type="boolean"/>
+							<field name="wednesday" type="boolean"/>
+						</field>
+						<field name="id" type="string"/>
+						<field name="number" type="string"/>
+						<field name="telephoneId" type="string"/>
+					</body>
+				</success>
+				<fail status="404">
+					<body data="application/json" format="json" type="object">
+						<field name="active" type="boolean"/>
+						<field name="confirm" type="boolean"/>
+						<field name="delay" type="plaintext"/>
+						<field name="fmcSchedule" type="array">
+							<field name="friday" type="boolean"/>
+							<field name="monday" type="boolean"/>
+							<field name="saturday" type="boolean"/>
+							<field name="sunday" type="boolean"/>
+							<field name="thursday" type="boolean"/>
+							<field name="timeBegin" type="string"/>
+							<field name="timeEnd" type="string"/>
+							<field name="tuesday" type="boolean"/>
+							<field name="wednesday" type="boolean"/>
+						</field>
+						<field name="id" type="string"/>
+						<field name="number" type="string"/>
+						<field name="telephoneId" type="string"/>
+					</body>
+				</fail>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="putFmcPhone" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="active" type="boolean"/>
+					<field name="confirm" type="boolean"/>
+					<field name="delay" type="plaintext"/>
+					<field name="fmcSchedule" type="array">
+						<field name="friday" type="boolean"/>
+						<field name="monday" type="boolean"/>
+						<field name="saturday" type="boolean"/>
+						<field name="sunday" type="boolean"/>
+						<field name="thursday" type="boolean"/>
+						<field name="timeBegin" type="string"/>
+						<field name="timeEnd" type="string"/>
+						<field name="tuesday" type="boolean"/>
+						<field name="wednesday" type="boolean"/>
+					</field>
+					<field name="id" type="string"/>
+					<field name="number" type="string"/>
+					<field name="telephoneId" type="string"/>
+				</body>
+				<endpoint>{url}/fmcPhones/{fmcId}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="404">
+					<body data="application/json" format="json" type="object">
+						<field name="active" type="boolean"/>
+						<field name="confirm" type="boolean"/>
+						<field name="delay" type="plaintext"/>
+						<field name="fmcSchedule" type="array">
+							<field name="friday" type="boolean"/>
+							<field name="monday" type="boolean"/>
+							<field name="saturday" type="boolean"/>
+							<field name="sunday" type="boolean"/>
+							<field name="thursday" type="boolean"/>
+							<field name="timeBegin" type="string"/>
+							<field name="timeEnd" type="string"/>
+							<field name="tuesday" type="boolean"/>
+							<field name="wednesday" type="boolean"/>
+						</field>
+						<field name="id" type="string"/>
+						<field name="number" type="string"/>
+						<field name="telephoneId" type="string"/>
+					</body>
+				</fail>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="deleteFmcPhone" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/fmcPhones/{fmcId}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="404"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getTagList" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/contacts/tags</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="alias" type="string"/>
+						<field name="id" type="string"/>
+						<field name="name" type="string"/>
+						<field name="owner" type="string"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="postTag" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="alias" type="string"/>
+					<field name="id" type="string"/>
+					<field name="name" type="string"/>
+					<field name="owner" type="string"/>
+				</body>
+				<endpoint>{url}/contacts/tags</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="201">
+					<body data="application/json" format="json" type="object">
+						<field name="alias" type="string"/>
+						<field name="id" type="string"/>
+						<field name="name" type="string"/>
+						<field name="owner" type="string"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getCallServices" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/callservices</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="label" type="string"/>
+						<field name="serviceId" type="plaintext"/>
+						<field name="serviceName" type="string"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="putFunctionKeySetOnPhone" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/functionkeysets/{fkSetId}/phone</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="usersMeGet" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/me</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="email" type="string"/>
+						<field name="familyName" type="string"/>
+						<field name="faxCallerId" type="string"/>
+						<field name="faxCoverPage" type="boolean"/>
+						<field name="faxEmailJournal" type="boolean"/>
+						<field name="faxHeader" type="string"/>
+						<field name="firstName" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="language" type="string"/>
+						<field name="login" type="string"/>
+						<field name="missedCallReport" type="boolean"/>
+						<field name="namespace" type="string"/>
+						<field name="password" type="string"/>
+						<field name="personId" type="string"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getRedirects" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/redirects</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="enabled" type="boolean"/>
+						<field name="groupNumber" type="boolean"/>
+						<field name="id" type="string"/>
+						<field name="lastMailboxDestination" type="object">
+							<field name="mailboxId" type="string"/>
+							<field name="redirectDestinationType" type="string"/>
+						</field>
+						<field name="lastPhoneNumberDestination" type="object">
+							<field name="phoneNumber" type="string"/>
+							<field name="redirectDestinationType" type="string"/>
+						</field>
+						<field name="phoneNumber" type="string"/>
+						<field name="redirectDestination" type="object">
+							<field name="redirectDestinationType" type="string"/>
+						</field>
+						<field name="redirectTrigger" type="object">
+							<field name="redirectTriggerType" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getUser" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="email" type="string"/>
+						<field name="familyName" type="string"/>
+						<field name="faxCallerId" type="string"/>
+						<field name="faxCoverPage" type="boolean"/>
+						<field name="faxEmailJournal" type="boolean"/>
+						<field name="faxHeader" type="string"/>
+						<field name="firstName" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="language" type="string"/>
+						<field name="login" type="string"/>
+						<field name="missedCallReport" type="boolean"/>
+						<field name="namespace" type="string"/>
+						<field name="password" type="string"/>
+						<field name="personId" type="string"/>
+					</body>
+				</success>
+				<fail status="404">
+					<body data="application/json" format="json" type="object">
+						<field name="email" type="string"/>
+						<field name="familyName" type="string"/>
+						<field name="faxCallerId" type="string"/>
+						<field name="faxCoverPage" type="boolean"/>
+						<field name="faxEmailJournal" type="boolean"/>
+						<field name="faxHeader" type="string"/>
+						<field name="firstName" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="language" type="string"/>
+						<field name="login" type="string"/>
+						<field name="missedCallReport" type="boolean"/>
+						<field name="namespace" type="string"/>
+						<field name="password" type="string"/>
+						<field name="personId" type="string"/>
+					</body>
+				</fail>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="putUser" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="email" type="string"/>
+					<field name="familyName" type="string"/>
+					<field name="faxCallerId" type="string"/>
+					<field name="faxCoverPage" type="boolean"/>
+					<field name="faxEmailJournal" type="boolean"/>
+					<field name="faxHeader" type="string"/>
+					<field name="firstName" type="string"/>
+					<field name="id" type="plaintext"/>
+					<field name="language" type="string"/>
+					<field name="login" type="string"/>
+					<field name="missedCallReport" type="boolean"/>
+					<field name="namespace" type="string"/>
+					<field name="password" type="string"/>
+					<field name="personId" type="string"/>
+				</body>
+				<endpoint>{url}/users/{userId}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="404"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="deleteUser" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="404"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getPhoneAssignment" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/phoneconfig/phones/{phoneId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="deletePhoneAssignment" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/phoneconfig/phones/{phoneId}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<success status="204"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getConferenceConfiguration" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/conferenceConfiguration</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="eMailBody" type="string"/>
+						<field name="eMailSubject" type="string"/>
+						<field name="externalNumberId" type="plaintext"/>
+						<field name="getLanguage" type="string"/>
+						<field name="internalNumberId" type="plaintext"/>
+						<field name="serverAddress" type="string"/>
+						<field name="variables" type="array">
+							<field name="name" type="string"/>
+							<field name="placeholder" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="putConferenceConfiguration" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="eMailBody" type="string"/>
+					<field name="eMailSubject" type="string"/>
+					<field name="externalNumberId" type="plaintext"/>
+					<field name="getLanguage" type="string"/>
+					<field name="internalNumberId" type="plaintext"/>
+					<field name="serverAddress" type="string"/>
+					<field name="variables" type="array">
+						<field name="name" type="string"/>
+						<field name="placeholder" type="string"/>
+					</field>
+				</body>
+				<endpoint>{url}/conferenceConfiguration</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<fail status="400"/>
+				<fail status="401"/>
+				<fail status="404"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getPhonesForFunctionKeySet" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/functionkeysets/{fkSetId}/phones</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array"/>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="startManagedConference" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/managedConferences/{conferenceId}/start</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="400"/>
+				<fail status="404"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getEditFunctionKeyDefaults" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/functionkeysets/edit/defaults</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="editFunctionKeyBusyLampField" type="object">
+							<field name="availableAccounts" type="array">
+								<field name="accountId" type="plaintext"/>
+								<field name="displayInformation" type="string"/>
+								<field name="federationname" type="string"/>
+								<field name="firstname" type="string"/>
+								<field name="lastname" type="string"/>
+								<field name="local" type="boolean"/>
+								<field name="primaryInternalPhoneNumber" type="string"/>
+								<field name="type" type="string"/>
+							</field>
+							<field name="blfAccountId" type="plaintext"/>
+							<field name="blfDisplayInformation" type="string"/>
+							<field name="name" type="string"/>
+							<field name="number" type="string"/>
+						</field>
+						<field name="editFunctionKeyCallList" type="object">
+							<field name="callListRequest" type="string"/>
+							<field name="callListRequests" type="array"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyCcbs" type="object">
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyDnd" type="object">
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyDtmf" type="object">
+							<field name="dtmf" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyForwardCall" type="object">
+							<field name="forwardType" type="string"/>
+							<field name="forwardTypes" type="array"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyForwardNumberUnconditional" type="object">
+							<field name="editFunctionKeyFnuNumberSetting" type="array">
+								<field name="activated" type="boolean"/>
+								<field name="group" type="boolean"/>
+								<field name="number" type="string"/>
+								<field name="numberId" type="plaintext"/>
+							</field>
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyGenericUrl" type="object">
+							<field name="genericURL" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyGroupLogin" type="object">
+							<field name="editFunctionKeyGlGroupSettings" type="array">
+								<field name="activated" type="boolean"/>
+								<field name="groupId" type="plaintext"/>
+								<field name="groupname" type="string"/>
+							</field>
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyModuleActivation" type="object">
+							<field name="editFunctionKeyMaModuleSettings" type="array">
+								<field name="activated" type="boolean"/>
+								<field name="moduleId" type="string"/>
+								<field name="name" type="string"/>
+							</field>
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyParkAndOrbit" type="object">
+							<field name="name" type="string"/>
+							<field name="parkAndOrbitNumber" type="string"/>
+							<field name="parkAndOrbitNumbers" type="array"/>
+						</field>
+						<field name="editFunctionKeyPhoneContact" type="object">
+							<field name="addressbookRequest" type="string"/>
+							<field name="addressbookRequests" type="array"/>
+							<field name="folders" type="array"/>
+							<field name="name" type="string"/>
+							<field name="selectedFolder" type="string"/>
+						</field>
+						<field name="editFunctionKeyQuickDial" type="object">
+							<field name="name" type="string"/>
+							<field name="number" type="string"/>
+						</field>
+						<field name="editFunctionKeySeperator" type="object">
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeySignalNumber" type="object">
+							<field name="name" type="string"/>
+							<field name="phoneNumber" type="string"/>
+							<field name="phoneNumberId" type="plaintext"/>
+							<field name="possibleSignalnumbers" type="array">
+								<field name="assignedGroupAccountId" type="plaintext"/>
+								<field name="assignedModuleInstanceId" type="string"/>
+								<field name="assignedServiceId" type="plaintext"/>
+								<field name="assignedUserAccountId" type="plaintext"/>
+								<field name="exitCode" type="string"/>
+								<field name="id" type="plaintext"/>
+								<field name="localPrefix" type="string"/>
+								<field name="nationalPrefix" type="string"/>
+								<field name="number" type="string"/>
+								<field name="numberBlockId" type="plaintext"/>
+								<field name="type" type="string"/>
+							</field>
+						</field>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getUsers" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="email" type="string"/>
+						<field name="familyName" type="string"/>
+						<field name="faxCallerId" type="string"/>
+						<field name="faxCoverPage" type="boolean"/>
+						<field name="faxEmailJournal" type="boolean"/>
+						<field name="faxHeader" type="string"/>
+						<field name="firstName" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="language" type="string"/>
+						<field name="login" type="string"/>
+						<field name="missedCallReport" type="boolean"/>
+						<field name="namespace" type="string"/>
+						<field name="password" type="string"/>
+						<field name="personId" type="string"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="postUser" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="email" type="string"/>
+					<field name="familyName" type="string"/>
+					<field name="faxCallerId" type="string"/>
+					<field name="faxCoverPage" type="boolean"/>
+					<field name="faxEmailJournal" type="boolean"/>
+					<field name="faxHeader" type="string"/>
+					<field name="firstName" type="string"/>
+					<field name="id" type="plaintext"/>
+					<field name="language" type="string"/>
+					<field name="login" type="string"/>
+					<field name="missedCallReport" type="boolean"/>
+					<field name="namespace" type="string"/>
+					<field name="password" type="string"/>
+					<field name="personId" type="string"/>
+				</body>
+				<endpoint>{url}/users</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<success status="201"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getFunctionKeys" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/functionkeysets/{fkSetId}/</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="accountId" type="string"/>
+						<field name="activateModuleIds" type="array"/>
+						<field name="addressBookFolderName" type="string"/>
+						<field name="addressbookRequest" type="string"/>
+						<field name="blfAccountId" type="plaintext"/>
+						<field name="callListRequest" type="string"/>
+						<field name="directCallTargetnumber" type="string"/>
+						<field name="displayNumberId" type="plaintext"/>
+						<field name="dtmf" type="string"/>
+						<field name="forwardType" type="string"/>
+						<field name="functionKeyType" type="string"/>
+						<field name="genericURL" type="string"/>
+						<field name="groupIds" type="array"/>
+						<field name="id" type="string"/>
+						<field name="name" type="string"/>
+						<field name="poNumber" type="string"/>
+						<field name="position" type="plaintext"/>
+						<field name="redirectNumberIds" type="array"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="createFunctionKey" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="accountId" type="string"/>
+					<field name="activateModuleIds" type="array"/>
+					<field name="addressBookFolderName" type="string"/>
+					<field name="addressbookRequest" type="string"/>
+					<field name="blfAccountId" type="plaintext"/>
+					<field name="callListRequest" type="string"/>
+					<field name="directCallTargetnumber" type="string"/>
+					<field name="displayNumberId" type="plaintext"/>
+					<field name="dtmf" type="string"/>
+					<field name="forwardType" type="string"/>
+					<field name="functionKeyType" type="string"/>
+					<field name="genericURL" type="string"/>
+					<field name="groupIds" type="array"/>
+					<field name="id" type="string"/>
+					<field name="name" type="string"/>
+					<field name="poNumber" type="string"/>
+					<field name="position" type="plaintext"/>
+					<field name="redirectNumberIds" type="array"/>
+				</body>
+				<endpoint>{url}/functionkeysets/{fkSetId}/</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="201">
+					<body data="application/json" format="json" type="object">
+						<field name="accountId" type="string"/>
+						<field name="activateModuleIds" type="array"/>
+						<field name="addressBookFolderName" type="string"/>
+						<field name="addressbookRequest" type="string"/>
+						<field name="blfAccountId" type="plaintext"/>
+						<field name="callListRequest" type="string"/>
+						<field name="directCallTargetnumber" type="string"/>
+						<field name="displayNumberId" type="plaintext"/>
+						<field name="dtmf" type="string"/>
+						<field name="forwardType" type="string"/>
+						<field name="functionKeyType" type="string"/>
+						<field name="genericURL" type="string"/>
+						<field name="groupIds" type="array"/>
+						<field name="id" type="string"/>
+						<field name="name" type="string"/>
+						<field name="poNumber" type="string"/>
+						<field name="position" type="plaintext"/>
+						<field name="redirectNumberIds" type="array"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="updateFunctionKeySet" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="array">
+					<field name="accountId" type="string"/>
+					<field name="activateModuleIds" type="array"/>
+					<field name="addressBookFolderName" type="string"/>
+					<field name="addressbookRequest" type="string"/>
+					<field name="blfAccountId" type="plaintext"/>
+					<field name="callListRequest" type="string"/>
+					<field name="directCallTargetnumber" type="string"/>
+					<field name="displayNumberId" type="plaintext"/>
+					<field name="dtmf" type="string"/>
+					<field name="forwardType" type="string"/>
+					<field name="functionKeyType" type="string"/>
+					<field name="genericURL" type="string"/>
+					<field name="groupIds" type="array"/>
+					<field name="id" type="string"/>
+					<field name="name" type="string"/>
+					<field name="poNumber" type="string"/>
+					<field name="position" type="plaintext"/>
+					<field name="redirectNumberIds" type="array"/>
+				</body>
+				<endpoint>{url}/functionkeysets/{fkSetId}/</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="400">
+					<body data="application/json" format="json" type="array">
+						<field name="errorField" type="string"/>
+						<field name="functionKeyErrorType" type="string"/>
+						<field name="position" type="plaintext"/>
+					</body>
+				</fail>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getPhoneNumberConfig" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/phonenumberconfig</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="possibleSignalnumbers" type="array">
+							<field name="assignedGroupAccountId" type="plaintext"/>
+							<field name="assignedModuleInstanceId" type="string"/>
+							<field name="assignedServiceId" type="plaintext"/>
+							<field name="assignedUserAccountId" type="plaintext"/>
+							<field name="exitCode" type="string"/>
+							<field name="id" type="plaintext"/>
+							<field name="localPrefix" type="string"/>
+							<field name="nationalPrefix" type="string"/>
+							<field name="number" type="string"/>
+							<field name="numberBlockId" type="plaintext"/>
+							<field name="type" type="string"/>
+						</field>
+						<field name="primaryExternalNumberId" type="plaintext"/>
+						<field name="primaryInternalNumberId" type="plaintext"/>
+						<field name="signalingNumberId" type="plaintext"/>
+					</body>
+				</success>
+				<fail status="500">
+					<body data="application/json" format="json" type="object">
+						<field name="possibleSignalnumbers" type="array">
+							<field name="assignedGroupAccountId" type="plaintext"/>
+							<field name="assignedModuleInstanceId" type="string"/>
+							<field name="assignedServiceId" type="plaintext"/>
+							<field name="assignedUserAccountId" type="plaintext"/>
+							<field name="exitCode" type="string"/>
+							<field name="id" type="plaintext"/>
+							<field name="localPrefix" type="string"/>
+							<field name="nationalPrefix" type="string"/>
+							<field name="number" type="string"/>
+							<field name="numberBlockId" type="plaintext"/>
+							<field name="type" type="string"/>
+						</field>
+						<field name="primaryExternalNumberId" type="plaintext"/>
+						<field name="primaryInternalNumberId" type="plaintext"/>
+						<field name="signalingNumberId" type="plaintext"/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="putPhoneNumberConfig" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="possibleSignalnumbers" type="array">
+						<field name="assignedGroupAccountId" type="plaintext"/>
+						<field name="assignedModuleInstanceId" type="string"/>
+						<field name="assignedServiceId" type="plaintext"/>
+						<field name="assignedUserAccountId" type="plaintext"/>
+						<field name="exitCode" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="localPrefix" type="string"/>
+						<field name="nationalPrefix" type="string"/>
+						<field name="number" type="string"/>
+						<field name="numberBlockId" type="plaintext"/>
+						<field name="type" type="string"/>
+					</field>
+					<field name="primaryExternalNumberId" type="plaintext"/>
+					<field name="primaryInternalNumberId" type="plaintext"/>
+					<field name="signalingNumberId" type="plaintext"/>
+				</body>
+				<endpoint>{url}/users/{userId}/phonenumberconfig</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="possibleSignalnumbers" type="array">
+							<field name="assignedGroupAccountId" type="plaintext"/>
+							<field name="assignedModuleInstanceId" type="string"/>
+							<field name="assignedServiceId" type="plaintext"/>
+							<field name="assignedUserAccountId" type="plaintext"/>
+							<field name="exitCode" type="string"/>
+							<field name="id" type="plaintext"/>
+							<field name="localPrefix" type="string"/>
+							<field name="nationalPrefix" type="string"/>
+							<field name="number" type="string"/>
+							<field name="numberBlockId" type="plaintext"/>
+							<field name="type" type="string"/>
+						</field>
+						<field name="primaryExternalNumberId" type="plaintext"/>
+						<field name="primaryInternalNumberId" type="plaintext"/>
+						<field name="signalingNumberId" type="plaintext"/>
+					</body>
+				</success>
+				<fail status="500">
+					<body data="application/json" format="json" type="string"/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="getScheme" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/contacts/scheme</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="detailBlocks" type="array">
+							<field name="attributes" type="array">
+								<field name="additionalValues" type="object"/>
+								<field name="displayKey" type="string"/>
+								<field name="i18nDisplayName" type="string"/>
+								<field name="name" type="string"/>
+								<field name="value" type="string"/>
+							</field>
+							<field name="name" type="string"/>
+							<field name="resourceKey" type="string"/>
+						</field>
+						<field name="phoneNumbersBlock" type="object">
+							<field name="attributes" type="array">
+								<field name="additionalValues" type="object"/>
+								<field name="displayKey" type="string"/>
+								<field name="i18nDisplayName" type="string"/>
+								<field name="name" type="string"/>
+								<field name="value" type="string"/>
+							</field>
+							<field name="name" type="string"/>
+							<field name="resourceKey" type="string"/>
+						</field>
+						<field name="summaryBlock" type="object">
+							<field name="attributes" type="array">
+								<field name="additionalValues" type="object"/>
+								<field name="displayKey" type="string"/>
+								<field name="i18nDisplayName" type="string"/>
+								<field name="name" type="string"/>
+								<field name="value" type="string"/>
+							</field>
+							<field name="name" type="string"/>
+							<field name="resourceKey" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getManagedConference" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/managedConferences/{conferenceId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="conferenceId" type="plaintext"/>
+						<field name="eMailBody" type="string"/>
+						<field name="name" type="string"/>
+						<field name="occurrence" type="string"/>
+						<field name="participants" type="array">
+							<field name="callOnStart" type="boolean"/>
+							<field name="displayName" type="string"/>
+							<field name="eMailAddress" type="string"/>
+							<field name="isModerator" type="boolean"/>
+							<field name="participantId" type="plaintext"/>
+							<field name="phoneNumber" type="string"/>
+							<field name="userId" type="plaintext"/>
+						</field>
+						<field name="startTime" type="plaintext"/>
+					</body>
+				</success>
+				<fail status="404"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="putManagedConference" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="conferenceId" type="plaintext"/>
+					<field name="eMailBody" type="string"/>
+					<field name="name" type="string"/>
+					<field name="occurrence" type="string"/>
+					<field name="participants" type="array">
+						<field name="callOnStart" type="boolean"/>
+						<field name="displayName" type="string"/>
+						<field name="eMailAddress" type="string"/>
+						<field name="isModerator" type="boolean"/>
+						<field name="participantId" type="plaintext"/>
+						<field name="phoneNumber" type="string"/>
+						<field name="userId" type="plaintext"/>
+					</field>
+					<field name="startTime" type="plaintext"/>
+				</body>
+				<endpoint>{url}/users/{userId}/managedConferences/{conferenceId}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="400"/>
+				<fail status="404"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="deleteManagedConference" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/managedConferences/{conferenceId}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="403"/>
+				<fail status="404"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getGroup" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/groups/{groupid}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="assignableNumbers" type="array">
+							<field name="assigned" type="boolean"/>
+							<field name="countryCode" type="string"/>
+							<field name="exitCode" type="string"/>
+							<field name="extension" type="string"/>
+							<field name="id" type="plaintext"/>
+							<field name="intern" type="boolean"/>
+							<field name="localAreaCode" type="string"/>
+						</field>
+						<field name="assignableUsers" type="array">
+							<field name="assigned" type="boolean"/>
+							<field name="firstname" type="string"/>
+							<field name="id" type="plaintext"/>
+							<field name="lastname" type="string"/>
+						</field>
+						<field name="chatGroup" type="boolean"/>
+						<field name="groupId" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="name" type="string"/>
+						<field name="voicemail" type="boolean"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="deleteGroup" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/groups/{groupid}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getContact" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/contacts/{contactId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="accountId" type="plaintext"/>
+						<field name="blocks" type="array">
+							<field name="attributes" type="array">
+								<field name="additionalValues" type="object"/>
+								<field name="displayKey" type="string"/>
+								<field name="i18nDisplayName" type="string"/>
+								<field name="name" type="string"/>
+								<field name="value" type="string"/>
+							</field>
+							<field name="name" type="string"/>
+							<field name="resourceKey" type="string"/>
+						</field>
+						<field name="editable" type="boolean"/>
+						<field name="id" type="string"/>
+						<field name="jabberId" type="string"/>
+						<field name="primaryExternalNumber" type="string"/>
+						<field name="primaryInternalNumber" type="string"/>
+						<field name="tags" type="array">
+							<field name="alias" type="string"/>
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+							<field name="owner" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="putContact" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="accountId" type="plaintext"/>
+					<field name="blocks" type="array">
+						<field name="attributes" type="array">
+							<field name="additionalValues" type="object"/>
+							<field name="displayKey" type="string"/>
+							<field name="i18nDisplayName" type="string"/>
+							<field name="name" type="string"/>
+							<field name="value" type="string"/>
+						</field>
+						<field name="name" type="string"/>
+						<field name="resourceKey" type="string"/>
+					</field>
+					<field name="editable" type="boolean"/>
+					<field name="id" type="string"/>
+					<field name="jabberId" type="string"/>
+					<field name="primaryExternalNumber" type="string"/>
+					<field name="primaryInternalNumber" type="string"/>
+					<field name="tags" type="array">
+						<field name="alias" type="string"/>
+						<field name="id" type="string"/>
+						<field name="name" type="string"/>
+						<field name="owner" type="string"/>
+					</field>
+				</body>
+				<endpoint>{url}/contacts/{contactId}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="deleteContact" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/contacts/{contactId}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getNumbersForAssignedPhone" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/phoneconfig/phones/{phoneId}/numbers</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="active" type="boolean"/>
+						<field name="phoneNumber" type="string"/>
+						<field name="phoneNumberId" type="plaintext"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="updateNumbersForAssignedPhones" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/phoneconfig/phones/{phoneId}/numbers</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<success status="204"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getManagedConferenceList" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/managedConferences</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="conferenceId" type="plaintext"/>
+						<field name="isActive" type="boolean"/>
+						<field name="isReadonly" type="boolean"/>
+						<field name="isTerminated" type="boolean"/>
+						<field name="name" type="string"/>
+						<field name="startTime" type="plaintext"/>
+					</body>
+				</success>
+				<fail status="400"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="postManagedConference" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="conferenceId" type="plaintext"/>
+					<field name="eMailBody" type="string"/>
+					<field name="name" type="string"/>
+					<field name="occurrence" type="string"/>
+					<field name="participants" type="array">
+						<field name="callOnStart" type="boolean"/>
+						<field name="displayName" type="string"/>
+						<field name="eMailAddress" type="string"/>
+						<field name="isModerator" type="boolean"/>
+						<field name="participantId" type="plaintext"/>
+						<field name="phoneNumber" type="string"/>
+						<field name="userId" type="plaintext"/>
+					</field>
+					<field name="startTime" type="plaintext"/>
+				</body>
+				<endpoint>{url}/users/{userId}/managedConferences</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="201"/>
+				<fail status="400"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="redirectsRedirectIdGet" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/redirects/{redirectId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="enabled" type="boolean"/>
+						<field name="groupNumber" type="boolean"/>
+						<field name="id" type="string"/>
+						<field name="lastMailboxDestination" type="object">
+							<field name="mailboxId" type="string"/>
+							<field name="redirectDestinationType" type="string"/>
+						</field>
+						<field name="lastPhoneNumberDestination" type="object">
+							<field name="phoneNumber" type="string"/>
+							<field name="redirectDestinationType" type="string"/>
+						</field>
+						<field name="phoneNumber" type="string"/>
+						<field name="redirectDestination" type="object">
+							<field name="redirectDestinationType" type="string"/>
+						</field>
+						<field name="redirectTrigger" type="object">
+							<field name="redirectTriggerType" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="404">
+					<body data="application/json" format="json" type="object">
+						<field name="enabled" type="boolean"/>
+						<field name="groupNumber" type="boolean"/>
+						<field name="id" type="string"/>
+						<field name="lastMailboxDestination" type="object">
+							<field name="mailboxId" type="string"/>
+							<field name="redirectDestinationType" type="string"/>
+						</field>
+						<field name="lastPhoneNumberDestination" type="object">
+							<field name="phoneNumber" type="string"/>
+							<field name="redirectDestinationType" type="string"/>
+						</field>
+						<field name="phoneNumber" type="string"/>
+						<field name="redirectDestination" type="object">
+							<field name="redirectDestinationType" type="string"/>
+						</field>
+						<field name="redirectTrigger" type="object">
+							<field name="redirectTriggerType" type="string"/>
+						</field>
+					</body>
+				</fail>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="redirectsRedirectIdPut" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="enabled" type="boolean"/>
+					<field name="groupNumber" type="boolean"/>
+					<field name="id" type="string"/>
+					<field name="lastMailboxDestination" type="object">
+						<field name="mailboxId" type="string"/>
+						<field name="redirectDestinationType" type="string"/>
+					</field>
+					<field name="lastPhoneNumberDestination" type="object">
+						<field name="phoneNumber" type="string"/>
+						<field name="redirectDestinationType" type="string"/>
+					</field>
+					<field name="phoneNumber" type="string"/>
+					<field name="redirectDestination" type="object">
+						<field name="redirectDestinationType" type="string"/>
+					</field>
+					<field name="redirectTrigger" type="object">
+						<field name="redirectTriggerType" type="string"/>
+					</field>
+				</body>
+				<endpoint>{url}/redirects/{redirectId}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="enabled" type="boolean"/>
+						<field name="groupNumber" type="boolean"/>
+						<field name="id" type="string"/>
+						<field name="lastMailboxDestination" type="object">
+							<field name="mailboxId" type="string"/>
+							<field name="redirectDestinationType" type="string"/>
+						</field>
+						<field name="lastPhoneNumberDestination" type="object">
+							<field name="phoneNumber" type="string"/>
+							<field name="redirectDestinationType" type="string"/>
+						</field>
+						<field name="phoneNumber" type="string"/>
+						<field name="redirectDestination" type="object">
+							<field name="redirectDestinationType" type="string"/>
+						</field>
+						<field name="redirectTrigger" type="object">
+							<field name="redirectTriggerType" type="string"/>
+						</field>
+					</body>
+				</success>
+				<success status="204"/>
+				<fail status="404">
+					<body data="application/json" format="json" type="object">
+						<field name="enabled" type="boolean"/>
+						<field name="groupNumber" type="boolean"/>
+						<field name="id" type="string"/>
+						<field name="lastMailboxDestination" type="object">
+							<field name="mailboxId" type="string"/>
+							<field name="redirectDestinationType" type="string"/>
+						</field>
+						<field name="lastPhoneNumberDestination" type="object">
+							<field name="phoneNumber" type="string"/>
+							<field name="redirectDestinationType" type="string"/>
+						</field>
+						<field name="phoneNumber" type="string"/>
+						<field name="redirectDestination" type="object">
+							<field name="redirectDestinationType" type="string"/>
+						</field>
+						<field name="redirectTrigger" type="object">
+							<field name="redirectTriggerType" type="string"/>
+						</field>
+					</body>
+				</fail>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getFunctionKey" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/functionkeysets/{fkSetId}/{keyId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="accountId" type="string"/>
+						<field name="activateModuleIds" type="array"/>
+						<field name="addressBookFolderName" type="string"/>
+						<field name="addressbookRequest" type="string"/>
+						<field name="blfAccountId" type="plaintext"/>
+						<field name="callListRequest" type="string"/>
+						<field name="directCallTargetnumber" type="string"/>
+						<field name="displayNumberId" type="plaintext"/>
+						<field name="dtmf" type="string"/>
+						<field name="forwardType" type="string"/>
+						<field name="functionKeyType" type="string"/>
+						<field name="genericURL" type="string"/>
+						<field name="groupIds" type="array"/>
+						<field name="id" type="string"/>
+						<field name="name" type="string"/>
+						<field name="poNumber" type="string"/>
+						<field name="position" type="plaintext"/>
+						<field name="redirectNumberIds" type="array"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="updateFunctionKey" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="accountId" type="string"/>
+					<field name="activateModuleIds" type="array"/>
+					<field name="addressBookFolderName" type="string"/>
+					<field name="addressbookRequest" type="string"/>
+					<field name="blfAccountId" type="plaintext"/>
+					<field name="callListRequest" type="string"/>
+					<field name="directCallTargetnumber" type="string"/>
+					<field name="displayNumberId" type="plaintext"/>
+					<field name="dtmf" type="string"/>
+					<field name="forwardType" type="string"/>
+					<field name="functionKeyType" type="string"/>
+					<field name="genericURL" type="string"/>
+					<field name="groupIds" type="array"/>
+					<field name="id" type="string"/>
+					<field name="name" type="string"/>
+					<field name="poNumber" type="string"/>
+					<field name="position" type="plaintext"/>
+					<field name="redirectNumberIds" type="array"/>
+				</body>
+				<endpoint>{url}/functionkeysets/{fkSetId}/{keyId}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="deleteFunctionKey" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/functionkeysets/{fkSetId}/{keyId}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getVoicemailbox" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/voicemailboxes/{voicemailboxid}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="id" type="plaintext"/>
+						<field name="maximumDuration" type="plaintext"/>
+						<field name="name" type="string"/>
+						<field name="noRecord" type="boolean"/>
+						<field name="number" type="string"/>
+						<field name="password" type="string"/>
+						<field name="voicemailGroups" type="array">
+							<field name="accountId" type="plaintext"/>
+							<field name="name" type="string"/>
+							<field name="sendMail" type="boolean"/>
+						</field>
+						<field name="voicemailUsers" type="array">
+							<field name="accountId" type="plaintext"/>
+							<field name="name" type="string"/>
+							<field name="sendMail" type="boolean"/>
+							<field name="voicemailboxName" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="deleteVoicemailbox" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/voicemailboxes/{voicemailboxid}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getUsersWithPermission" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/permissions/{permissionId}/users</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="email" type="string"/>
+						<field name="familyName" type="string"/>
+						<field name="faxCallerId" type="string"/>
+						<field name="faxCoverPage" type="boolean"/>
+						<field name="faxEmailJournal" type="boolean"/>
+						<field name="faxHeader" type="string"/>
+						<field name="firstName" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="language" type="string"/>
+						<field name="login" type="string"/>
+						<field name="missedCallReport" type="boolean"/>
+						<field name="namespace" type="string"/>
+						<field name="password" type="string"/>
+						<field name="personId" type="string"/>
+					</body>
+				</success>
+				<fail status="404"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="updatePermissionForUsers" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="array"/>
+				<endpoint>{url}/permissions/{permissionId}/users</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<fail status="404"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getFunctionKeySets" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/functionkeysets</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="id" type="string"/>
+						<field name="keyOrder" type="array"/>
+						<field name="name" type="string"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getUserPermissions" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/permissions/users/{userId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="description" type="string"/>
+						<field name="id" type="plaintext"/>
+						<field name="permission" type="string"/>
+					</body>
+				</success>
+				<fail status="404"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="putUserPermissions" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="array"/>
+				<endpoint>{url}/permissions/users/{userId}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<fail status="404"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getAccountsList" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/accounts</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="accountId" type="plaintext"/>
+						<field name="displayInformation" type="string"/>
+						<field name="federationname" type="string"/>
+						<field name="firstname" type="string"/>
+						<field name="lastname" type="string"/>
+						<field name="local" type="boolean"/>
+						<field name="primaryInternalPhoneNumber" type="string"/>
+						<field name="type" type="string"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="deletePhoneNumberAssignments" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="array">
+					<field name="accountId" type="plaintext"/>
+					<field name="phoneNumberId" type="plaintext"/>
+					<field name="serviceId" type="plaintext"/>
+				</body>
+				<endpoint>{url}/users/{userId}/phonenumberconfig/phonenumbers/delete</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="400"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getEditFunctionKey" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/functionkeysets/{fkSetId}/edit/{keyId}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="editFunctionKeyBusyLampField" type="object">
+							<field name="availableAccounts" type="array">
+								<field name="accountId" type="plaintext"/>
+								<field name="displayInformation" type="string"/>
+								<field name="federationname" type="string"/>
+								<field name="firstname" type="string"/>
+								<field name="lastname" type="string"/>
+								<field name="local" type="boolean"/>
+								<field name="primaryInternalPhoneNumber" type="string"/>
+								<field name="type" type="string"/>
+							</field>
+							<field name="blfAccountId" type="plaintext"/>
+							<field name="blfDisplayInformation" type="string"/>
+							<field name="name" type="string"/>
+							<field name="number" type="string"/>
+						</field>
+						<field name="editFunctionKeyCallList" type="object">
+							<field name="callListRequest" type="string"/>
+							<field name="callListRequests" type="array"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyCcbs" type="object">
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyDnd" type="object">
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyDtmf" type="object">
+							<field name="dtmf" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyForwardCall" type="object">
+							<field name="forwardType" type="string"/>
+							<field name="forwardTypes" type="array"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyForwardNumberUnconditional" type="object">
+							<field name="editFunctionKeyFnuNumberSetting" type="array">
+								<field name="activated" type="boolean"/>
+								<field name="group" type="boolean"/>
+								<field name="number" type="string"/>
+								<field name="numberId" type="plaintext"/>
+							</field>
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyGenericUrl" type="object">
+							<field name="genericURL" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyGroupLogin" type="object">
+							<field name="editFunctionKeyGlGroupSettings" type="array">
+								<field name="activated" type="boolean"/>
+								<field name="groupId" type="plaintext"/>
+								<field name="groupname" type="string"/>
+							</field>
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyModuleActivation" type="object">
+							<field name="editFunctionKeyMaModuleSettings" type="array">
+								<field name="activated" type="boolean"/>
+								<field name="moduleId" type="string"/>
+								<field name="name" type="string"/>
+							</field>
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeyParkAndOrbit" type="object">
+							<field name="name" type="string"/>
+							<field name="parkAndOrbitNumber" type="string"/>
+							<field name="parkAndOrbitNumbers" type="array"/>
+						</field>
+						<field name="editFunctionKeyPhoneContact" type="object">
+							<field name="addressbookRequest" type="string"/>
+							<field name="addressbookRequests" type="array"/>
+							<field name="folders" type="array"/>
+							<field name="name" type="string"/>
+							<field name="selectedFolder" type="string"/>
+						</field>
+						<field name="editFunctionKeyQuickDial" type="object">
+							<field name="name" type="string"/>
+							<field name="number" type="string"/>
+						</field>
+						<field name="editFunctionKeySeperator" type="object">
+							<field name="name" type="string"/>
+						</field>
+						<field name="editFunctionKeySignalNumber" type="object">
+							<field name="name" type="string"/>
+							<field name="phoneNumber" type="string"/>
+							<field name="phoneNumberId" type="plaintext"/>
+							<field name="possibleSignalnumbers" type="array">
+								<field name="assignedGroupAccountId" type="plaintext"/>
+								<field name="assignedModuleInstanceId" type="string"/>
+								<field name="assignedServiceId" type="plaintext"/>
+								<field name="assignedUserAccountId" type="plaintext"/>
+								<field name="exitCode" type="string"/>
+								<field name="id" type="plaintext"/>
+								<field name="localPrefix" type="string"/>
+								<field name="nationalPrefix" type="string"/>
+								<field name="number" type="string"/>
+								<field name="numberBlockId" type="plaintext"/>
+								<field name="type" type="string"/>
+							</field>
+						</field>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="getVoicemailboxes" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/voicemailboxes</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="assignedgroups" type="array"/>
+						<field name="assignedusers" type="array"/>
+						<field name="id" type="plaintext"/>
+						<field name="mailboxnumber" type="string"/>
+						<field name="voiceboxname" type="string"/>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="createVoicemailbox" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="id" type="plaintext"/>
+					<field name="maximumDuration" type="plaintext"/>
+					<field name="name" type="string"/>
+					<field name="noRecord" type="boolean"/>
+					<field name="number" type="string"/>
+					<field name="password" type="string"/>
+					<field name="voicemailGroups" type="array">
+						<field name="accountId" type="plaintext"/>
+						<field name="name" type="string"/>
+						<field name="sendMail" type="boolean"/>
+					</field>
+					<field name="voicemailUsers" type="array">
+						<field name="accountId" type="plaintext"/>
+						<field name="name" type="string"/>
+						<field name="sendMail" type="boolean"/>
+						<field name="voicemailboxName" type="string"/>
+					</field>
+				</body>
+				<endpoint>{url}/voicemailboxes</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="saveVoicemailbox" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="id" type="plaintext"/>
+					<field name="maximumDuration" type="plaintext"/>
+					<field name="name" type="string"/>
+					<field name="noRecord" type="boolean"/>
+					<field name="number" type="string"/>
+					<field name="password" type="string"/>
+					<field name="voicemailGroups" type="array">
+						<field name="accountId" type="plaintext"/>
+						<field name="name" type="string"/>
+						<field name="sendMail" type="boolean"/>
+					</field>
+					<field name="voicemailUsers" type="array">
+						<field name="accountId" type="plaintext"/>
+						<field name="name" type="string"/>
+						<field name="sendMail" type="boolean"/>
+						<field name="voicemailboxName" type="string"/>
+					</field>
+				</body>
+				<endpoint>{url}/voicemailboxes</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="204"/>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="listPhoneNumberAssignment" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{userId}/phonenumberconfig/phonenumbers/</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="accountId" type="plaintext"/>
+						<field name="phoneNumberId" type="plaintext"/>
+						<field name="serviceId" type="plaintext"/>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="array">
+						<field name="accountId" type="plaintext"/>
+						<field name="phoneNumberId" type="plaintext"/>
+						<field name="serviceId" type="plaintext"/>
+					</body>
+				</fail>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="assignPhoneNumber" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="array">
+					<field name="accountId" type="plaintext"/>
+					<field name="phoneNumberId" type="plaintext"/>
+					<field name="serviceId" type="plaintext"/>
+				</body>
+				<endpoint>{url}/users/{userId}/phonenumberconfig/phonenumbers/</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="accountId" type="plaintext"/>
+						<field name="phoneNumberId" type="plaintext"/>
+						<field name="serviceId" type="plaintext"/>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="string"/>
+				</fail>
+				<fail status="500">
+					<body data="application/json" format="json" type="string"/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="updatePhoneNumberAssignments" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="array">
+					<field name="accountId" type="plaintext"/>
+					<field name="phoneNumberId" type="plaintext"/>
+					<field name="serviceId" type="plaintext"/>
+				</body>
+				<endpoint>{url}/users/{userId}/phonenumberconfig/phonenumbers</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="accountId" type="plaintext"/>
+						<field name="phoneNumberId" type="plaintext"/>
+						<field name="serviceId" type="plaintext"/>
+					</body>
+				</success>
+				<fail status="500">
+					<body data="application/json" format="json" type="string"/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="getContactList" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/contacts</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="object">
+						<field name="contacts" type="array">
+							<field name="additionalValues" type="object"/>
+							<field name="id" type="string"/>
+							<field name="phoneNumberValues" type="array"/>
+							<field name="summaryValues" type="array"/>
+						</field>
+						<field name="metadata" type="object">
+							<field name="page" type="plaintext"/>
+							<field name="pagesize" type="plaintext"/>
+							<field name="sort" type="string"/>
+							<field name="sortdirection" type="string"/>
+							<field name="totalPages" type="plaintext"/>
+						</field>
+						<field name="phoneNumbersBlockSchema" type="object">
+							<field name="attributes" type="array">
+								<field name="additionalValues" type="object"/>
+								<field name="displayKey" type="string"/>
+								<field name="i18nDisplayName" type="string"/>
+								<field name="name" type="string"/>
+								<field name="value" type="string"/>
+							</field>
+							<field name="name" type="string"/>
+							<field name="resourceKey" type="string"/>
+						</field>
+						<field name="summaryBlockSchema" type="object">
+							<field name="attributes" type="array">
+								<field name="additionalValues" type="object"/>
+								<field name="displayKey" type="string"/>
+								<field name="i18nDisplayName" type="string"/>
+								<field name="name" type="string"/>
+								<field name="value" type="string"/>
+							</field>
+							<field name="name" type="string"/>
+							<field name="resourceKey" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+		<operation name="postContact" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body data="application/json" format="json" type="object">
+					<field name="accountId" type="plaintext"/>
+					<field name="blocks" type="array">
+						<field name="attributes" type="array">
+							<field name="additionalValues" type="object"/>
+							<field name="displayKey" type="string"/>
+							<field name="i18nDisplayName" type="string"/>
+							<field name="name" type="string"/>
+							<field name="value" type="string"/>
+						</field>
+						<field name="name" type="string"/>
+						<field name="resourceKey" type="string"/>
+					</field>
+					<field name="editable" type="boolean"/>
+					<field name="id" type="string"/>
+					<field name="jabberId" type="string"/>
+					<field name="primaryExternalNumber" type="string"/>
+					<field name="primaryInternalNumber" type="string"/>
+					<field name="tags" type="array">
+						<field name="alias" type="string"/>
+						<field name="id" type="string"/>
+						<field name="name" type="string"/>
+						<field name="owner" type="string"/>
+					</field>
+				</body>
+				<endpoint>{url}/contacts</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="201">
+					<body data="application/json" format="json" type="object">
+						<field name="accountId" type="plaintext"/>
+						<field name="blocks" type="array">
+							<field name="attributes" type="array">
+								<field name="additionalValues" type="object"/>
+								<field name="displayKey" type="string"/>
+								<field name="i18nDisplayName" type="string"/>
+								<field name="name" type="string"/>
+								<field name="value" type="string"/>
+							</field>
+							<field name="name" type="string"/>
+							<field name="resourceKey" type="string"/>
+						</field>
+						<field name="editable" type="boolean"/>
+						<field name="id" type="string"/>
+						<field name="jabberId" type="string"/>
+						<field name="primaryExternalNumber" type="string"/>
+						<field name="primaryInternalNumber" type="string"/>
+						<field name="tags" type="array">
+							<field name="alias" type="string"/>
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+							<field name="owner" type="string"/>
+						</field>
+					</body>
+				</success>
+				<fail status="500"/>
+			</response>
+		</operation>
+	</operations>
+</invoker>
