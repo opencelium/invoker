@@ -424,7 +424,7 @@
         <operation name="IncidentGetCommentsByJournal" type="">
             <request>
                 <method>GET</method>
-                <endpoint>{url}/api/now/table/sys_journal_field?element_id={REPLACE-WITH-SYSID}</endpoint>
+                <endpoint>{url}/api/now/table/sys_journal_field?element_id={REPLACE-WITH-SYSID}&amp;ORDERBY=sys_created_on</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">{basic}</item>
