@@ -82,7 +82,7 @@
                     <field name="description" type="string"/>
                     <field name="state" type="string"/>
                     <field name="priority" type="string"/>
-                    <field name="origin_id" type="string"/>
+                    <field name="correlation_id" type="string"/>
                 </body>
             </request>
             <response>
@@ -133,7 +133,7 @@
                     </field>
                     <field name="cause" type="string"/>
                     <field name="description" type="string"/>
-                    <field name="origin_id" type="string"/>
+                    <field name="correlation_id" type="string"/>
                     <field name="close_notes" type="string"/>
                     <field name="contact_type" type="string"/>
                     <field name="urgency" type="string"/>
@@ -193,7 +193,7 @@
         <operation name="IncidentGetAllActive" type="">
             <request>
                 <method>GET</method>
-                <endpoint>{url}/api/now/table/incident?sysparm_fields=sys_id,origin_id,short_description&amp;sysparm_query=active%3Dtrue</endpoint>
+                <endpoint>{url}/api/now/table/incident?sysparm_fields=sys_id,_correlation_id,short_description&amp;sysparm_query=active%3Dtrue</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">{basic}</item>
@@ -208,7 +208,8 @@
                         <field name="result" type="array">
                             <field name="sys_id" type="string"/>
                             <field name="short_description" type="string"/>
-                            <field name="origin_id" type="string"/>
+                            <field name="description" type="string"/>
+                            <field name="correlation_id" type="string"/>
                         </field>
                     </body>
                 </success>
