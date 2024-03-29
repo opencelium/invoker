@@ -549,6 +549,7 @@
                         <field name="note" type="string"/>
                         <field name="created_at" type="string"/>
                         <field name="updated_at" type="string"/>                                                                  
+			<field name="external_ticket_identifier" type="string"/>
                     </body>
                 </success>
                 <fail status="401">
@@ -584,6 +585,7 @@
                         <field name="created_at" type="string"/>
                         <field name="updated_at" type="string"/>                                                                 
                         <field name="freshdeskid" type="string"/>                                                                 
+			<field name="external_ticket_identifier" type="string"/>
                     </body>
                 </success>
                 <fail status="401">

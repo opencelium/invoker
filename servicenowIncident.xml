@@ -190,7 +190,7 @@
                 </fail>
             </response>
         </operation>
-        <operation name="IncidentGetAllActive" type="">
+        <operation name="IncidentGetWithFilter" type="">
             <request>
                 <method>GET</method>
                 <endpoint>{url}/api/now/table/incident?sysparm_fields=sys_id,_correlation_id,short_description&amp;sysparm_query=active%3Dtrue</endpoint>
