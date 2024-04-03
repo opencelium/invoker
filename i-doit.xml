@@ -42,7 +42,7 @@
             <response>
                 <success status="200">
                     <header>
-                        <item name="Content-Type" type="string"/>
+                        <item name="Content-Type" type="string">application/json</item>
                     </header>
                     <body data="raw" format="json" type="object">
                         <field name="result" type="object">
