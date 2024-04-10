@@ -2844,7 +2844,9 @@
 			</request>
 			<response>
 				<success status="200">
-					<body data="application/json" format="json" type="string" />
+					<body data="application/json" format="json" type="object">
+						<field name="failedIds" type="array" />
+					</body>
 				</success>
 			</response>
 		</operation>
