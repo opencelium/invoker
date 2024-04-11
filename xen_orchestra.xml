@@ -55,6 +55,7 @@
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
                     <body type="array" format="json" data="raw">
+			<field name="ID" type="string"/>
                     </body>
                 </success>
                 <fail status="401">
@@ -638,6 +639,7 @@
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
                     <body type="array" format="json" data="raw">
+			<field name="ID" type="string"/>
                     </body>
                 </success>
                 <fail status="401">
@@ -707,6 +709,7 @@
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
                     <body type="array" format="json" data="raw">
+			<field name="ID" type="string"/>
                     </body>
                 </success>
                 <fail status="401">
