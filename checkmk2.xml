@@ -1384,21 +1384,33 @@
                     <header>
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body data="application/json" format="json" type="object">
-                        <field name="links" type="array">
-                            <field name="domainType" type=""/>
-                            <field name="rel" type="string"/>
-                            <field name="href" type="string"/>
-                            <field name="method" type="string"/>
-                            <field name="type" type="string"/>
-                            <field name="title" type="string"/>
-                            <field name="arguments" type="object"/></field>
-                        <field name="domainType" type="string"/>
-                        <field name="id" type="string"/>
-                        <field name="title" type="string"/>
-                        <field name="members" type="object"/>
-                        <field name="extensions" type="object"/>
-                    </body>
+			<body data="application/json" format="json" type="object">
+			  <field name="links" type="array">
+			    <field name="domainType" type="" />
+			    <field name="rel" type="string" />
+			    <field name="href" type="string" />
+			    <field name="method" type="string" />
+			    <field name="type" type="string" />
+			    <field name="title" type="string" />
+			    <field name="arguments" type="object" />
+			  </field>
+			  <field name="domainType" type="string" />
+			  <field name="id" type="string" />
+			  <field name="title" type="string" />
+			  <field name="members" type="object" />
+			  <field name="extensions" type="object">
+			    <field name="attributes" type="object">
+			      <field name="tag_idoit_category" type="string" />
+			      <field name="alias" type="string" />
+			      <field name="ipaddress" type="string" />
+			    </field>
+			    <field name="effective_attributes" type="object">
+			      <field name="tag_idoit_category" type="string" />
+			      <field name="alias" type="string" />
+			      <field name="ipaddress" type="string" />
+			    </field>
+			  </field>
+			</body>
                 </success>
                 <fail status="200">
                     <body data="application/problem+json" format="json" type="object">
