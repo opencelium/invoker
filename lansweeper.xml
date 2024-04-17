@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>lansweeper</name>
-    <description>personal token</description>
+    <description>Powerful IT Asset Management for modern businesses of all sizes. With Lansweeper, you’re just hours away from complete visibility into your technology environment.</description>
     <hint>This graphql interface provides a token auth. Its only provides one api operation, where you can flexible set up the query. The URL should look like this https://192.168.10.1/graphql</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>
