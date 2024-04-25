@@ -12,7 +12,7 @@
     <name>ServiceNow-Incident</name>
     <description>Incident management is a series of steps taken to identify, analyze, and resolve critical incidents which could lead to issues in an organization. Creates / Updates Incidents and Articles</description>
     <hint></hint>
-    <icon>service-now.png</icon>
+    <icon>servicenowIncident.png</icon>
     <requiredData>
         <item name="url" type="string" visibility="public" />
         <item name="username" type="string" visibility="public" />
