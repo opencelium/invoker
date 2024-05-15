@@ -4,7 +4,9 @@
     <hint>This interface provides a basic auth. Read the api documentation here https://kb.igel.com/igelimi-v3/en/rest-basics-2723220.html</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>
-	<item name="basic_encoded" type="string" visibility="public"/>
+	    <item name="username" type="string" visibility="public"/>
+        <item name="password" type="string" visibility="public"/>
+        <item name="basic" type="string" visibility="private">Basic {username:password}</item>
         <item name="token" type="string" visibility="private">%{login.body.message}</item>
     </requiredData>
     <authType>token</authType>
@@ -14,7 +16,7 @@
                 <method>POST</method>
                 <endpoint>{url}/umsapi/v3/login</endpoint>
                 <header>
-			<item name="Authorization" type="string">Basic {basic_encoded}</item>
+			<item name="Authorization" type="string">{basic}</item>
 		</header>
                 <body/>
             </request>
