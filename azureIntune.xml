@@ -334,6 +334,116 @@
                 </fail>
             </response>
         </operation>
+        <operation name="GetUser" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{resource}beta/users/{USERID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">Bearer {token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string" >application/json</item>
+                    </header>
+                    <body>
+			<field name="@odata.context" type="string"/>
+			<field name="id" type="string"/>
+			<field name="deletedDateTime" type="string"/>
+			<field name="accountEnabled" type="string"/>
+			<field name="ageGroup" type="string"/>
+			 <field name="businessPhones" type="array">
+			  <field name="0" type="string"/>
+			 </field>
+			<field name="city" type="string"/>
+			<field name="createdDateTime" type="string"/>
+			<field name="creationType" type="string"/>
+			<field name="companyName" type="string"/>
+			<field name="consentProvidedForMinor" type="string"/>
+			<field name="country" type="string"/>
+			<field name="department" type="string"/>
+			<field name="displayName" type="string"/>
+			<field name="employeeId" type="string"/>
+			<field name="employeeHireDate" type="string"/>
+			<field name="employeeLeaveDateTime" type="string"/>
+			<field name="employeeType" type="string"/>
+			<field name="faxNumber" type="string"/>
+			<field name="givenName" type="string"/>
+			 <field name="imAddresses" type="array">
+			  <field name="0" type="string"/>
+			 </field>
+			 <field name="infoCatalogs" type="array">
+			 </field>
+			<field name="isLicenseReconciliationNeeded" type="string"/>
+			<field name="isManagementRestricted" type="string"/>
+			<field name="isResourceAccount" type="string"/>
+			<field name="jobTitle" type="string"/>
+			<field name="legalAgeGroupClassification" type="string"/>
+			<field name="mail" type="string"/>
+			<field name="mailNickname" type="string"/>
+			<field name="mobilePhone" type="string"/>
+			<field name="onPremisesDistinguishedName" type="string"/>
+			<field name="officeLocation" type="string"/>
+			<field name="onPremisesDomainName" type="string"/>
+			<field name="onPremisesImmutableId" type="string"/>
+			<field name="onPremisesLastSyncDateTime" type="string"/>
+			<field name="onPremisesObjectIdentifier" type="string"/>
+			<field name="onPremisesSecurityIdentifier" type="string"/>
+			<field name="onPremisesSamAccountName" type="string"/>
+			<field name="onPremisesSyncEnabled" type="string"/>
+			<field name="onPremisesUserPrincipalName" type="string"/>
+			 <field name="otherMails" type="array">
+			 </field>
+			<field name="passwordPolicies" type="string"/>
+			<field name="postalCode" type="string"/>
+			<field name="preferredDataLocation" type="string"/>
+			<field name="preferredLanguage" type="string"/>
+			<field name="refreshTokensValidFromDateTime" type="string"/>
+			<field name="securityIdentifier" type="string"/>
+			<field name="showInAddressList" type="string"/>
+			<field name="signInSessionsValidFromDateTime" type="string"/>
+			<field name="state" type="string"/>
+			<field name="streetAddress" type="string"/>
+			<field name="surname" type="string"/>
+			<field name="usageLocation" type="string"/>
+			<field name="userPrincipalName" type="string"/>
+			<field name="externalUserConvertedOn" type="string"/>
+			<field name="externalUserState" type="string"/>
+			<field name="externalUserStateChangeDateTime" type="string"/>
+			<field name="userType" type="string"/>
+			<field name="employeeOrgData" type="string"/>
+			<field name="passwordProfile" type="string"/>
+			 <field name="cloudRealtimeCommunicationInfo" type="object">
+			  <field name="isSipEnabled" type="string"/>
+			 </field>
+			 <field name="deviceKeys" type="array">
+			 </field>
+			 <field name="identities" type="array">
+			    <field name="signInType" type="string"/>
+			    <field name="issuer" type="string"/>
+			    <field name="issuerAssignedId" type="string"/>
+			 </field>
+			 <field name="onPremisesProvisioningErrors" type="array">
+			 </field>
+			 <field name="onPremisesSipInfo" type="object">
+			  <field name="isSipEnabled" type="string"/>
+			  <field name="sipDeploymentLocation" type="string"/>
+			  <field name="sipPrimaryAddress" type="string"/>
+			 </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string" >application/json</item>
+                    </header>
+                    <body>
+                        <field name="error" type="string">1</field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
         <operation name="GetUserManagedDevices" type="">
             <request>
                 <method>GET</method>
