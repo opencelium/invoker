@@ -5,7 +5,7 @@ Jira Service Desk is built on a powerful and mature software development platfor
     <hint>This interface provides the token by user auth. It works like basic_auth. You just need to replace password with added api-token (https://id.atlassian.com/manage-profile/security/api-tokens). Check out the documentation https://developer.atlassian.com/cloud/jira/platform/rest/v3/</hint>
     <icon>http://localhost:9090/api/storage/files/null</icon>
     <requiredData>
-        <item name="url" type="string" visibility="public"/>
+        <item name="url" type="string" visibility="public">https://{SITENAME}.atlassian.net/rest/servicedeskapi/</item>
         <item name="username" type="string" visibility="public"/>
         <item name="password" type="string" visibility="protected"/>
         <item name="token" type="string" visibility="private">Basic {username:password}</item>
