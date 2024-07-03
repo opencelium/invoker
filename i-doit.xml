@@ -316,7 +316,7 @@
                     <field name="version" type="string">2.0</field>
                     <field name="method" type="string">cmdb.object.archive</field>
                     <field name="params" type="object">
-                        <field name="object" type="string"/>
+                        <field name="object" type="integer"/>
                         <field name="apikey" type="string">{apikey}</field>
                         <field name="language" type="string"/>
                     </field>
@@ -365,7 +365,7 @@
                     <field name="version" type="string">2.0</field>
                     <field name="method" type="string">cmdb.object.delete</field>
                     <field name="params" type="object">
-                        <field name="object" type="string"/>
+                        <field name="object" type="integer"/>
                         <field name="apikey" type="string">{apikey}</field>
                         <field name="language" type="string"/>
                     </field>
@@ -414,7 +414,7 @@
                     <field name="version" type="string">2.0</field>
                     <field name="method" type="string">cmdb.object.recycle</field>
                     <field name="params" type="object">
-                        <field name="object" type="string"/>
+                        <field name="object" type="integer"/>
                         <field name="apikey" type="string">{apikey}</field>
                         <field name="language" type="string"/>
                     </field>
@@ -464,7 +464,7 @@
                     <field name="version" type="string">2.0</field>
                     <field name="method" type="string">cmdb.object.purge</field>
                     <field name="params" type="object">
-                        <field name="object" type="string"/>
+                        <field name="object" type="integer"/>
                         <field name="apikey" type="string">{apikey}</field>
                     </field>
                     <field name="id" required="true" type="string">1</field>
@@ -632,7 +632,7 @@
                     <field name="version" type="string">2.0</field>
                     <field name="method" type="string">cmdb.category.save</field>
                     <field name="params" type="object">
-                        <field name="object" type="string"/>
+                        <field name="object" type="integer"/>
                         <field name="category" type="string"/>
                         <field name="data" type="object"/>
                         <field name="apikey" type="string">{apikey}</field>
@@ -685,7 +685,7 @@
                     <field name="version" type="string">2.0</field>
                     <field name="method" type="string">cmdb.category.archive</field>
                     <field name="params" type="object">
-                        <field name="object" type="string"/>
+                        <field name="object" type="integer"/>
                         <field name="category" type="string"/>
                         <field name="entry" type="string"/>
                         <field name="apikey" type="string">{apikey}</field>
@@ -737,7 +737,7 @@
                     <field name="version" type="string">2.0</field>
                     <field name="method" type="string">cmdb.category.delete</field>
                     <field name="params" type="object">
-                        <field name="object" type="string"/>
+                        <field name="object" type="integer"/>
                         <field name="category" type="string"/>
                         <field name="entry" type="string"/>
                         <field name="apikey" type="string">{apikey}</field>
@@ -789,7 +789,7 @@
                     <field name="version" type="string">2.0</field>
                     <field name="method" type="string">cmdb.category.recycle</field>
                     <field name="params" type="object">
-                        <field name="object" type="string"/>
+                        <field name="object" type="integer"/>
                         <field name="category" type="string"/>
                         <field name="entry" type="string"/>
                         <field name="apikey" type="string">{apikey}</field>
@@ -841,7 +841,7 @@
                     <field name="version" type="string">2.0</field>
                     <field name="method" type="string">cmdb.category.purge</field>
                     <field name="params" type="object">
-                        <field name="object" type="string"/>
+                        <field name="object" type="integer"/>
                         <field name="category" type="string"/>
                         <field name="entry" type="string"/>
                         <field name="apikey" type="string">{apikey}</field>
@@ -1264,3 +1264,4 @@
         </operation>
     </operations>
 </invoker>
+
