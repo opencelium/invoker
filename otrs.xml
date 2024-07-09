@@ -224,7 +224,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                 </header>
-                <body data="raw" format="json" type="array">
+                <body data="raw" format="json" type="object">
                     <field name="ConfigItem" type="object">
                         <field name="Number" type="string"/>
                         <field name="Class" type="string"/>
