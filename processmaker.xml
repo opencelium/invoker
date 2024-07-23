@@ -9,7 +9,7 @@
         <item name="client_id" type="string" visibility="public"/>
         <item name="client_secret" type="string" visibility="protected"/>
         <item name="workspace" type="string" visibility="public"/>        
-        <item name="token" type="string" visibility="private">%{body.access_token}</item>        
+        <item name="token" type="string" visibility="private">%{CreateToken.body.access_token}</item>        
     </requiredData>
     <authType>token</authType>
     <operations>
