@@ -37,6 +37,7 @@
                     </body>
                     <header>
                         <item name="Authorization" type="string"/>
+                    	<item name="Content-Type" type="string">application/json</item>
                     </header>
                 </success>
                 <fail status="200">
@@ -86,6 +87,9 @@
                             </field>
                         </field>
                     </body>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
                 </success>
                 <fail status="400">
                     <body data="raw" format="json" type="object">
@@ -133,6 +137,9 @@
                         </field>
                         <field name="id" type="string"/>
                     </body>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
                 </success>
                 <fail status="400">
                     <body data="raw" format="json" type="object">
@@ -173,6 +180,9 @@
                         </field>
                         <field name="id" type="string"/>
                     </body>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
                 </success>
                 <fail status="400">
                     <body data="raw" format="json" type="object">
@@ -204,6 +214,9 @@
                         </field>
                         <field name="id" type="string"/>
                     </body>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
                 </success>
                 <fail status="400">
                     <body data="raw" format="json" type="object">

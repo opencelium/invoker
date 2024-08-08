@@ -12,7 +12,7 @@
     <operation name="createAPIToken" type="test">
             <request>
                 <method>POST</method>
-                <endpoint>https://run.mocky.io/v3/915ae787-e25b-4b97-8b35-f35a8d61aa92</endpoint>
+                <endpoint>{url}/m42Services/api/ApiToken/GenerateAccessTokenFromApiToken/?</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {apitoken}</item>
