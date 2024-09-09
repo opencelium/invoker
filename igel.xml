@@ -1,7 +1,7 @@
 <invoker type="RESTful">
     <name>IGEL</name>
     <description>Designed to simplify complex enterprise environments, the Universal Management Suite (UMS) supports multiple operating systems, databases, and directories. Smart, simple and secure software that allows your IT department to easily manage any size environment, spanning 100,000+ remote endpoints, from one console.</description>
-    <hint>This interface provides a basic auth. Read the api documentation here https://kb.igel.com/igelimi-v3/en/rest-basics-2723220.html</hint>
+    <hint>This interface provides a basic auth. Read the api documentation here https://kb.igel.com/igelimi-v3/en/rest-basics-2723220.html https://kb.igel.com/en/universal-management-suite/12.04.120/assigning-permissions</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>
 	    <item name="username" type="string" visibility="public"/>
