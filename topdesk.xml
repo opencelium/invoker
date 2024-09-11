@@ -1,4 +1,4 @@
-<invoker type="RESTful">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
 	<name>Topdesk</name>
 	<description>This API provides endpoints for defining, modifying and accessing customer-specific business resources. The Asset Management API supports adding arbitrary number of fields and widgets to these and also supports defining basic relationship rules between them.The term 'asset' represents any business resource in the broader sense. They are grouped into 'categories' - by the 'resourceCategory' property - based on their major traits, which may differ substantially for tangible entities and abstract resource definitions. Resource categories define rules, introduce restrictions, but they also provide access to additional APIs specific for them. Basically all Asset Management endpoints can be used for all resource categories, taking the pre-defined restrictions into consideration.Currently the following resource categories are supported:&lt;ul&gt;&lt;li&gt;&lt;b&gt;asset&lt;/b&gt; - The default resource category for representing identifiable entities.&lt;/li&gt;&lt;li&gt;&lt;b&gt;stock&lt;/b&gt; - A stock, in the common sense, that assets can be linked to. A pre-defined link type exists, which represents that an asset is in stock. Check the 'Asset links' section about how to put or remove assets to/from stocks.&lt;/li&gt;&lt;/ul&gt;</description>
 	<hint>This interface provides a basic auth. Check out the documentation https://developers.topdesk.com</hint>
@@ -10,7 +10,7 @@
 		<item name="token" type="string" visibility="private">Basic {username:password}</item>
 	</requiredData>
 	<operations>
-		<operation name="getLinkedAssets" type="test">
+		<operation name="getLinkedAssets" type="">
 			<request>
 				<header>
 					<item name="Authorization" type="string">{token}</item>
@@ -164,7 +164,7 @@
 				</fail>
 			</response>
 		</operation>
-		<operation name="getAssets" type="">
+		<operation name="getAssets" type="test">
 			<request>
 				<header>
 					<item name="Authorization" type="string">{token}</item>
@@ -189,7 +189,29 @@
 							<field name="resourceKey" type="string"/>
 							<field name="valueType" type="string"/>
 						</field>
-						<field name="dataSet" type="array"/>
+						<field name="dataSet" type="array">
+							<field name="name" type="string"/>
+							<field name="unid" type="string"/>
+							<field name="@type" type="object">
+								<field name="name" type="string"/>
+								<field name="icon" type="string"/>
+							</field>
+							<field name="@assignments" type="object">
+								<field name="locations" type="array">
+									<field name="branch" type="object">
+										<field name="id" type="string"/>
+										<field name="name" type="string"/>
+										<field name="specification" type="string"/>
+									</field>
+									<field name="location" type="object">
+										<field name="id" type="string"/>
+										<field name="name" type="string"/>
+										<field name="roomNumber" type="string"/>
+										<field name="specification" type="string"/>
+									</field>
+								</field>
+							</field>
+						</field>
 						<field name="functionalities" type="array">
 							<field name="name" type="string"/>
 							<field name="parameters" type="object"/>
@@ -228,7 +250,29 @@
 							<field name="resourceKey" type="string"/>
 							<field name="valueType" type="string"/>
 						</field>
-						<field name="dataSet" type="array"/>
+						<field name="dataSet" type="array">
+                                                        <field name="name" type="string"/>
+                                                        <field name="unid" type="string"/>
+                                                        <field name="@type" type="object">
+                                                                <field name="name" type="string"/>
+                                                                <field name="icon" type="string"/>
+                                                        </field>
+                                                        <field name="@assignments" type="object">
+                                                                <field name="locations" type="array">
+                                                                        <field name="branch" type="object">
+                                                                                <field name="id" type="string"/>
+                                                                                <field name="name" type="string"/>
+                                                                                <field name="specification" type="string"/>
+                                                                        </field>
+                                                                        <field name="location" type="object">
+                                                                                <field name="id" type="string"/>
+                                                                                <field name="name" type="string"/>
+                                                                                <field name="roomNumber" type="string"/>
+                                                                                <field name="specification" type="string"/>
+                                                                        </field>
+                                                                </field>
+                                                        </field>
+                                                </field>	
 						<field name="functionalities" type="array">
 							<field name="name" type="string"/>
 							<field name="parameters" type="object"/>
@@ -678,7 +722,7 @@
 								<field name="required" type="array"/>
 								<field name="tabs" type="array">
 									<field name="columns" type="array">
-										<field name="size" type="string"/>
+											<field name="size" type="string"/>
 										<field name="widgets" type="array">
 											<field name="resourceKey" type="string"/>
 											<field name="title" type="string"/>
