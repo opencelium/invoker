@@ -63,7 +63,11 @@
                 </fail>
             </response>
         </operation>
-        <operation name="GetManagedDevices" type="">
+        <operation name="GetManagedDevices" type="page">
+            <pagination>
+                <result ref="response.body.$.value" action="collect"/>
+                <link ref="response.body.$.['@odata.nextLink']"/>
+            </pagination>
             <request>
                 <method>GET</method>
                 <endpoint>{resource}beta/deviceManagement/managedDevices</endpoint>
@@ -80,6 +84,7 @@
                     <body data="raw" format="json" type="object">
                         <field name="@odata.context" type="string"/>
                         <field name="@odata.count" type="string"/>
+                        <field name="@odata.nextLink" type="string"/>
                         <field name="value" type="array">
                             <field name="id" type="string"/>
                             <field name="userId" type="string"/>
@@ -219,7 +224,11 @@
                 </fail>
             </response>
         </operation>
-        <operation name="GetUsers" type="">
+        <operation name="GetUsers" type="page">
+            <pagination>
+                <result ref="response.body.$.value" action="collect"/>
+                <link ref="response.body.$.['@odata.nextLink']"/>
+            </pagination>
             <request>
                 <method>GET</method>
                 <endpoint>{resource}beta/users?$top=999</endpoint>
@@ -602,4 +611,5 @@
         </operation>
     </operations>
 </invoker>
+
 

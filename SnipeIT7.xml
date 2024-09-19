@@ -1,0 +1,4320 @@
+<invoker type="soap">
+	<name>SnipeIT7</name>
+	<description>Snipe-IT 7 is open source software. Transparency, security and oversight is at the heart of everything we do. No vendor lock-in again, ever.</description>
+	<hint>Read here the API Documentation https://snipe-it.readme.io/reference/</hint>
+	<requiredData>
+		<item name="url" type="string" visibility="public">https://{develop.snipeitapp.com}/api/v1</item>
+		<item name="token" type="string" visibility="protected"/>
+	</requiredData>
+	<authType>token</authType>
+	<operations>
+		<operation name="hardware-by-id" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/hardware/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="text/plain" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="hardware-update" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="asset_tag" type=""/>
+					<field name="status_id" type=""/>
+					<field name="model_id" type=""/>
+					<field name="notes" type=""/>
+					<field name="last_checkout" type=""/>
+					<field name="assigned_to" type=""/>
+					<field name="company_id" type=""/>
+					<field name="serial" type=""/>
+					<field name="order_number" type=""/>
+					<field name="warranty_months" type=""/>
+					<field name="purchase_cost" type=""/>
+					<field name="purchase_date" type=""/>
+					<field name="requestable" type=""/>
+					<field name="archived" type=""/>
+					<field name="rtd_location_id" type=""/>
+					<field name="name" type=""/>
+					<field name="location_id" type=""/>
+					<field name="image" type=""/>
+					<field name="byod" type=""/>
+				</body>
+				<endpoint>{url}/hardware/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="hardware-delete" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/hardware/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<fail status="401">
+					<body data="text/plain" format="json" type="">
+						<field name="error" type=""/>
+					</body>
+				</fail>
+				<fail status="404">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="hardware-partial-update" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="asset_tag" type=""/>
+					<field name="notes" type=""/>
+					<field name="status_id" type=""/>
+					<field name="model_id" type=""/>
+					<field name="last_checkout" type=""/>
+					<field name="assigned_to" type=""/>
+					<field name="company_id" type=""/>
+					<field name="serial" type=""/>
+					<field name="order_number" type=""/>
+					<field name="warranty_months" type=""/>
+					<field name="purchase_cost" type=""/>
+					<field name="purchase_date" type=""/>
+					<field name="requestable" type=""/>
+					<field name="archived" type=""/>
+					<field name="rtd_location_id" type=""/>
+					<field name="name" type=""/>
+					<field name="location_id" type=""/>
+					<field name="byod" type=""/>
+				</body>
+				<endpoint>{url}/hardware/{id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<fail status="404">
+					<body data="text/plain" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+				<fail status="500">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type="">
+							<field name="status_id" type=""/>
+						</field>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="hardware-list" type="test">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/hardware</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="total" type=""/>
+						<field name="rows" type="array">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="asset_tag" type=""/>
+							<field name="serial" type=""/>
+							<field name="model" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="model_number" type=""/>
+							<field name="eol" type="">
+								<field name="date" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="status_label" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+								<field name="status_type" type=""/>
+								<field name="status_meta" type=""/>
+							</field>
+							<field name="category" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="manufacturer" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="supplier" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="notes" type=""/>
+							<field name="order_number" type=""/>
+							<field name="company" type=""/>
+							<field name="location" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="rtd_location" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="image" type=""/>
+							<field name="qr" type=""/>
+							<field name="alt_barcode" type=""/>
+							<field name="assigned_to" type=""/>
+							<field name="warranty_months" type=""/>
+							<field name="warranty_expires" type=""/>
+							<field name="created_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="updated_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="last_audit_date" type=""/>
+							<field name="next_audit_date" type=""/>
+							<field name="deleted_at" type=""/>
+							<field name="purchase_date" type="">
+								<field name="date" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="age" type=""/>
+							<field name="last_checkout" type=""/>
+							<field name="expected_checkin" type=""/>
+							<field name="purchase_cost" type=""/>
+							<field name="checkin_counter" type=""/>
+							<field name="checkout_counter" type=""/>
+							<field name="requests_counter" type=""/>
+							<field name="user_can_checkout" type=""/>
+							<field name="custom_fields" type=""/>
+							<field name="available_actions" type="">
+								<field name="checkout" type=""/>
+								<field name="checkin" type=""/>
+								<field name="clone" type=""/>
+								<field name="restore" type=""/>
+								<field name="update" type=""/>
+								<field name="delete" type=""/>
+							</field>
+						</field>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="hardware-create" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="asset_tag" type=""/>
+					<field name="status_id" type=""/>
+					<field name="model_id" type=""/>
+					<field name="name" type=""/>
+					<field name="image" type=""/>
+					<field name="serial" type=""/>
+					<field name="purchase_date" type=""/>
+					<field name="purchase_cost" type=""/>
+					<field name="order_number" type=""/>
+					<field name="notes" type=""/>
+					<field name="archived" type=""/>
+					<field name="warranty_months" type=""/>
+					<field name="depreciate" type=""/>
+					<field name="supplier_id" type=""/>
+					<field name="requestable" type=""/>
+					<field name="rtd_location_id" type=""/>
+					<field name="last_audit_date" type=""/>
+					<field name="location_id" type=""/>
+					<field name="byod" type=""/>
+				</body>
+				<endpoint>{url}/hardware</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="text/plain" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="companiesid" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/companies/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="id" type=""/>
+						<field name="name" type=""/>
+						<field name="image" type=""/>
+						<field name="created_at" type="">
+							<field name="datetime" type=""/>
+							<field name="formatted" type=""/>
+						</field>
+						<field name="updated_at" type="">
+							<field name="datetime" type=""/>
+							<field name="formatted" type=""/>
+						</field>
+						<field name="assets_count" type=""/>
+						<field name="licenses_count" type=""/>
+						<field name="accessories_count" type=""/>
+						<field name="consumables_count" type=""/>
+						<field name="components_count" type=""/>
+						<field name="users_count" type=""/>
+						<field name="available_actions" type="">
+							<field name="update" type=""/>
+							<field name="delete" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type=""/>
+					</body>
+				</fail>
+				<fail status="404">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="companiesid-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+				</body>
+				<endpoint>{url}/companies/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="companiesid-3" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/companies/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="companiesid-2" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+				</body>
+				<endpoint>{url}/companies/{id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="companies" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/companies</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="total" type=""/>
+						<field name="rows" type="array">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="image" type=""/>
+							<field name="created_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="updated_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="assets_count" type=""/>
+							<field name="licenses_count" type=""/>
+							<field name="accessories_count" type=""/>
+							<field name="consumables_count" type=""/>
+							<field name="components_count" type=""/>
+							<field name="users_count" type=""/>
+							<field name="available_actions" type="">
+								<field name="update" type=""/>
+								<field name="delete" type=""/>
+							</field>
+						</field>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="companies-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+				</body>
+				<endpoint>{url}/companies</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="payload" type="">
+							<field name="name" type=""/>
+							<field name="updated_at" type=""/>
+							<field name="created_at" type=""/>
+							<field name="id" type=""/>
+						</field>
+						<field name="messages" type=""/>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="text/plain" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="users" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="users-2" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="first_name" type=""/>
+					<field name="last_name" type=""/>
+					<field name="username" type=""/>
+					<field name="password" type=""/>
+					<field name="password_confirmation" type=""/>
+					<field name="email" type=""/>
+					<field name="permissions" type=""/>
+					<field name="activated" type=""/>
+					<field name="phone" type=""/>
+					<field name="jobtitle" type=""/>
+					<field name="manager_id" type=""/>
+					<field name="employee_num" type=""/>
+					<field name="notes" type=""/>
+					<field name="company_id" type=""/>
+					<field name="two_factor_enrolled" type=""/>
+					<field name="two_factor_optin" type=""/>
+					<field name="department_id" type=""/>
+					<field name="location_id" type=""/>
+					<field name="remote" type=""/>
+					<field name="groups" type=""/>
+					<field name="vip" type=""/>
+					<field name="start_date" type=""/>
+					<field name="end_date" type=""/>
+				</body>
+				<endpoint>{url}/users</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="locations" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/locations</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="locations-2" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="address" type=""/>
+					<field name="address2" type=""/>
+					<field name="city" type=""/>
+					<field name="state" type=""/>
+					<field name="country" type=""/>
+					<field name="zip" type=""/>
+					<field name="ldap_ou" type=""/>
+					<field name="parent_id" type=""/>
+					<field name="currency" type=""/>
+					<field name="manager_id" type=""/>
+				</body>
+				<endpoint>{url}/locations</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="modelsid" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/models/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="modelsid-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="model_number" type=""/>
+					<field name="category_id" type=""/>
+					<field name="manufacturer_id" type=""/>
+					<field name="fieldset_id" type=""/>
+					<field name="eol" type=""/>
+					<field name="depreciation_id" type=""/>
+					<field name="notes" type=""/>
+					<field name="requestable" type=""/>
+				</body>
+				<endpoint>{url}/models/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="modelsid-3" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/models/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="modelsid-2" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="model_number" type=""/>
+					<field name="fieldset_id" type=""/>
+					<field name="manufacturer_id" type=""/>
+					<field name="category_id" type=""/>
+					<field name="depreciation_id" type=""/>
+					<field name="notes" type=""/>
+					<field name="requestable" type=""/>
+				</body>
+				<endpoint>{url}/models/{id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="models" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/models</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="models-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="model_number" type=""/>
+					<field name="category_id" type=""/>
+					<field name="manufacturer_id" type=""/>
+					<field name="eol" type=""/>
+					<field name="fieldset_id" type=""/>
+				</body>
+				<endpoint>{url}/models</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="accessories" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/accessories</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="total" type=""/>
+						<field name="rows" type="array">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="company" type=""/>
+							<field name="manufacturer" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="supplier" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="model_number" type=""/>
+							<field name="category" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="location" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="notes" type=""/>
+							<field name="qty" type=""/>
+							<field name="purchase_date" type=""/>
+							<field name="purchase_cost" type=""/>
+							<field name="order_number" type=""/>
+							<field name="min_qty" type=""/>
+							<field name="remaining_qty" type=""/>
+							<field name="image" type=""/>
+							<field name="created_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="updated_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="available_actions" type="">
+								<field name="checkout" type=""/>
+								<field name="checkin" type=""/>
+								<field name="update" type=""/>
+								<field name="delete" type=""/>
+							</field>
+							<field name="user_can_checkout" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="accessories-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="qty" type=""/>
+					<field name="order_number" type=""/>
+					<field name="purchase_cost" type=""/>
+					<field name="purchase_date" type=""/>
+					<field name="model_number" type=""/>
+					<field name="category_id" type=""/>
+					<field name="company_id" type=""/>
+					<field name="location_id" type=""/>
+					<field name="manufacturer_id" type=""/>
+					<field name="supplier_id" type=""/>
+				</body>
+				<endpoint>{url}/accessories</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="statuslabels" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/statuslabels</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="total" type=""/>
+						<field name="rows" type="array">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="type" type=""/>
+							<field name="color" type=""/>
+							<field name="show_in_nav" type=""/>
+							<field name="assets_count" type=""/>
+							<field name="notes" type=""/>
+							<field name="created_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="updated_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="available_actions" type="">
+								<field name="update" type=""/>
+								<field name="delete" type=""/>
+							</field>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="statuslabels-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="type" type=""/>
+					<field name="notes" type=""/>
+					<field name="color" type=""/>
+					<field name="show_in_nav" type=""/>
+					<field name="default_label" type=""/>
+				</body>
+				<endpoint>{url}/statuslabels</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type="">
+							<field name="name" type=""/>
+							<field name="deployable" type=""/>
+							<field name="pending" type=""/>
+							<field name="archived" type=""/>
+							<field name="updated_at" type=""/>
+							<field name="created_at" type=""/>
+							<field name="id" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="locations-1" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/locations/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="locations-3" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="address" type=""/>
+					<field name="address2" type=""/>
+					<field name="city" type=""/>
+					<field name="state" type=""/>
+					<field name="country" type=""/>
+					<field name="zip" type=""/>
+					<field name="ldap_ou" type=""/>
+					<field name="parent_id" type=""/>
+					<field name="currency" type=""/>
+					<field name="manager_id" type=""/>
+				</body>
+				<endpoint>{url}/locations/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="locationsid-2" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/locations/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type=""/>
+					</body>
+				</success>
+			</response>
+		</operation>
+		<operation name="locationsid" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="address" type=""/>
+					<field name="address2" type=""/>
+					<field name="city" type=""/>
+					<field name="state" type=""/>
+					<field name="country" type=""/>
+					<field name="zip" type=""/>
+					<field name="currency" type=""/>
+					<field name="ldap_ou" type=""/>
+					<field name="manager_id" type=""/>
+					<field name="parent_id" type=""/>
+				</body>
+				<endpoint>{url}/locations/{id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="categories-1" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/categories</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="categories-2" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="category_type" type=""/>
+					<field name="use_default_eula" type=""/>
+					<field name="require_acceptance" type=""/>
+					<field name="checkin_email" type=""/>
+				</body>
+				<endpoint>{url}/categories</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="statuslabelsid" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/statuslabels/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="id" type=""/>
+						<field name="name" type=""/>
+						<field name="type" type=""/>
+						<field name="color" type=""/>
+						<field name="show_in_nav" type=""/>
+						<field name="assets_count" type=""/>
+						<field name="notes" type=""/>
+						<field name="created_at" type="">
+							<field name="datetime" type=""/>
+							<field name="formatted" type=""/>
+						</field>
+						<field name="updated_at" type="">
+							<field name="datetime" type=""/>
+							<field name="formatted" type=""/>
+						</field>
+						<field name="available_actions" type="">
+							<field name="update" type=""/>
+							<field name="delete" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="statuslabelsid-2" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="type" type=""/>
+					<field name="notes" type=""/>
+					<field name="color" type=""/>
+					<field name="show_in_nav" type=""/>
+					<field name="default_label" type=""/>
+				</body>
+				<endpoint>{url}/statuslabels/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type="">
+							<field name="name" type=""/>
+							<field name="deployable" type=""/>
+							<field name="pending" type=""/>
+							<field name="archived" type=""/>
+							<field name="updated_at" type=""/>
+							<field name="created_at" type=""/>
+							<field name="id" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="statuslabelsid-1" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/statuslabels/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="statuslabelsid-3" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="type" type=""/>
+					<field name="notes" type=""/>
+					<field name="color" type=""/>
+					<field name="show_in_nav" type=""/>
+					<field name="default_label" type=""/>
+				</body>
+				<endpoint>{url}/statuslabels/{id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type="">
+							<field name="name" type=""/>
+							<field name="deployable" type=""/>
+							<field name="pending" type=""/>
+							<field name="archived" type=""/>
+							<field name="updated_at" type=""/>
+							<field name="created_at" type=""/>
+							<field name="id" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="usersid" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="usersid-2" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="first_name" type=""/>
+					<field name="last_name" type=""/>
+					<field name="username" type=""/>
+					<field name="password" type=""/>
+					<field name="email" type=""/>
+					<field name="permissions" type=""/>
+					<field name="activated" type=""/>
+					<field name="phone" type=""/>
+					<field name="jobtitle" type=""/>
+					<field name="manager_id" type=""/>
+					<field name="employee_num" type=""/>
+					<field name="notes" type=""/>
+					<field name="company_id" type=""/>
+					<field name="two_factor_enrolled" type=""/>
+					<field name="two_factor_optin" type=""/>
+					<field name="department_id" type=""/>
+					<field name="location_id" type=""/>
+					<field name="remote" type=""/>
+					<field name="groups" type=""/>
+					<field name="vip" type=""/>
+					<field name="start_date" type=""/>
+					<field name="end_date" type=""/>
+				</body>
+				<endpoint>{url}/users/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="usersid-1" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="users-3" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="first_name" type=""/>
+					<field name="last_name" type=""/>
+					<field name="username" type=""/>
+					<field name="password" type=""/>
+					<field name="email" type=""/>
+					<field name="permissions" type=""/>
+					<field name="activated" type=""/>
+					<field name="phone" type=""/>
+					<field name="jobtitle" type=""/>
+					<field name="manager_id" type=""/>
+					<field name="employee_num" type=""/>
+					<field name="notes" type=""/>
+					<field name="company_id" type=""/>
+					<field name="two_factor_enrolled" type=""/>
+					<field name="two_factor_optin" type=""/>
+					<field name="department_id" type=""/>
+					<field name="location_id" type=""/>
+					<field name="remote" type=""/>
+					<field name="groups" type=""/>
+					<field name="vip" type=""/>
+					<field name="start_date" type=""/>
+					<field name="end_date" type=""/>
+				</body>
+				<endpoint>{url}/users/{id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="categoriesid-3" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/categories/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="categoriesid" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="category_type" type=""/>
+					<field name="use_default_eula" type=""/>
+					<field name="require_acceptance" type=""/>
+					<field name="checkin_email" type=""/>
+				</body>
+				<endpoint>{url}/categories/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="categoriesid-2" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/categories/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="categoriesid-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="category_type" type=""/>
+					<field name="use_default_eula" type=""/>
+					<field name="require_acceptance" type=""/>
+					<field name="checkin_email" type=""/>
+				</body>
+				<endpoint>{url}/categories/{id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="manufacturers" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/manufacturers</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="total" type=""/>
+						<field name="rows" type="array">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="url" type=""/>
+							<field name="image" type=""/>
+							<field name="support_url" type=""/>
+							<field name="support_phone" type=""/>
+							<field name="support_email" type=""/>
+							<field name="assets_count" type=""/>
+							<field name="licenses_count" type=""/>
+							<field name="consumables_count" type=""/>
+							<field name="accessories_count" type=""/>
+							<field name="created_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="updated_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="deleted_at" type=""/>
+							<field name="available_actions" type="">
+								<field name="update" type=""/>
+								<field name="restore" type=""/>
+								<field name="delete" type=""/>
+							</field>
+						</field>
+					</body>
+				</success>
+			</response>
+		</operation>
+		<operation name="manufacturers-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+				</body>
+				<endpoint>{url}/manufacturers</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="statuslabelsidassetlist" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/statuslabels/{id}/assetlist</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="consumables" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/consumables</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="total" type=""/>
+						<field name="rows" type="array">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="image" type=""/>
+							<field name="category" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="company" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="item_no" type=""/>
+							<field name="location" type=""/>
+							<field name="manufacturer" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="min_amt" type=""/>
+							<field name="model_number" type=""/>
+							<field name="remaining" type=""/>
+							<field name="order_number" type=""/>
+							<field name="purchase_cost" type=""/>
+							<field name="purchase_date" type="">
+								<field name="date" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="qty" type=""/>
+							<field name="created_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="updated_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="user_can_checkout" type=""/>
+							<field name="available_actions" type="">
+								<field name="checkout" type=""/>
+								<field name="checkin" type=""/>
+								<field name="update" type=""/>
+								<field name="delete" type=""/>
+							</field>
+						</field>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="consumables-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="qty" type=""/>
+					<field name="category_id" type=""/>
+					<field name="company_id" type=""/>
+					<field name="order_number" type=""/>
+					<field name="manufacturer_id" type=""/>
+					<field name="location_id" type=""/>
+					<field name="requestable" type=""/>
+					<field name="purchase_date" type=""/>
+					<field name="min_amt" type=""/>
+					<field name="model_number" type=""/>
+					<field name="item_no" type=""/>
+				</body>
+				<endpoint>{url}/consumables</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="hardware-checkout" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="status_id" type=""/>
+					<field name="checkout_to_type" type=""/>
+					<field name="assigned_user" type=""/>
+					<field name="assigned_asset" type=""/>
+					<field name="assigned_location" type=""/>
+					<field name="expected_checkin" type=""/>
+					<field name="checkout_at" type=""/>
+					<field name="name" type=""/>
+					<field name="note" type=""/>
+				</body>
+				<endpoint>{url}/hardware/{id}/checkout</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="text/plain" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="accessoriesid" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/accessories/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="accessoriesid-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="qty" type=""/>
+					<field name="order_number" type=""/>
+					<field name="purchase_cost" type=""/>
+					<field name="purchase_date" type=""/>
+					<field name="model_number" type=""/>
+					<field name="category_id" type=""/>
+					<field name="company_id" type=""/>
+					<field name="location_id" type=""/>
+					<field name="manufacturer_id" type=""/>
+					<field name="supplier_id" type=""/>
+				</body>
+				<endpoint>{url}/accessories/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="accessoriesid-3" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/accessories/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="accessoriesid-2" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="qty" type=""/>
+					<field name="order_number" type=""/>
+					<field name="purchase_cost" type=""/>
+					<field name="purchase_date" type=""/>
+					<field name="model_number" type=""/>
+					<field name="category_id" type=""/>
+					<field name="company_id" type=""/>
+					<field name="location_id" type=""/>
+					<field name="manufacturer_id" type=""/>
+					<field name="supplier_id" type=""/>
+				</body>
+				<endpoint>{url}/accessories/{id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="componentsid" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/components/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="componentsid-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="qty" type=""/>
+					<field name="category_id" type=""/>
+					<field name="location_id" type=""/>
+					<field name="company_id" type=""/>
+					<field name="order_number" type=""/>
+					<field name="purchase_date" type=""/>
+					<field name="purchase_cost" type=""/>
+					<field name="min_amt" type=""/>
+					<field name="serial" type=""/>
+				</body>
+				<endpoint>{url}/components/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="componentsid-3" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/components/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="componentsid-2" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="qty" type=""/>
+					<field name="category_id" type=""/>
+					<field name="location_id" type=""/>
+					<field name="company_id" type=""/>
+					<field name="order_number" type=""/>
+					<field name="purchase_date" type=""/>
+					<field name="purchase_cost" type=""/>
+					<field name="min_amt" type=""/>
+					<field name="serial" type=""/>
+				</body>
+				<endpoint>{url}/components/{id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="consumablesid" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/consumables/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="consumables-2" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="qty" type=""/>
+					<field name="category_id" type=""/>
+					<field name="company_id" type=""/>
+					<field name="order_number" type=""/>
+					<field name="manufacturer_id" type=""/>
+					<field name="location_id" type=""/>
+					<field name="requestable" type=""/>
+					<field name="purchase_date" type=""/>
+					<field name="min_amt" type=""/>
+					<field name="model_number" type=""/>
+					<field name="item_no" type=""/>
+				</body>
+				<endpoint>{url}/consumables/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="consumablesid-2" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/consumables/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="consumablesid-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="qty" type=""/>
+					<field name="category_id" type=""/>
+					<field name="company_id" type=""/>
+					<field name="order_number" type=""/>
+					<field name="manufacturer_id" type=""/>
+					<field name="location_id" type=""/>
+					<field name="requestable" type=""/>
+					<field name="purchase_date" type=""/>
+					<field name="min_amt" type=""/>
+					<field name="model_number" type=""/>
+					<field name="item_no" type=""/>
+				</body>
+				<endpoint>{url}/consumables/{id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="components" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/components</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="total" type=""/>
+						<field name="rows" type="array">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="image" type=""/>
+							<field name="serial" type=""/>
+							<field name="location" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="qty" type=""/>
+							<field name="min_amt" type=""/>
+							<field name="category" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="order_number" type=""/>
+							<field name="purchase_date" type="">
+								<field name="date" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="purchase_cost" type=""/>
+							<field name="remaining" type=""/>
+							<field name="company" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="created_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="updated_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="user_can_checkout" type=""/>
+							<field name="available_actions" type="">
+								<field name="checkout" type=""/>
+								<field name="checkin" type=""/>
+								<field name="update" type=""/>
+								<field name="delete" type=""/>
+							</field>
+						</field>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="components-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="qty" type=""/>
+					<field name="category_id" type=""/>
+					<field name="location_id" type=""/>
+					<field name="company_id" type=""/>
+					<field name="order_number" type=""/>
+					<field name="purchase_date" type=""/>
+					<field name="purchase_cost" type=""/>
+					<field name="min_amt" type=""/>
+					<field name="serial" type=""/>
+				</body>
+				<endpoint>{url}/components</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="hardware-checkin" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="status_id" type=""/>
+					<field name="name" type=""/>
+					<field name="note" type=""/>
+					<field name="location_id" type=""/>
+				</body>
+				<endpoint>{url}/hardware/{id}/checkin</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="text/plain" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="licenses" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/licenses</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="total" type=""/>
+						<field name="rows" type="array">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="company" type=""/>
+							<field name="manufacturer" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="product_key" type=""/>
+							<field name="order_number" type=""/>
+							<field name="purchase_order" type=""/>
+							<field name="purchase_date" type="">
+								<field name="date" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="purchase_cost" type=""/>
+							<field name="notes" type=""/>
+							<field name="expiration_date" type=""/>
+							<field name="seats" type=""/>
+							<field name="free_seats_count" type=""/>
+							<field name="license_name" type=""/>
+							<field name="license_email" type=""/>
+							<field name="maintained" type=""/>
+							<field name="supplier" type=""/>
+							<field name="created_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="updated_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="user_can_checkout" type=""/>
+							<field name="available_actions" type="">
+								<field name="checkout" type=""/>
+								<field name="checkin" type=""/>
+								<field name="clone" type=""/>
+								<field name="update" type=""/>
+								<field name="delete" type=""/>
+							</field>
+						</field>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="testinput" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="seats" type=""/>
+					<field name="category_id" type=""/>
+					<field name="company_id" type=""/>
+					<field name="expiration_date" type=""/>
+					<field name="license_email" type=""/>
+					<field name="license_name" type=""/>
+					<field name="serial" type=""/>
+					<field name="maintained" type=""/>
+					<field name="manufacturer_id" type=""/>
+					<field name="notes" type=""/>
+					<field name="order_number" type=""/>
+					<field name="purchase_cost" type=""/>
+					<field name="purchase_date" type=""/>
+					<field name="purchase_order" type=""/>
+					<field name="reassignable" type=""/>
+					<field name="supplier_id" type=""/>
+					<field name="termination_date" type=""/>
+				</body>
+				<endpoint>{url}/licenses</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type="">
+							<field name="name" type=""/>
+							<field name="seats" type=""/>
+							<field name="updated_at" type=""/>
+							<field name="created_at" type=""/>
+							<field name="id" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="text/plain" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="fields" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/fieldsets</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="total" type=""/>
+						<field name="rows" type="array">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="fields" type="">
+								<field name="total" type=""/>
+								<field name="rows" type="array">
+									<field name="id" type=""/>
+									<field name="name" type=""/>
+									<field name="db_column_name" type=""/>
+									<field name="format" type=""/>
+									<field name="field_values" type=""/>
+									<field name="field_values_array" type=""/>
+									<field name="type" type=""/>
+									<field name="required" type=""/>
+									<field name="created_at" type="">
+										<field name="datetime" type=""/>
+										<field name="formatted" type=""/>
+									</field>
+									<field name="updated_at" type="">
+										<field name="datetime" type=""/>
+										<field name="formatted" type=""/>
+									</field>
+								</field>
+							</field>
+							<field name="models" type="">
+								<field name="total" type=""/>
+								<field name="rows" type="array">
+									<field name="id" type=""/>
+									<field name="name" type=""/>
+								</field>
+							</field>
+							<field name="created_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="updated_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+				<fail status="401">
+					<body data="text/plain" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="fieldsets" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+				</body>
+				<endpoint>{url}/fieldsets</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="fieldsetsid" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/fieldsets/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="fieldsetsid-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+				</body>
+				<endpoint>{url}/fieldsets/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="fieldsetsid-2" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/fieldsets/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="manufacturersid-1" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/manufacturers/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="manufacturersid-3" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+				</body>
+				<endpoint>{url}/manufacturers/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="manufacturersid-2" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/manufacturers/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="manufacturersid" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+				</body>
+				<endpoint>{url}/manufacturers/{id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="usersidassets" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{id}/assets</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="licensesid" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/licenses/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="id" type=""/>
+						<field name="name" type=""/>
+						<field name="company" type=""/>
+						<field name="manufacturer" type="">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+						</field>
+						<field name="product_key" type=""/>
+						<field name="order_number" type=""/>
+						<field name="purchase_order" type=""/>
+						<field name="purchase_date" type="">
+							<field name="date" type=""/>
+							<field name="formatted" type=""/>
+						</field>
+						<field name="purchase_cost" type=""/>
+						<field name="notes" type=""/>
+						<field name="expiration_date" type=""/>
+						<field name="seats" type=""/>
+						<field name="free_seats_count" type=""/>
+						<field name="license_name" type=""/>
+						<field name="license_email" type=""/>
+						<field name="maintained" type=""/>
+						<field name="supplier" type=""/>
+						<field name="created_at" type="">
+							<field name="datetime" type=""/>
+							<field name="formatted" type=""/>
+						</field>
+						<field name="updated_at" type="">
+							<field name="datetime" type=""/>
+							<field name="formatted" type=""/>
+						</field>
+						<field name="user_can_checkout" type=""/>
+						<field name="available_actions" type="">
+							<field name="checkout" type=""/>
+							<field name="checkin" type=""/>
+							<field name="clone" type=""/>
+							<field name="update" type=""/>
+							<field name="delete" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="licensesid-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="category_id" type=""/>
+					<field name="company_id" type=""/>
+					<field name="expiration_date" type=""/>
+					<field name="license_email" type=""/>
+					<field name="license_name" type=""/>
+					<field name="serial" type=""/>
+					<field name="maintained" type=""/>
+					<field name="manufacturer_id" type=""/>
+					<field name="notes" type=""/>
+					<field name="order_number" type=""/>
+					<field name="purchase_cost" type=""/>
+					<field name="purchase_date" type=""/>
+					<field name="purchase_order" type=""/>
+					<field name="reassignable" type=""/>
+					<field name="seats" type=""/>
+					<field name="supplier_id" type=""/>
+					<field name="termination_date" type=""/>
+				</body>
+				<endpoint>{url}/licenses/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="licensesid-3" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/licenses/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type=""/>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="licensesid-2" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="category_id" type=""/>
+					<field name="company_id" type=""/>
+					<field name="expiration_date" type=""/>
+					<field name="license_email" type=""/>
+					<field name="license_name" type=""/>
+					<field name="serial" type=""/>
+					<field name="maintained" type=""/>
+					<field name="manufacturer_id" type=""/>
+					<field name="notes" type=""/>
+					<field name="order_number" type=""/>
+					<field name="purchase_cost" type=""/>
+					<field name="purchase_date" type=""/>
+					<field name="purchase_order" type=""/>
+					<field name="reassignable" type=""/>
+					<field name="seats" type=""/>
+					<field name="supplier_id" type=""/>
+					<field name="termination_date" type=""/>
+				</body>
+				<endpoint>{url}/licenses/{id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="maintenances" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/maintenances</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="total" type=""/>
+						<field name="rows" type="array">
+							<field name="id" type=""/>
+							<field name="asset" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+								<field name="asset_tag" type=""/>
+							</field>
+							<field name="title" type=""/>
+							<field name="location" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="notes" type=""/>
+							<field name="supplier" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="cost" type=""/>
+							<field name="asset_maintenance_type" type=""/>
+							<field name="start_date" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="asset_maintenance_time" type=""/>
+							<field name="completion_date" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="user_id" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="created_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="updated_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="available_actions" type="">
+								<field name="update" type=""/>
+								<field name="delete" type=""/>
+							</field>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="maintenances-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="title" type=""/>
+					<field name="asset_id" type=""/>
+					<field name="supplier_id" type=""/>
+					<field name="is_warranty" type=""/>
+					<field name="cost" type=""/>
+					<field name="notes" type=""/>
+					<field name="asset_maintenance_type" type=""/>
+					<field name="start_date" type=""/>
+					<field name="completion_date" type=""/>
+				</body>
+				<endpoint>{url}/maintenances</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="hardware-by-asset-tag" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/hardware/bytag/{asset_tag}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="text/plain" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="hardware-by-serial" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/hardware/byserial/{serial}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="text/plain" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="hardwareaudit" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="asset_tag" type=""/>
+					<field name="location_id" type=""/>
+					<field name="next_audit_date" type=""/>
+				</body>
+				<endpoint>{url}/hardware/audit</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="text/plain" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="departmentsid" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/departments/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="id" type=""/>
+						<field name="name" type=""/>
+						<field name="image" type=""/>
+						<field name="company" type=""/>
+						<field name="manager" type=""/>
+						<field name="location" type="">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+						</field>
+						<field name="users_count" type=""/>
+						<field name="created_at" type="">
+							<field name="datetime" type=""/>
+							<field name="formatted" type=""/>
+						</field>
+						<field name="updated_at" type="">
+							<field name="datetime" type=""/>
+							<field name="formatted" type=""/>
+						</field>
+						<field name="available_actions" type="">
+							<field name="update" type=""/>
+							<field name="delete" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="departments-edit" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+				</body>
+				<endpoint>{url}/departments/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type="">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="user_id" type=""/>
+							<field name="company_id" type=""/>
+							<field name="location_id" type=""/>
+							<field name="manager_id" type=""/>
+							<field name="notes" type=""/>
+							<field name="created_at" type=""/>
+							<field name="updated_at" type=""/>
+							<field name="deleted_at" type=""/>
+							<field name="image" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="departmentsid-2" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/departments/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="departmentsid-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+				</body>
+				<endpoint>{url}/departments/{id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type="">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="user_id" type=""/>
+							<field name="company_id" type=""/>
+							<field name="location_id" type=""/>
+							<field name="manager_id" type=""/>
+							<field name="notes" type=""/>
+							<field name="created_at" type=""/>
+							<field name="updated_at" type=""/>
+							<field name="deleted_at" type=""/>
+							<field name="image" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="hardwareidlicenses" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/hardware/{id}/licenses</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="text/plain" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="departments" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/departments</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="total" type=""/>
+						<field name="rows" type="array">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="image" type=""/>
+							<field name="company" type=""/>
+							<field name="manager" type=""/>
+							<field name="location" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="users_count" type=""/>
+							<field name="created_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="updated_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="available_actions" type="">
+								<field name="update" type=""/>
+								<field name="delete" type=""/>
+							</field>
+						</field>
+					</body>
+				</success>
+			</response>
+		</operation>
+		<operation name="departments-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+				</body>
+				<endpoint>{url}/departments</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type="">
+							<field name="name" type=""/>
+							<field name="user_id" type=""/>
+							<field name="manager_id" type=""/>
+							<field name="updated_at" type=""/>
+							<field name="created_at" type=""/>
+							<field name="id" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="usersidlicenses" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{id}/licenses</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="total" type=""/>
+						<field name="rows" type="array">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="company" type=""/>
+							<field name="manufacturer" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="product_key" type=""/>
+							<field name="order_number" type=""/>
+							<field name="purchase_order" type=""/>
+							<field name="purchase_date" type="">
+								<field name="date" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="purchase_cost" type=""/>
+							<field name="notes" type=""/>
+							<field name="expiration_date" type="">
+								<field name="date" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="seats" type=""/>
+							<field name="free_seats_count" type=""/>
+							<field name="license_name" type=""/>
+							<field name="license_email" type=""/>
+							<field name="maintained" type=""/>
+							<field name="supplier" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="category" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="created_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="updated_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="user_can_checkout" type=""/>
+							<field name="available_actions" type="">
+								<field name="checkout" type=""/>
+								<field name="checkin" type=""/>
+								<field name="clone" type=""/>
+								<field name="update" type=""/>
+								<field name="delete" type=""/>
+							</field>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="hardwareauditoverdue" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/hardware/audit/overdue</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="text/plain" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="usersidaccessories" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{id}/accessories</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="total" type=""/>
+						<field name="rows" type="array">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="company" type=""/>
+							<field name="manufacturer" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="supplier" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="model_number" type=""/>
+							<field name="category" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="location" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="notes" type=""/>
+							<field name="qty" type=""/>
+							<field name="purchase_date" type=""/>
+							<field name="purchase_cost" type=""/>
+							<field name="order_number" type=""/>
+							<field name="min_qty" type=""/>
+							<field name="remaining_qty" type=""/>
+							<field name="image" type=""/>
+							<field name="created_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="updated_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="available_actions" type="">
+								<field name="checkout" type=""/>
+								<field name="checkin" type=""/>
+								<field name="update" type=""/>
+								<field name="delete" type=""/>
+							</field>
+							<field name="user_can_checkout" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="hardwareauditdue" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/hardware/audit/due</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="text/plain" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="maintenancesid" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/maintenances/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type="">
+							<field name="id" type=""/>
+							<field name="asset_id" type=""/>
+							<field name="supplier_id" type=""/>
+							<field name="asset_maintenance_type" type=""/>
+							<field name="title" type=""/>
+							<field name="is_warranty" type=""/>
+							<field name="start_date" type=""/>
+							<field name="completion_date" type=""/>
+							<field name="asset_maintenance_time" type=""/>
+							<field name="notes" type=""/>
+							<field name="cost" type=""/>
+							<field name="deleted_at" type=""/>
+							<field name="created_at" type=""/>
+							<field name="updated_at" type=""/>
+							<field name="user_id" type=""/>
+							<field name="asset" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+								<field name="asset_tag" type=""/>
+								<field name="model_id" type=""/>
+								<field name="serial" type=""/>
+								<field name="purchase_date" type=""/>
+								<field name="purchase_cost" type=""/>
+								<field name="order_number" type=""/>
+								<field name="assigned_to" type=""/>
+								<field name="notes" type=""/>
+								<field name="image" type=""/>
+								<field name="user_id" type=""/>
+								<field name="created_at" type=""/>
+								<field name="updated_at" type=""/>
+								<field name="physical" type=""/>
+								<field name="deleted_at" type=""/>
+								<field name="status_id" type=""/>
+								<field name="archived" type=""/>
+								<field name="warranty_months" type=""/>
+								<field name="depreciate" type=""/>
+								<field name="supplier_id" type=""/>
+								<field name="requestable" type=""/>
+								<field name="rtd_location_id" type=""/>
+								<field name="accepted" type=""/>
+								<field name="last_checkout" type=""/>
+								<field name="expected_checkin" type=""/>
+								<field name="company_id" type=""/>
+								<field name="assigned_type" type=""/>
+								<field name="last_audit_date" type=""/>
+								<field name="next_audit_date" type=""/>
+								<field name="location_id" type=""/>
+								<field name="checkin_counter" type=""/>
+								<field name="checkout_counter" type=""/>
+								<field name="requests_counter" type=""/>
+								<field name="_snipeit_imei_1" type=""/>
+								<field name="_snipeit_phone_number_2" type=""/>
+								<field name="_snipeit_ram_3" type=""/>
+								<field name="_snipeit_cpu_4" type=""/>
+								<field name="_snipeit_mac_address_5" type=""/>
+							</field>
+						</field>
+					</body>
+				</success>
+			</response>
+		</operation>
+		<operation name="accessoriesidcheckedout" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/accessories/{id}/checkedout</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="accessories-checkin" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/accessories/{id}/checkin</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="consumablesidcheckout" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="assigned_to" type=""/>
+				</body>
+				<endpoint>{url}/consumables/{id}/checkout</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="componentsidassets" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/components/{id}/assets</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="fields-1" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/fields</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="total" type=""/>
+						<field name="rows" type="array">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="db_column_name" type=""/>
+							<field name="format" type=""/>
+							<field name="field_values" type=""/>
+							<field name="field_values_array" type=""/>
+							<field name="type" type=""/>
+							<field name="required" type=""/>
+							<field name="created_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+							<field name="updated_at" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="fields-2" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="element" type=""/>
+					<field name="field_values" type=""/>
+					<field name="show_in_email" type=""/>
+					<field name="format" type=""/>
+					<field name="field_encrypted" type=""/>
+					<field name="help_text" type=""/>
+				</body>
+				<endpoint>{url}/fields</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200"/>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="accessories-checkout" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="assigned_to" type=""/>
+					<field name="note" type=""/>
+				</body>
+				<endpoint>{url}/accessories/{id}/checkout</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="fieldsid" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/fields/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="update-fields" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="element" type=""/>
+				</body>
+				<endpoint>{url}/fields/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="fieldsid-1" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/fields/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="fieldsid-2" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="element" type=""/>
+				</body>
+				<endpoint>{url}/fields/{id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="fieldsidassociate" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="fieldset_id" type=""/>
+				</body>
+				<endpoint>{url}/fields/{id}/associate</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="reportsactivity" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/reports/activity</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="fieldsetsidfields" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/fieldsets/{id}/fields</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="fieldsiddisassociate" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="fieldset_id" type=""/>
+				</body>
+				<endpoint>{url}/fields/{id}/disassociate</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</success>
+				<fail status="401">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="message" type=""/>
+					</body>
+				</fail>
+				<fail status="405">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+					</body>
+				</fail>
+			</response>
+		</operation>
+		<operation name="usersme" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/me</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200"/>
+			</response>
+		</operation>
+		<operation name="componentsidcheckin" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="checkin_qty" type=""/>
+				</body>
+				<endpoint>{url}/components/{id}/checkin</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="componentsidcheckout" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="assigned_to" type=""/>
+					<field name="assigned_qty" type=""/>
+				</body>
+				<endpoint>{url}/components/{id}/checkout</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="hardwareidrestore" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/hardware/:id/restore</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type="">
+							<field name="asset_tag" type=""/>
+							<field name="note" type=""/>
+							<field name="next_audit_date" type="">
+								<field name="datetime" type=""/>
+								<field name="formatted" type=""/>
+							</field>
+						</field>
+					</body>
+				</success>
+			</response>
+		</operation>
+		<operation name="groups-1" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/groups</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="groupsid-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="permissions" type=""/>
+				</body>
+				<endpoint>{url}/groups</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="suppliers" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/suppliers</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="licensesidseats" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/licenses/{id}/seats</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="total" type=""/>
+						<field name="rows" type="array">
+							<field name="id" type=""/>
+							<field name="license_id" type=""/>
+							<field name="assigned_user" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+								<field name="department" type="">
+									<field name="id" type=""/>
+									<field name="name" type=""/>
+								</field>
+							</field>
+							<field name="assigned_asset" type=""/>
+							<field name="location" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+							<field name="reassignable" type=""/>
+							<field name="user_can_checkout" type=""/>
+							<field name="name" type=""/>
+							<field name="available_actions" type="">
+								<field name="checkout" type=""/>
+								<field name="checkin" type=""/>
+								<field name="clone" type=""/>
+								<field name="update" type=""/>
+								<field name="delete" type=""/>
+							</field>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="groupsid" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/groups/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="groupsid-2" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="permissions" type=""/>
+				</body>
+				<endpoint>{url}/groups/{id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="groupsid-3" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/groups/{id}</endpoint>
+				<method>DELETE</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="groupsid-4" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="name" type=""/>
+					<field name="permissions" type=""/>
+				</body>
+				<endpoint>{url}/groups/{id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="backupsdownloadfile" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/settings/backups/download/{file}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="backups-1" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/settings/backups</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="licensesidseatsseat_id" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/licenses/{id}/seats/{seat_id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="id" type=""/>
+						<field name="license_id" type=""/>
+						<field name="assigned_user" type="">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+							<field name="department" type="">
+								<field name="id" type=""/>
+								<field name="name" type=""/>
+							</field>
+						</field>
+						<field name="assigned_asset" type=""/>
+						<field name="location" type="">
+							<field name="id" type=""/>
+							<field name="name" type=""/>
+						</field>
+						<field name="reassignable" type=""/>
+						<field name="user_can_checkout" type=""/>
+						<field name="available_actions" type="">
+							<field name="checkout" type=""/>
+							<field name="checkin" type=""/>
+							<field name="clone" type=""/>
+							<field name="update" type=""/>
+							<field name="delete" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="licensesidseatsseat_id-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="assigned_to" type=""/>
+					<field name="asset_id" type=""/>
+					<field name="note" type=""/>
+				</body>
+				<endpoint>{url}/licenses/{id}/seats/{seat_id}</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type="">
+							<field name="id" type=""/>
+							<field name="license_id" type=""/>
+							<field name="assigned_to" type=""/>
+							<field name="notes" type=""/>
+							<field name="user_id" type=""/>
+							<field name="created_at" type=""/>
+							<field name="updated_at" type=""/>
+							<field name="deleted_at" type=""/>
+							<field name="asset_id" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="licensesidseatsseat_id-2" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="assigned_to" type=""/>
+					<field name="asset_id" type=""/>
+					<field name="note" type=""/>
+				</body>
+				<endpoint>{url}/licenses/{id}/seats/{seat_id}</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="">
+						<field name="status" type=""/>
+						<field name="messages" type=""/>
+						<field name="payload" type="">
+							<field name="id" type=""/>
+							<field name="license_id" type=""/>
+							<field name="assigned_to" type=""/>
+							<field name="notes" type=""/>
+							<field name="user_id" type=""/>
+							<field name="created_at" type=""/>
+							<field name="updated_at" type=""/>
+							<field name="deleted_at" type=""/>
+							<field name="asset_id" type=""/>
+						</field>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="suppliersid" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/suppliers/{id}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="maintenances-copy" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="title" type=""/>
+					<field name="asset_id" type=""/>
+					<field name="supplier_id" type=""/>
+					<field name="is_warranty" type=""/>
+					<field name="cost" type=""/>
+					<field name="notes" type=""/>
+					<field name="asset_maintenance_type" type=""/>
+					<field name="start_date" type=""/>
+					<field name="completion_date" type=""/>
+				</body>
+				<endpoint>{url}/maintenances/:id</endpoint>
+				<method>PUT</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="maintenances-copy-1" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="application/json" format="json" type="">
+					<field name="title" type=""/>
+					<field name="asset_id" type=""/>
+					<field name="supplier_id" type=""/>
+					<field name="is_warranty" type=""/>
+					<field name="cost" type=""/>
+					<field name="notes" type=""/>
+					<field name="asset_maintenance_type" type=""/>
+					<field name="start_date" type=""/>
+					<field name="completion_date" type=""/>
+				</body>
+				<endpoint>{url}/maintenances/:id</endpoint>
+				<method>PATCH</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+		<operation name="users-restore" type="">
+			<request>
+				<header>
+					<item name="Authorization" type="string">Bearer {token}</item>
+				</header>
+				<body data="raw" format="json" type="object"/>
+				<endpoint>{url}/users/{id}/restore</endpoint>
+				<method>POST</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type=""/>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type=""/>
+				</fail>
+			</response>
+		</operation>
+	</operations>
+</invoker>
