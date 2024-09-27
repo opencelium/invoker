@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<invoker type="RESTful">
+    <name>SnowInventory</name>
+    <description>Snow Inventory</description>
+    <hint>Add the URL poiting to the customer /api/customers/1 and you will see all potential functions</hint>
+    <icon>SnowInventory.png</icon>
+    <requiredData>
+        <item name="url" type="string" visibility="public"/>
+        <item name="username" type="string" visibility="public"/>
+        <item name="password" type="string" visibility="public"/>
+        <item name="basic" type="string" visibility="private">Basic {username:password}</item>
+    </requiredData>
+    <authType>basic</authType>
+    <operations>
+        <operation name="LoginTest" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}?%24format=json</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="$type" type="string"/>
+                        <field name="Body" type="object">
+                            <field name="$type" type="string"/>
+                            <field name="Id" type="string"/>
+                            <field name="Name" type="string"/>
+                            <field name="Address" type="string"/>
+                            <field name="PostalCode" type="string"/>
+                            <field name="City" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetAllComputers" type="page">
+	    <pagination>
+                <limit action="write">100</limit>
+                <result ref="response.body.$.Body" action="collect"/>
+                <size ref="response.body.$.Meta[3].Value" action="read"/>
+                <offset action="increment">0</offset>
+            </pagination>
+            <request>
+                <method>GET</method>
+		<endpoint>{url}/computers?%24format=json&amp;%24skip=@{offset}&amp;%24inlinecount=allpages</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="$type" type="string"/>
+                        <field name="Body" type="array">
+                            <field name="$type" type="string"/>
+                            <field name="Meta" type="array">
+                            </field>
+                            <field name="Body" type="object">
+                                <field name="$type" type="string"/>
+                                <field name="Id" type="string"/>
+                                <field name="Name" type="string"/>
+                                <field name="Organization" type="string"/>
+                                <field name="OrgChecksum" type="string"/>
+                                <field name="Manufacturer" type="string"/>
+                                <field name="Model" type="string"/>
+                                <field name="OperatingSystem" type="string"/>
+                                <field name="OperatingSystemServicePack" type="string"/>
+                                <field name="IsVirtual" type="string"/>
+                                <field name="Status" type="string"/>
+                                <field name="IpAddresses" type="string"/>
+                                <field name="LastScanDate" type="string"/>
+                                <field name="UpdatedBy" type="string"/>
+                                <field name="UpdatedDate" type="string"/>
+                                <field name="Domain" type="string"/>
+                                <field name="TotalDiskSpace" type="string"/>
+                                <field name="PhysicalMemory" type="string"/>
+                                <field name="ProcessorType" type="string"/>
+                                <field name="ProcessorCount" type="string"/>
+                                <field name="CoreCount" type="string"/>
+                                <field name="BiosSerialNumber" type="string"/>
+                                <field name="Hardware" type="object">
+                                    <field name="$type" type="string"/>
+                                    <field name="BiosSerialNumber" type="string"/>
+                                    <field name="BiosVersion" type="string"/>
+                                    <field name="BiosDate" type="string"/>
+                                    <field name="ProcessorType" type="string"/>
+                                    <field name="NumberOfProcessors" type="string"/>
+                                    <field name="CoresPerProcessor" type="string"/>
+                                    <field name="PhysicalMemoryMb" type="string"/>
+                                    <field name="MemorySlots" type="string"/>
+                                    <field name="MemorySlotsAvailable" type="string"/>
+                                    <field name="SystemDiskSpaceMb" type="string"/>
+                                    <field name="SystemDiskSpaceAvailableMb" type="string"/>
+                                    <field name="TotalDiskSpaceMb" type="string"/>
+                                    <field name="TotalDiskSpaceAvailableMb" type="string"/>
+                                    <field name="LogicalDisks" type="array">
+                                        <field name="$type" type="string"/>
+                                        <field name="Name" type="string"/>
+                                        <field name="VolumeName" type="string"/>
+                                        <field name="SizeMb" type="string"/>
+                                        <field name="$type" type="string"/>
+                                        <field name="Name" type="string"/>
+                                        <field name="VolumeName" type="string"/>
+                                        <field name="SizeMb" type="string"/>
+                                    </field>
+                                    <field name="NetworkAdapters" type="array">
+                                        <field name="$type" type="string"/>
+                                        <field name="Name" type="string"/>
+                                        <field name="IpAddress" type="string"/>
+                                        <field name="MacAddress" type="string"/>
+                                    </field>
+                                    <field name="OpticalDrives" type="array">
+                                        <field name="$type" type="string"/>
+                                        <field name="Name" type="string"/>
+                                        <field name="Type" type="string"/>
+                                    </field>
+                                    <field name="DisplayAdapters" type="array">
+                                        <field name="$type" type="string"/>
+                                        <field name="Name" type="string"/>
+                                        <field name="CurrentResolution" type="string"/>
+                                        <field name="MaxResolution" type="string"/>
+                                    </field>
+                                    <field name="Monitors" type="array">
+                                        <field name="$type" type="string"/>
+                                        <field name="Name" type="string"/>
+                                        <field name="MaxResolution" type="string"/>
+                                    </field>
+                                </field>
+                                <field name="HypervisorName" type="string"/>
+                                <field name="IsPortable" type="string"/>
+                                <field name="IsServer" type="string"/>
+                                <field name="MostFrequentUserId" type="string"/>
+                                <field name="MostRecentUserId" type="string"/>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetComputerUser" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/computers/{COMPUTERID}/users?%24format=json</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="$type" type="string"/>
+                        <field name="Body" type="array">
+                            <field name="$type" type="string"/>
+                            <field name="Body" type="object">
+                                <field name="$type" type="string"/>
+                                <field name="Id" type="string"/>
+                                <field name="CustomerId" type="string"/>
+                                <field name="Username" type="string"/>
+                                <field name="LastLogon" type="string"/>
+                                <field name="FullName" type="string"/>
+                                <field name="UpdatedDate" type="string"/>
+                                <field name="UpdatedBy" type="string"/>
+                                <field name="LogonCount" type="string"/>
+                                <field name="UserIsAccessible" type="string"/>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetUser" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/users/{USERID}?%24format=json</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="$type" type="string"/>
+                        <field name="Body" type="object">
+                            <field name="$type" type="string"/>
+                            <field name="Id" type="string"/>
+                            <field name="CustomerId" type="string"/>
+                            <field name="Username" type="string"/>
+                            <field name="FullName" type="string"/>
+                            <field name="Organization" type="string"/>
+                            <field name="OrgChecksum" type="string"/>
+                            <field name="LastLogon" type="string"/>
+                            <field name="LastUsedComputerId" type="string"/>
+                            <field name="LastUsedComputerName" type="string"/>
+                            <field name="AutoEditing" type="string"/>
+                            <field name="Email" type="string"/>
+                            <field name="Location" type="string"/>
+                            <field name="MobilePhoneNumber" type="string"/>
+                            <field name="PhoneNumber" type="string"/>
+                            <field name="RoomNumber" type="string"/>
+                            <field name="StatusCode" type="string"/>
+                            <field name="QuarantineManagement" type="string"/>
+                            <field name="QuarantineDate" type="string"/>
+                            <field name="QuarantineDeleteDate" type="string"/>
+                            <field name="UpdatedDate" type="string"/>
+                            <field name="UpdatedBy" type="string"/>
+                            <field name="CustomFields" type="array">
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetAllUsers" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/users?%24format=json&amp;%24top=9999&amp;%24inlinecount=allpages</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="$type" type="string"/>
+                        <field name="Body" type="array">
+                            <field name="$type" type="string"/>
+                            <field name="Body" type="object">
+                                <field name="$type" type="string"/>
+                                <field name="Id" type="string"/>
+                                <field name="CustomerId" type="string"/>
+                                <field name="Username" type="string"/>
+                                <field name="LastLogon" type="string"/>
+                                <field name="FullName" type="string"/>
+                                <field name="UpdatedDate" type="string"/>
+                                <field name="UpdatedBy" type="string"/>
+                                <field name="Email" type="string"/>
+                                <field name="PhoneNumber" type="string"/>
+                                <field name="Organization" type="string"/>
+                                <field name="OrgChecksum" type="string"/>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+	<operation name="GetComputerApplications" type="page">
+	    <pagination>
+                <limit action="write">100</limit>
+                <result ref="response.body.$.Body" action="collect"/>
+                <size ref="response.body.$.Meta[3].Value" action="read"/>
+                <offset action="increment">0</offset>
+            </pagination>
+            <request>
+                <method>GET</method>
+		<endpoint>{url}/computers/{COMPUTERID}/applications?%24format=json&amp;%24skip=@{offset}&amp;%24inlinecount=allpages</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{basic}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="$type" type="string"/>
+                        <field name="Body" type="array">
+                            <field name="$type" type="string"/>
+                            <field name="Body" type="object">
+                                <field name="$type" type="string"/>
+                                <field name="Id" type="string"/>
+                                <field name="Name" type="string"/>
+                                <field name="ManufacturerId" type="string"/>
+                                <field name="ManufacturerName" type="string"/>
+                                <field name="FamilyId" type="string"/>
+                                <field name="FamilyName" type="string"/>
+                                <field name="BundleApplicationId" type="string"/>
+                                <field name="BundleApplicationName" type="string"/>
+                                <field name="LastUsed" type="string"/>
+                                <field name="FirstUsed" type="string"/>
+                                <field name="InstallDate" type="string"/>
+                                <field name="DiscoveredDate" type="string"/>
+                                <field name="Run" type="string"/>
+                                <field name="AvgUsageTime" type="string"/>
+                                <field name="Users" type="string"/>
+                                <field name="LicenseRequired" type="string"/>
+                                <field name="IsInstalled" type="string"/>
+                                <field name="IsBlacklisted" type="string"/>
+                                <field name="IsWhitelisted" type="string"/>
+                                <field name="IsVirtual" type="string"/>
+                                <field name="IsOEM" type="string"/>
+                                <field name="IsMSDN" type="string"/>
+                                <field name="IsWebApplication" type="string"/>
+                                <field name="ApplicationItemCost" type="string"/>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+    </operations>
+</invoker>
+

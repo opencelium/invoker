@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<invoker type="RESTful">
 	<name>Topdesk</name>
 	<description>This API provides endpoints for defining, modifying and accessing customer-specific business resources. The Asset Management API supports adding arbitrary number of fields and widgets to these and also supports defining basic relationship rules between them.The term 'asset' represents any business resource in the broader sense. They are grouped into 'categories' - by the 'resourceCategory' property - based on their major traits, which may differ substantially for tangible entities and abstract resource definitions. Resource categories define rules, introduce restrictions, but they also provide access to additional APIs specific for them. Basically all Asset Management endpoints can be used for all resource categories, taking the pre-defined restrictions into consideration.Currently the following resource categories are supported:&lt;ul&gt;&lt;li&gt;&lt;b&gt;asset&lt;/b&gt; - The default resource category for representing identifiable entities.&lt;/li&gt;&lt;li&gt;&lt;b&gt;stock&lt;/b&gt; - A stock, in the common sense, that assets can be linked to. A pre-defined link type exists, which represents that an asset is in stock. Check the 'Asset links' section about how to put or remove assets to/from stocks.&lt;/li&gt;&lt;/ul&gt;</description>
 	<hint>This interface provides a basic auth. Check out the documentation https://developers.topdesk.com and https://developers.topdesk.com/explorer/?page=assets</hint>
@@ -251,28 +252,28 @@
 							<field name="valueType" type="string"/>
 						</field>
 						<field name="dataSet" type="array">
-                                                        <field name="name" type="string"/>
-                                                        <field name="unid" type="string"/>
-                                                        <field name="@type" type="object">
-                                                                <field name="name" type="string"/>
-                                                                <field name="icon" type="string"/>
-                                                        </field>
-                                                        <field name="@assignments" type="object">
-                                                                <field name="locations" type="array">
-                                                                        <field name="branch" type="object">
-                                                                                <field name="id" type="string"/>
-                                                                                <field name="name" type="string"/>
-                                                                                <field name="specification" type="string"/>
-                                                                        </field>
-                                                                        <field name="location" type="object">
-                                                                                <field name="id" type="string"/>
-                                                                                <field name="name" type="string"/>
-                                                                                <field name="roomNumber" type="string"/>
-                                                                                <field name="specification" type="string"/>
-                                                                        </field>
-                                                                </field>
-                                                        </field>
-                                                </field>	
+							<field name="name" type="string"/>
+							<field name="unid" type="string"/>
+							<field name="@type" type="object">
+								<field name="name" type="string"/>
+								<field name="icon" type="string"/>
+							</field>
+							<field name="@assignments" type="object">
+								<field name="locations" type="array">
+									<field name="branch" type="object">
+										<field name="id" type="string"/>
+										<field name="name" type="string"/>
+										<field name="specification" type="string"/>
+									</field>
+									<field name="location" type="object">
+										<field name="id" type="string"/>
+										<field name="name" type="string"/>
+										<field name="roomNumber" type="string"/>
+										<field name="specification" type="string"/>
+									</field>
+								</field>
+							</field>
+						</field>
 						<field name="functionalities" type="array">
 							<field name="name" type="string"/>
 							<field name="parameters" type="object"/>
@@ -381,10 +382,10 @@
 		<operation name="assign" type="">
 			<request>
 				<header>
-					<item name="Content-Type" type="string">application/x.topdesk-am-assignment-links-v1+json</item>
+					<item name="Content-Type" type="string">application/json</item>
 					<item name="Authorization" type="string">{token}</item>
 				</header>
-				<body data="application/x.topdesk-am-assignment-links-v0+json" format="json" type="object">
+				<body data="application/json" format="json" type="object">
 					<field name="assetIds" type="array"/>
 					<field name="branchId" type="string"/>
 					<field name="linkToId" type="string"/>
@@ -395,7 +396,7 @@
 			</request>
 			<response>
 				<success status="200">
-					<body data="application/x.topdesk-am-assignment-links-v0+json" format="json" type="array">
+					<body data="application/json" format="json" type="array">
 						<field name="branch" type="object">
 							<field name="archived" type="boolean"/>
 							<field name="id" type="string"/>
@@ -722,7 +723,7 @@
 								<field name="required" type="array"/>
 								<field name="tabs" type="array">
 									<field name="columns" type="array">
-											<field name="size" type="string"/>
+										<field name="size" type="string"/>
 										<field name="widgets" type="array">
 											<field name="resourceKey" type="string"/>
 											<field name="title" type="string"/>
@@ -1376,10 +1377,10 @@
 		<operation name="assignById" type="">
 			<request>
 				<header>
-					<item name="Content-Type" type="string">application/x.topdesk-am-assignment-links-v1+json</item>
+					<item name="Content-Type" type="string">application/json</item>
 					<item name="Authorization" type="string">{token}</item>
 				</header>
-				<body data="application/x.topdesk-am-assignment-links-v0+json" format="json" type="object">
+				<body data="application/json" format="json" type="object">
 					<field name="assetIds" type="array"/>
 					<field name="branchId" type="string"/>
 					<field name="linkToId" type="string"/>
@@ -1390,7 +1391,7 @@
 			</request>
 			<response>
 				<success status="200">
-					<body data="application/x.topdesk-am-assignment-links-v0+json" format="json" type="object">
+					<body data="application/json" format="json" type="object">
 						<field name="branch" type="object">
 							<field name="archived" type="boolean"/>
 							<field name="id" type="string"/>
@@ -1892,6 +1893,151 @@
 				<fail status="404"/>
 			</response>
 		</operation>
+		<operation name="GetPerson" type="">
+			<request>
+				<header>
+					<item name="Content-Type" type="string">application/json</item>
+					<item name="Authorization" type="string">{token}</item>
+				</header>
+				<body/>
+				<endpoint>{url}/persons?query=email%3D%3D{e-mail address}</endpoint>
+				<method>GET</method>
+			</request>
+			<response>
+				<success status="200">
+					<body data="application/json" format="json" type="array">
+						<field name="id" type="string"/>
+						<field name="status" type="string"/>
+						<field name="surName" type="string"/>
+						<field name="firstName" type="string"/>
+						<field name="dynamicName" type="string"/>
+						<field name="firstInitials" type="string"/>
+						<field name="prefixes" type="string"/>
+						<field name="birthName" type="string"/>
+						<field name="title" type="string"/>
+						<field name="gender" type="string"/>
+						<field name="language" type="string"/>
+						<field name="phoneNumber" type="string"/>
+						<field name="mobileNumber" type="string"/>
+						<field name="fax" type="string"/>
+						<field name="email" type="string"/>
+						<field name="jobTitle" type="string"/>
+						<field name="department" type="object">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="budgetHolder" type="object">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="employeeNumber" type="string"/>
+						<field name="networkLoginName" type="string"/>
+						<field name="mainframeLoginName" type="string"/>
+						<field name="clientReferenceNumber" type="string"/>
+						<field name="city" type="string"/>
+						<field name="tasLoginName" type="string"/>
+						<field name="showBranch" type="string"/>
+						<field name="showBudgetholder" type="string"/>
+						<field name="showDepartment" type="string"/>
+						<field name="showSubsidiaries" type="string"/>
+						<field name="showAllBranches" type="string"/>
+						<field name="authorizeAll" type="string"/>
+						<field name="authorizeDepartment" type="string"/>
+						<field name="authorizeBudgetHolder" type="string"/>
+						<field name="authorizeBranch" type="string"/>
+						<field name="authorizeSubsidiaryBranches" type="string"/>
+						<field name="isManager" type="string"/>
+						<field name="manager" type="object">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="hasAttention" type="string"/>
+						<field name="attention" type="string"/>
+						<field name="attentionComment" type="string"/>
+						<field name="creator" type="object">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="creationDate" type="string"/>
+						<field name="modifier" type="object">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="modificationDate" type="string"/>
+					</body>
+				</success>
+				<success status="204">
+					<body data="application/json" format="json" type="array">
+						<field name="id" type="string"/>
+						<field name="status" type="string"/>
+						<field name="surName" type="string"/>
+						<field name="firstName" type="string"/>
+						<field name="dynamicName" type="string"/>
+						<field name="firstInitials" type="string"/>
+						<field name="prefixes" type="string"/>
+						<field name="birthName" type="string"/>
+						<field name="title" type="string"/>
+						<field name="gender" type="string"/>
+						<field name="language" type="string"/>
+						<field name="phoneNumber" type="string"/>
+						<field name="mobileNumber" type="string"/>
+						<field name="fax" type="string"/>
+						<field name="email" type="string"/>
+						<field name="jobTitle" type="string"/>
+						<field name="department" type="object">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="budgetHolder" type="object">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="employeeNumber" type="string"/>
+						<field name="networkLoginName" type="string"/>
+						<field name="mainframeLoginName" type="string"/>
+						<field name="clientReferenceNumber" type="string"/>
+						<field name="city" type="string"/>
+						<field name="tasLoginName" type="string"/>
+						<field name="showBranch" type="string"/>
+						<field name="showBudgetholder" type="string"/>
+						<field name="showDepartment" type="string"/>
+						<field name="showSubsidiaries" type="string"/>
+						<field name="showAllBranches" type="string"/>
+						<field name="authorizeAll" type="string"/>
+						<field name="authorizeDepartment" type="string"/>
+						<field name="authorizeBudgetHolder" type="string"/>
+						<field name="authorizeBranch" type="string"/>
+						<field name="authorizeSubsidiaryBranches" type="string"/>
+						<field name="isManager" type="string"/>
+						<field name="manager" type="object">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="hasAttention" type="string"/>
+						<field name="attention" type="string"/>
+						<field name="attentionComment" type="string"/>
+						<field name="creator" type="object">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="creationDate" type="string"/>
+						<field name="modifier" type="object">
+							<field name="id" type="string"/>
+							<field name="name" type="string"/>
+						</field>
+						<field name="modificationDate" type="string"/>
+					</body>
+				</success>
+				<fail status="400">
+					<body data="application/json" format="json" type="object">
+						<field name="errors" type="array">
+							<field name="message" type="array"/>
+						</field>
+					</body>
+				</fail>
+				<fail status="404"/>
+			</response>
+		</operation>
 		<operation name="getFieldById" type="">
 			<request>
 				<header>
@@ -2187,3 +2333,4 @@
 		</operation>
 	</operations>
 </invoker>
+
