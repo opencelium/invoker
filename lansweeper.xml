@@ -24,7 +24,7 @@
                 <success status="200">
                     <header/>
                     <body data="raw" format="object" type="string">
-                        <field name="data" type="object"></field>
+                        <field name="data" type="object"/>
                     </body>
                 </success>
                 <fail status="401">
@@ -38,10 +38,11 @@
                 <method>POST</method>
                 <endpoint>{url}</endpoint>
                 <header>
+                    <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Token {token}</item>
                 </header>
                 <body data="graphql" format="json" type="object">
-                    <field name="query" type="object"/>
+                    <field name="query" type="string"/>
                 </body>
             </request>
             <response>
@@ -51,7 +52,15 @@
                         <field name="data" type="object">
                             <field name="site" type="object">
                                 <field name="assetResources" type="object">
-                                    <field name="items" type="array"></field>
+                                    <field name="items" type="array">
+                                        <field name="assetBasicInfo" type="object"/>
+                                        <field name="assetCustom" type="object"/>
+                                        <field name="operatingSystem" type="object"/>
+                                        <field name="networks" type="array"/>
+                                        <field name="processors" type="array"/>
+                                        <field name="memoryModules" type="array"/>
+                                        <field name="logicalDisks" type="array"/>
+                                    </field>
                                 </field>
                             </field>
                         </field>
@@ -65,3 +74,4 @@
         </operation>
     </operations>
 </invoker>
+
