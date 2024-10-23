@@ -193,7 +193,7 @@
         <operation name="IncidentGetWithFilter" type="">
             <request>
                 <method>GET</method>
-                <endpoint>{url}/api/now/table/incident?sysparm_fields=sys_id,_correlation_id,short_description&amp;sysparm_query=active%3Dtrue</endpoint>
+                <endpoint>{url}/api/now/table/incident?sysparm_fields=sys_id,correlation_id,short_description&amp;sysparm_query=active%3Dtrue</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">{basic}</item>
