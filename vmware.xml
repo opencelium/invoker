@@ -470,5 +470,62 @@
                 </fail>
             </response>
         </operation>
+        <operation name="GetTaggingAssociation" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/vcenter/tagging/associations</endpoint>
+                <header>
+                    <item name="vmware-api-session-id" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="associations" type="array">
+                            <field name="tag" type="string"/>
+                            <field name="object" type="object">
+                                <field name="id" type="string"/>
+                                <field name="type" type="string"/>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetTagDetails" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/com/vmware/cis/tagging/tag/id:{REPLACE-WITH-TAG-URN}</endpoint>
+                <header>
+                    <item name="vmware-api-session-id" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="value" type="object">
+                            <field name="category_id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="description" type="string"/>
+                            <field name="id" type="string"/>
+                            <field name="used_by" type="array">
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
     </operations>
 </invoker>
