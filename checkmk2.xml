@@ -69,6 +69,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object" />
                 <endpoint>{url}/domain-types/acknowledge/collections/host</endpoint>
@@ -91,6 +92,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object" />
                 <endpoint>{url}/domain-types/acknowledge/collections/service</endpoint>
@@ -113,6 +115,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="redirect" type="boolean" />
@@ -158,6 +161,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>
@@ -181,6 +185,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/activation_run/{activation_id}</endpoint>
@@ -222,6 +227,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/domain-types/activation_run/collections/running</endpoint>
@@ -262,6 +268,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/bi_rule/{rule_id}</endpoint>
@@ -301,6 +308,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="id" type="string" />
@@ -351,6 +359,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/bi_rule/{rule_id}</endpoint>
@@ -372,6 +381,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/bi_aggregation/{aggregation_id}</endpoint>
@@ -407,6 +417,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="id" type="string" />
@@ -449,6 +460,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/bi_aggregation/{aggregation_id}</endpoint>
@@ -470,6 +482,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/domain-types/bi_pack/collections/all</endpoint>
@@ -510,6 +523,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/bi_pack/{pack_id}</endpoint>
@@ -551,6 +565,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/domain-types/contact_group_config/collections/all</endpoint>
@@ -592,6 +607,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="name" type="string" />
@@ -637,6 +653,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="entries" type="array">
@@ -682,6 +699,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/contact_group_config/{name}</endpoint>
@@ -724,6 +742,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="name" type="string" />
@@ -768,6 +787,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/contact_group_config/{name}</endpoint>
@@ -790,6 +810,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="entries" type="array" />
@@ -814,6 +835,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="entries" type="array">
@@ -863,6 +885,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object" />
                 <endpoint>{url}/domain-types/downtime/collections/host</endpoint>
@@ -885,6 +908,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object" />
                 <endpoint>{url}/domain-types/downtime/collections/service</endpoint>
@@ -906,6 +930,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/domain-types/downtime/collections/all</endpoint>
@@ -947,6 +972,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object" />
                 <endpoint>{url}/domain-types/downtime/actions/delete/invoke</endpoint>
@@ -968,6 +994,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/domain-types/folder_config/collections/all</endpoint>
@@ -1009,6 +1036,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="name" type="string" />
@@ -1040,6 +1068,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/folder_config/{folder}</endpoint>
@@ -1067,6 +1096,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="title" type="string" />
@@ -1097,6 +1127,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/folder_config/{folder}</endpoint>
@@ -1119,6 +1150,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="entries" type="array">
@@ -1167,6 +1199,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="destination" type="string" />
@@ -1195,6 +1228,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/domain-types/host/collections/all</endpoint>
@@ -1237,6 +1271,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/domain-types/host_config/collections/all</endpoint>
@@ -1278,6 +1313,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="folder" type="string" />
@@ -1324,6 +1360,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="folder" type="string" />
@@ -1371,6 +1408,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="entries" type="array">
@@ -1418,6 +1456,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="nodes" type="array" />
@@ -1459,6 +1498,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/host_config/{host_name}</endpoint>
@@ -1512,6 +1552,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="attributes" type="object" />
@@ -1557,6 +1598,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/host_config/{host_name}</endpoint>
@@ -1579,6 +1621,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="entries" type="array">
@@ -1627,6 +1670,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="new_name" type="string" />
@@ -1671,6 +1715,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="target_folder" type="string" />
@@ -1715,6 +1760,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="entries" type="array" />
@@ -1738,6 +1784,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/domain-types/host_group_config/collections/all</endpoint>
@@ -1779,6 +1826,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="name" type="string" />
@@ -1824,6 +1872,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="entries" type="array">
@@ -1869,6 +1918,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/host_group_config/{name}</endpoint>
@@ -1911,6 +1961,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="name" type="string" />
@@ -1955,6 +2006,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/host_group_config/{name}</endpoint>
@@ -1977,6 +2029,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="entries" type="array" />
@@ -2001,6 +2054,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="entries" type="array">
@@ -2050,6 +2104,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="ident" type="string" />
@@ -2101,6 +2156,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/host_tag_group/{name}</endpoint>
@@ -2143,6 +2199,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="title" type="string" />
@@ -2195,6 +2252,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="repair" type="boolean" />
@@ -2219,6 +2277,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="ident" type="string" />
@@ -2248,6 +2307,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/password/{name}</endpoint>
@@ -2283,6 +2343,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="title" type="string" />
@@ -2311,6 +2372,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/password/{name}</endpoint>
@@ -2332,6 +2394,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/host/{host_name}/collections/services</endpoint>
@@ -2372,6 +2435,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/domain-types/service/collections/all</endpoint>
@@ -2412,6 +2476,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/domain-types/service/collections/services</endpoint>
@@ -2453,6 +2518,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>
@@ -2475,6 +2541,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>
@@ -2497,6 +2564,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/domain-types/service_group_config/collections/all</endpoint>
@@ -2538,6 +2606,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="name" type="string" />
@@ -2583,6 +2652,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="entries" type="array">
@@ -2628,6 +2698,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/service_group_config/{name}</endpoint>
@@ -2670,6 +2741,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="name" type="string" />
@@ -2714,6 +2786,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/service_group_config/{name}</endpoint>
@@ -2736,6 +2809,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="entries" type="array" />
@@ -2760,6 +2834,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="entries" type="array">
@@ -2809,6 +2884,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="name" type="string" />
@@ -2848,6 +2924,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/time_period/{name}</endpoint>
@@ -2892,6 +2969,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="application/json" format="json" type="object">
                     <field name="alias" type="string" />
@@ -2929,6 +3007,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/objects/time_period/{name}</endpoint>
@@ -2950,6 +3029,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
                 <endpoint>{url}/version</endpoint>
@@ -2983,6 +3063,7 @@
             <request>
                 <header>
                     <item name="Authorization" type="string">Bearer {username} {password}</item>
+                    <item name="If-Match" type="string">*</item>
                     <item name="Content-Type" type="string">application/json</item>
                 </header>
                 <body data="raw" format="json" type="object" />
@@ -3021,3 +3102,5 @@
         </operation>
     </operations>
 </invoker>
+
+
