@@ -366,6 +366,8 @@
                         <field name="deviceActionResults" type="array">
                         </field>
                         <field name="usersLoggedOn" type="array">
+                                <field name="userId" type="string"/>
+                                <field name="lastLogOnDateTime" type="string"/>
                         </field>
                         <field name="chromeOSDeviceInfo" type="array">
                         </field>

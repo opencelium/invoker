@@ -230,7 +230,7 @@
                     <item name="If-Match" type="string">*</item>
                 </header>
                 <body data="raw" format="json" type="object" />
-                <endpoint>{url}/domain-types/activation_run/collections/running</endpoint>
+                <endpoint>{url}/domain-types/activation_run/collections/pending_changes</endpoint>
                 <method>GET</method>
             </request>
             <response>
