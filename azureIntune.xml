@@ -395,7 +395,7 @@
             </pagination>
             <request>
                 <method>GET</method>
-                <endpoint>{resource}beta/users?$top=999</endpoint>
+                <endpoint>{resource}beta/users?$top=999&amp;$select=id</endpoint>
                 <header>
                     <item name="Authorization" type="string">Bearer {token}</item>
                 </header>
