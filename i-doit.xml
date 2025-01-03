@@ -7,7 +7,8 @@
    ~// under the terms of the OpenCelium license agreement.
    ~// License agreement and license key will be shipped with the order
    ~// confirmation.
---><invoker type="RESTful">
+-->
+<invoker type="RESTful">
     <name>i-doit</name>
     <description>The IT-documentation solution i-doit is based on a complete open source configuration management and database. Using i-doit as a CMDB you can manage your IT according to ITIL best practices and configurate the significant components of your IT environment. You can visualize the relationships between these components and keep track of software and hardware assets and their relations.</description>
     <hint>This interface provides a apikey auth. Read the api documentation here https://kb.i-doit.com/display/de/API+Methoden</hint>
@@ -17,10 +18,11 @@
         <item name="apikey" type="string" visibility="public"/>
         <item name="username" type="string" visibility="public"/>
         <item name="password" type="string" visibility="protected"/>
+        <item name="sessionid" type="string" visibility="private">%{login.body.result.session-id}</item>
     </requiredData>
-    <authType>apikey</authType>
+    <authType>token</authType>
     <operations>
-        <operation name="idoit.version" type="test">
+        <operation name="login" type="test">
             <request>
                 <method>POST</method>
                 <endpoint>{url}</endpoint>
@@ -28,6 +30,60 @@
                     <item name="Content-Type" type="string">application/json</item>
                     <item name="X-RPC-Auth-Username" type="string">{username}</item>
                     <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">idoit.login</field>
+                    <field name="params" type="object">
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string">en</field>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="string"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="object">
+                            <field name="result" type="string"/>
+                            <field name="userid" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="mail" type="string"/>
+                            <field name="username" type="string"/>
+                            <field name="session-id" type="string"/>
+                            <field name="client-id" type="string"/>
+                            <field name="client-name" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="idoit.version" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -72,8 +128,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -120,7 +175,8 @@
                             <field name="cmdb_status_title" type="string"/>
                             <field name="image" type="string"/>
                             <field name="test" type="string"/>
-                        <field name="f_text_c_17079078358748253" type="string"/></field>
+                            <field name="f_text_c_17079078358748253" type="string"/>
+                        </field>
                     </body>
                 </success>
                 <fail status="200">
@@ -145,8 +201,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -205,8 +260,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -258,8 +312,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="method" type="string"/>
@@ -309,8 +362,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -358,8 +410,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -407,8 +458,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -457,8 +507,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -506,8 +555,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -559,8 +607,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -594,13 +641,17 @@
                                 <field name="last_name" type="string"/>
                                 <field name="mail" type="string"/>
                                 <field name="login" type="string"/>
-                            <field name="title" type="string"/></field>
+                                <field name="title" type="string"/>
+                            </field>
                             <field name="role" type="object">
                                 <field name="id" type="string"/>
                                 <field name="title" type="string"/>
                             </field>
                             <field name="title" type="string"/>
-                        <field name="serial" type="string"/><field name="f_text_c_17079078358748253" type="string"/><field name="f_text_c_1602595189006" type="string"/></field>
+                            <field name="serial" type="string"/>
+                            <field name="f_text_c_17079078358748253" type="string"/>
+                            <field name="f_text_c_1602595189006" type="string"/>
+                        </field>
                     </body>
                 </success>
                 <fail status="200">
@@ -625,8 +676,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -678,8 +728,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -730,8 +779,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -782,8 +830,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -834,8 +881,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -886,8 +932,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -951,8 +996,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -1005,8 +1049,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -1052,8 +1095,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -1095,14 +1137,73 @@
                 </fail>
             </response>
         </operation>
+        <operation name="cmdb.condition.read" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="version" type="string">2.0</field>
+                    <field name="method" type="string">cmdb.condition.read</field>
+                    <field name="params" type="object">
+                        <field name="conditions" type="array">
+                        </field>
+                        <field name="apikey" type="string">{apikey}</field>
+                        <field name="language" type="string"/>
+                    </field>
+                    <field name="id" type="string">1</field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="string"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="result" type="array">
+                            <field name="id" type="string"/>
+                            <field name="title" type="string"/>
+                            <field name="sysid" type="string"/>
+                            <field name="type" type="string"/>
+                            <field name="created" type="string"/>
+                            <field name="updated" type="string"/>
+                            <field name="type_title" type="string"/>
+                            <field name="type_icon" type="string"/>
+                            <field name="type_group_title" type="string"/>
+                            <field name="status" type="string"/>
+                            <field name="cmdb_status" type="string"/>
+                            <field name="cmdb_status_title" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="number"/>
+                        <field name="jsonrpc" type="string"/>
+                        <field name="error" type="object">
+                            <field name="code" type="number"/>
+                            <field name="message" type="string"/>
+                            <field name="data" type="string"/>
+                        </field>
+                    </body>
+                </fail>
+            </response>
+        </operation>
         <operation name="cmdb.object_type_categories" type="">
             <request>
                 <method>POST</method>
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -1163,8 +1264,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -1217,8 +1317,7 @@
                 <endpoint>{url}</endpoint>
                 <header>
                     <item name="Content-Type" type="string">application/json</item>
-                    <item name="X-RPC-Auth-Username" type="string">{username}</item>
-                    <item name="X-RPC-Auth-Password" type="string">{password}</item>
+                    <item name="X-RPC-Auth-Session" type="string">{sessionid}</item>
                 </header>
                 <body data="raw" format="json" type="object">
                     <field name="version" type="string">2.0</field>
@@ -1264,4 +1363,3 @@
         </operation>
     </operations>
 </invoker>
-
