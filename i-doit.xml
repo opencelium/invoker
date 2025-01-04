@@ -1150,6 +1150,9 @@
                     <field name="method" type="string">cmdb.condition.read</field>
                     <field name="params" type="object">
                         <field name="conditions" type="array">
+                            <field name="property" type="string"/>
+                            <field name="comparison" type="string"/>
+                            <field name="value" type="string"/>
                         </field>
                         <field name="apikey" type="string">{apikey}</field>
                         <field name="language" type="string"/>
