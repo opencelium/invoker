@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--
+   ~// Copyright (C) <2020> <becon GmbH>
+   ~//
+   ~// This file is licensed under the OpenCelium license agreement.
+   ~//
+   ~// If you purchased an OpenCelium subscription you can use this file
+   ~// under the terms of the OpenCelium license agreement.
+   ~// License agreement and license key will be shipped with the order
+   ~// confirmation.
+-->
+<invoker type="RESTful">
+    <name>Aruba-IMC</name>
+    <description>Queries the Aruba IMC REST API</description>
+    <hint>This uses Digest auth. Please generate a JSESSION Cookie with postman</hint>
+    <requiredData>
+        <item name="url" type="string" visibility="public" />
+        <item name="jsession" type="string" visibility="public" />
+    </requiredData>
+    <authType>digest_auth</authType>
+    <operations>
+        <operation name="GetDevices" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/imcrs/plat/res/device?resPrivilegeFilter=false&amp;start=0&amp;size=999&amp;orderBy=id&amp;desc=false&amp;total=false&amp;exact=false</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Accept" type="string">application/json</item>
+                    <item name="Cookie" type="string">JSESSIONID={jsession}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="device" type="array">
+                            <field name="id" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="ip" type="string"/>
+                            <field name="mask" type="string"/>
+                            <field name="status" type="string"/>
+                            <field name="statusDesc" type="string"/>
+                            <field name="sysName" type="string"/>
+                            <field name="contact" type="string"/>
+                            <field name="location" type="string"/>
+                            <field name="sysOid" type="string"/>
+                            <field name="sysDescription" type="string"/>
+                            <field name="devCategoryImgSrc" type="string"/>
+                            <field name="topoIconName" type="string"/>
+                            <field name="devPingState" type="string"/>
+                            <field name="categoryId" type="string"/>
+                            <field name="symbolId" type="string"/>
+                            <field name="symbolName" type="string"/>
+                            <field name="symbolType" type="string"/>
+                            <field name="symbolDesc" type="string"/>
+                            <field name="symbolLevel" type="string"/>
+                            <field name="parentId" type="string"/>
+                            <field name="typeName" type="string"/>
+                            <field name="mac" type="string"/>
+                            <field name="link" type="object">
+                                <field name="@op" type="string"/>
+                                <field name="@rel" type="string"/>
+                                <field name="@href" type="string"/>
+                            </field>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">text/html</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetDevice" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/imcrs/plat/res/device/{deviceid}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Accept" type="string">application/json</item>
+                    <item name="Cookie" type="string">JSESSIONID={jsession}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="id" type="string"/>
+                        <field name="label" type="string"/>
+                        <field name="ip" type="string"/>
+                        <field name="mask" type="string"/>
+                        <field name="status" type="string"/>
+                        <field name="statusDesc" type="string"/>
+                        <field name="sysName" type="string"/>
+                        <field name="contact" type="string"/>
+                        <field name="location" type="string"/>
+                        <field name="sysOid" type="string"/>
+                        <field name="runTime" type="string"/>
+                        <field name="runServer" type="string"/>
+                        <field name="lastPoll" type="string"/>
+                        <field name="loginType" type="string"/>
+                        <field name="sysDescription" type="string"/>
+                        <field name="devPingState" type="string"/>
+                        <field name="categoryId" type="string"/>
+                        <field name="supportPing" type="string"/>
+                        <field name="snmpTmplId" type="string"/>
+                        <field name="telnetTmplId" type="string"/>
+                        <field name="sshTmplId" type="string"/>
+                        <field name="configPollTime" type="string"/>
+                        <field name="statePollTime" type="string"/>
+                        <field name="symbolId" type="string"/>
+                        <field name="symbolName" type="string"/>
+                        <field name="symbolType" type="string"/>
+                        <field name="symbolDesc" type="string"/>
+                        <field name="symbolLevel" type="string"/>
+                        <field name="parentId" type="string"/>
+                        <field name="typeName" type="string"/>
+                        <field name="viewType" type="string"/>
+                        <field name="positionX" type="string"/>
+                        <field name="positionY" type="string"/>
+                        <field name="visibleFlag" type="string"/>
+                        <field name="statusImg" type="string"/>
+                        <field name="version" type="string"/>
+                        <field name="mac" type="string"/>
+                        <field name="categoryImg" type="string"/>
+                        <field name="vendorImg" type="string"/>
+                        <field name="childrenNum" type="string"/>
+                        <field name="vergeNet" type="string"/>
+                        <field name="phyName" type="string"/>
+                        <field name="phyCreateTime" type="string"/>
+                        <field name="phyCreator" type="string"/>
+                        <field name="appendUnicode" type="string"/>
+                        <field name="snmpTmpl" type="string"/>
+                        <field name="telnetTmpl" type="string"/>
+                        <field name="sshTmpl" type="string"/>
+                        <field name="series" type="string"/>
+                        <field name="category" type="string"/>
+                        <field name="model" type="string"/>
+                        <field name="interfaces" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">text/html</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetDeviceAssets" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/imcrs/netasset/asset?start=0&amp;size=1&amp;total=false&amp;assetName={devicename}</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Accept" type="string">application/json</item>
+                    <item name="Cookie" type="string">JSESSIONID={jsession}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="netAsset" type="array">
+                            <field name="devId" type="string"/>
+                            <field name="phyIndex" type="string"/>
+                            <field name="deviceIp" type="string"/>
+                            <field name="deviceName" type="string"/>
+                            <field name="desc" type="string"/>
+                            <field name="vendorType" type="string"/>
+                            <field name="containedIn" type="string"/>
+                            <field name="phyClass" type="string"/>
+                            <field name="relPos" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="hardVersion" type="string"/>
+                            <field name="firmwareVersion" type="string"/>
+                            <field name="softVersion" type="string"/>
+                            <field name="serialNum" type="string"/>
+                            <field name="mfgName" type="string"/>
+                            <field name="model" type="string"/>
+                            <field name="alias" type="string"/>
+                            <field name="isFRU" type="string"/>
+                            <field name="cleiCode" type="string"/>
+                            <field name="buildInfo" type="string"/>
+                            <field name="bom" type="string"/>
+                            <field name="boardNum" type="string"/>
+                            <field name="serverDate" type="string"/>
+                            <field name="remark" type="string"/>
+                            <field name="assetNumber" type="string"/>
+                            <field name="physicalFlag" type="string"/>
+                            <field name="asset" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">text/html</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                    </body>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetDeviceInterfaces" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/imcrs/plat/res/device/{deviceid}/interface?start=0&amp;size=999&amp;desc=false&amp;total=false</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="Accept" type="string">application/json</item>
+                    <item name="Cookie" type="string">JSESSIONID={jsession}</item>
+                </header>
+                <body type="object" format="json" data="raw">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header>
+                        <item name="Content-Type" type="string">application/json</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                        <field name="interface" type="array">
+                            <field name="ifIndex" type="string"/>
+                            <field name="ifType" type="string"/>
+                            <field name="ifTypeDesc" type="string"/>
+                            <field name="ifDescription" type="string"/>
+                            <field name="adminStatus" type="string"/>
+                            <field name="adminStatusDesc" type="string"/>
+                            <field name="showStatus" type="string"/>
+                            <field name="statusDesc" type="string"/>
+                            <field name="operationStatus" type="string"/>
+                            <field name="operationStatusDesc" type="string"/>
+                            <field name="ifspeed" type="string"/>
+                            <field name="appointedSpeed" type="string"/>
+                            <field name="ifAlias" type="string"/>
+                            <field name="phyAddress" type="string"/>
+                            <field name="mtu" type="string"/>
+                            <field name="lastChange" type="string"/>
+                            <field name="lastChangeTime" type="string"/>
+                            <field name="filterTrapStatus" type="string"/>
+                            <field name="ifFeType" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header>
+                        <item name="Content-Type" type="string">text/html</item>
+                    </header>
+                    <body data="raw" format="json" type="object">
+                    </body>
+                </fail>
+            </response>
+        </operation>
+    </operations>
+</invoker>
