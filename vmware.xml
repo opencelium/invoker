@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<invoker type="RESTful">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>VMWare</name>
     <description>VMware is a virtualization and cloud computing software provider based in Palo Alto, Calif. Founded in 1998, VMware is a subsidiary of Dell Technologies. EMC Corporation originally acquired VMware in 2004; EMC was later acquired by Dell Technologies in 2016.</description>
     <hint>This interface provides a basic auth. Read here the api documentation https://developer.vmware.com/apis/vsphere-automation/latest/vcenter/</hint>
@@ -316,6 +315,31 @@
                         <field name="name" type="string"/>
                         <field name="connection_state" type="string"/>
                         <field name="power_state" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="GetCluster" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/api/vcenter/cluster</endpoint>
+                <header>
+                    <item name="vmware-api-session-id" type="string">{token}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="array">
+                        <field name="drs_enabled" type="string"/>
+                        <field name="name" type="string"/>
+                        <field name="cluster" type="string"/>
+                        <field name="ha_enabled" type="string"/>
                     </body>
                 </success>
                 <fail status="401">
