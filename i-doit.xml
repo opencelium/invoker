@@ -22,9 +22,9 @@
     </requiredData>
     <authType>token</authType>
     <category_tags>
-	<item>cmdb</item>
-	<item>inventory</item>
-	<item>assetmanagement</item>
+	<item>CMDB</item>
+	<item>Inventory</item>
+	<item>Asset Management</item>
     </category_tags>
     <operations>
         <operation name="login" type="test">
