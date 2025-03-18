@@ -23,6 +23,9 @@
         <item name="WebService" type="string" visibility="public"/>
     </requiredData>
     <authType>endpointAuth</authType>
+    <category_tags>
+        <item>Ticketsystem</item>
+    </category_tags>
     <operations>
         <operation name="TicketSearch" type="test">
             <request>

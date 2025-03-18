@@ -17,6 +17,9 @@
         <item name="jsession" type="string" visibility="public" />
     </requiredData>
     <authType>digest_auth</authType>
+    <category_tags>
+        <item>Network</item>
+    </category_tags>
     <operations>
         <operation name="GetDevices" type="test">
             <request>

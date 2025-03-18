@@ -8,6 +8,9 @@
         <item name="token" type="string" visibility="protected"/>
     </requiredData>
     <authType>apikey</authType>
+    <category_tags>
+        <item>Ticketsystem</item>
+    </category_tags>
     <operations>
         <operation name="UserGetCurrent" type="test">
             <request>

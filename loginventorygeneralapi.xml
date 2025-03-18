@@ -9,6 +9,11 @@
 		<item name="password" type="string" visibility="protected"/>
 		<item name="token" type="string" visibility="private">Basic {username:password}</item>
 	</requiredData>
+    	<category_tags>
+        	<item>Inventory</item>
+        	<item>Asset Management</item>
+        	<item>Discovery</item>
+   	</category_tags>
 	<operations>
 		<operation name="GetDevices" type="test">
 			<request>

@@ -10,6 +10,9 @@
         <item name="token" type="string" visibility="private">%{login.body.message}</item>
     </requiredData>
     <authType>token</authType>
+    <category_tags>
+        <item>Device Management</item>
+    </category_tags>
     <operations>
         <operation name="login" type="test">
             <request>

@@ -10,6 +10,10 @@
         <item name="token" type="string" visibility="private">Basic {username:password}</item>
     </requiredData>
     <authType>basic</authType>
+    <category_tags>
+        <item>Projekt Management</item>
+        <item>Ticketsystem</item>
+    </category_tags>
     <operations>
         <operation name="myself" type="test">
             <request>

@@ -9,6 +9,10 @@
 		<item name="password" type="string" visibility="protected"/>
 		<item name="token" type="string" visibility="private">Basic {username:password}</item>
 	</requiredData>
+    <category_tags>
+        <item>Asset Management</item>
+        <item>Network</item>
+    </category_tags>
 	<operations>
 		<operation name="POST_/api/v1.0/auth/login" type="">
 			<request>

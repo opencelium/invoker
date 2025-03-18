@@ -18,6 +18,9 @@
         <item name="password" type="string" visibility="protected" />
         <item name="token" type="string" visibility="private">Token %{authentification.body.Token}</item>
     </requiredData>
+    <category_tags>
+        <item>Ticketsystem</item>
+    </category_tags>
     <operations>
         <operation name="authentification" type="test">
             <request>

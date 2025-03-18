@@ -11,6 +11,9 @@ Jira Service Desk is built on a powerful and mature software development platfor
         <item name="token" type="string" visibility="private">Basic {username:password}</item>
     </requiredData>
     <authType>basic</authType>
+    <category_tags>
+        <item>Ticketsystem</item>
+    </category_tags>
     <operations>
         <operation name="GetServicedesk" type="test">
             <request>

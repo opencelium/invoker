@@ -10,6 +10,9 @@
         <item name="token" type="string" visibility="private">%{createAuth.body.token}</item>
     </requiredData>
     <authType>token</authType>
+    <category_tags>
+        <item>Active Directory</item>
+    </category_tags>
     <operations>
         <operation name="createAuthSession" type="test">
             <request>

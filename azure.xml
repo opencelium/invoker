@@ -21,6 +21,9 @@
         <item name="resource" type="string" visibility="private">https://management.azure.com/</item>
     </requiredData>
     <authType>token</authType>
+    <category_tags>
+        <item>Cloud Computing</item>
+    </category_tags>
     <operations>
         <operation name="CreateAccessToken" type="test">
             <request>

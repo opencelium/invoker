@@ -9,6 +9,9 @@
         <item name="token" type="string" visibility="private">Basic {username:password}</item>
     </requiredData>
     <authType>basic</authType>
+    <category_tags>
+        <item>Inventory</item>
+    </category_tags>
     <operations>
         <operation name="getComputerListIds" type="test">
             <request>

@@ -23,6 +23,10 @@
         <item name="resource" type="string" visibility="private">https://graph.microsoft.com/</item>
     </requiredData>
     <authType>token</authType>
+    <category_tags>
+        <item>Inventory</item>
+        <item>Device Management</item>
+    </category_tags>
     <operations>
         <operation name="CreateAccessToken" type="test">
             <request>

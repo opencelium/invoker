@@ -63,6 +63,9 @@
         <item name="username" type="string" visibility="public" />
         <item name="password" type="string" visibility="protected" />
     </requiredData>
+    <category_tags>
+        <item>Monitoring</item>
+    </category_tags>
     <operations>
         <operation name="acknowledgement.set_acknowledgement_related_to_host" type="">
             <request>

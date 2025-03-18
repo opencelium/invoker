@@ -20,6 +20,9 @@
         <item name="_secret" type="string" visibility="protected"/>
     </requiredData>
     <authType>endpointAuth</authType>
+    <category_tags>
+        <item>Monitoring</item>
+    </category_tags>
     <operations>
         <operation name="connection_check" type="test">
             <request>

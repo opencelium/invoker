@@ -14,6 +14,9 @@
         <item name="endpointurl" type="string" visibility="private">https://graph.microsoft.com/v1.0</item>
     </requiredData>
     <authType>token</authType>
+    <category_tags>
+        <item>Active Directory</item>
+    </category_tags>
     <operations>
         <operation name="CreateAccessToken" type="test">
             <request>

@@ -7,6 +7,9 @@
         <item name="authenticationToken" type="string" visibility="protected"/>
     </requiredData>
     <authType>apikey</authType>
+    <category_tags>
+        <item>Virtualization Software</item>
+    </category_tags>
     <operations>
         <operation name="GetVersion" type="test">
             <request>

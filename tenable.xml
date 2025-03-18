@@ -19,6 +19,9 @@
 		<item name="secretKey" type="string" visibility="protected"/>
 	</requiredData>
    <authType>apikey</authType>
+    <category_tags>
+        <item>Security</item>
+    </category_tags>
 	<operations>
 		<operation name="io-v1-access-groups-list" type="">
 			<request>

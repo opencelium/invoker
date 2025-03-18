@@ -9,7 +9,10 @@
         <item name="token" type="string" visibility="private">%{body.token}</item>
     </requiredData>
     <authType>token</authType>
-    <operations>
+    <category_tags>
+        <item>Projekt Management</item>
+    </category_tags> 
+   <operations>
         <operation name="login" type="test">
             <request>
                 <method>POST</method>

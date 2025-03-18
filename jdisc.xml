@@ -9,6 +9,9 @@
         <item name="token" type="string" visibility="private">%{login.body.data.authentication.login.accessToken}</item>
     </requiredData>
     <authType>token</authType>
+    <category_tags>
+        <item>Discovery</item>
+    </category_tags>
     <operations>
         <operation name="login" type="test">
             <request>

@@ -7,6 +7,11 @@
         <item name="token" type="string" visibility="public"/>
     </requiredData>
     <authType>token</authType>
+    <category_tags>
+        <item>Inventory</item>
+        <item>Asset Management</item>
+        <item>Discovery</item>
+    </category_tags>
     <operations>
         <operation name="ConnectionTest" type="test">
             <request>

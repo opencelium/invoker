@@ -10,6 +10,10 @@
 		<item name="password" type="string" visibility="protected"/>
 		<item name="token" type="string" visibility="private">Basic {username:password}</item>
 	</requiredData>
+    <category_tags>
+        <item>Ticketsystem</item>
+        <item>Asset Management</item>
+    </category_tags>
 	<operations>
 		<operation name="getLinkedAssets" type="">
 			<request>

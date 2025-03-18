@@ -10,6 +10,9 @@
         <item name="token" type="string" visibility="private">Basic {username:password}</item>
     </requiredData>
     <authType>basic</authType>
+    <category_tags>
+        <item>Asset Management</item>
+    </category_tags>
     <operations>
         <operation name="GetAssetTypes" type="test">
             <request>

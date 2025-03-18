@@ -8,8 +8,12 @@
         <item name="token" type="string" visibility="private">%{createAPIToken.body.RawToken}</item>
     </requiredData>
     <authType>token</authType>
-    <operations>
-    <operation name="createAPIToken" type="test">
+    <category_tags>
+        <item>Inventory</item>
+        <item>Asset Management</item>
+    </category_tags>
+    <operations> 
+   <operation name="createAPIToken" type="test">
             <request>
                 <method>POST</method>
                 <endpoint>{url}/m42Services/api/ApiToken/GenerateAccessTokenFromApiToken/?</endpoint>

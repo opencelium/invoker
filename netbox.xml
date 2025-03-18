@@ -7,6 +7,10 @@
         <item name="url" type="string" visibility="public">https://{netbox}</item>
         <item name="token" type="string" visibility="protected"/>
     </requiredData>
+    <category_tags>
+        <item>CMDB</item>
+        <item>Asset Management</item>
+    </category_tags>
     <operations>
         <operation name="circuits_circuit_terminations_list" type="test">
             <request>

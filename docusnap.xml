@@ -14,6 +14,11 @@
         <item name="dbpassword" type="string" visibility="protected"/>
     </requiredData>
     <authType>basic</authType>
+    <category_tags>
+        <item>Inventory</item>
+        <item>Asset Management</item>
+        <item>Discovery</item>
+    </category_tags>
     <operations>
         <operation name="GetDocu" type="test">
             <request>

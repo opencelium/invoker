@@ -21,6 +21,9 @@
         <item name="workspaceid" type="string" visibility="private">%{workspace.body.values[0].workspaceId}</item>
     </requiredData>
     <authType>basic</authType>
+    <category_tags>
+        <item>Ticketsystem</item>
+    </category_tags>
     <operations>
         <operation name="workspace" type="test">
             <request>

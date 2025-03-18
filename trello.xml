@@ -9,6 +9,9 @@
         <item name="token" type="string" visibility="protected"/>
     </requiredData>
     <authType>endpointAuth</authType>
+    <category_tags>
+        <item>Projekt Management</item>
+    </category_tags>
     <operations>
         <operation name="GetBoards" type="test">
             <request>

@@ -11,6 +11,9 @@
 	<item name="db_databasetype" type="string" visibility="public"/>
     </requiredData>
     <authType>apikey</authType>
+    <category_tags>
+        <item>Convert to API Services</item>
+    </category_tags>
     <operations>
         <operation name="DBQuery" type="test">
             <request>

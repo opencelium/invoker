@@ -7,6 +7,10 @@
 		<item name="token" type="string" visibility="protected"/>
 	</requiredData>
 	<authType>token</authType>
+    <category_tags>
+        <item>CMDB</item>
+        <item>Asset Management</item>
+    </category_tags>
 	<operations>
 		<operation name="hardware-by-id" type="">
 			<request>

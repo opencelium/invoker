@@ -10,7 +10,10 @@
         <item name="token" type="string" visibility="private">Basic {username:password}</item>
     </requiredData>
     <authType>basic</authType>
-    <operations>
+    <category_tags>
+        <item>Ticketsystem</item>
+    </category_tags> 
+   <operations>
         <operation name="GetMyAccount" type="test">
             <request>
                 <method>GET</method>

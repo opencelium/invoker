@@ -10,6 +10,9 @@
         <item name="token" type="string" visibility="private">%{userLogin.body.result}</item>
     </requiredData>
     <authType>token</authType>
+    <category_tags>
+        <item>Monitoring</item>
+    </category_tags>
     <operations>
         <operation name="userLogin" type="test">
             <request>
