@@ -1,59 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <invoker type="openapi">
     <name>CheckMK 2</name>
-    <description># IntroductionWith the Checkmk REST-API you can transfer and execute the tasks you
-        normally performmanually in Checkmk's GUI to the Checkmk server via command or script.REST
-        stands for REpresentational State Transfer and describes an architecture for the exchange
-        ofdata on distributed systems - especially for Web services. The implementation of this
-        REST-API isdone via the HTTP/1.1 protocol, where resources are addressed via URIs and
-        accessed with HTTPmethods (GET, POST, PUT, DELETE).The API is documented in a
-        machine-readable schema and a human-readable format in English, with allresources, their
-        input and output parameters and the associated value ranges. The API is createdwith the
-        OpenAPI specification 3.x, an API description format especially for REST APIs.The API
-        documentation created with this specification is displayed to you with ReDoc, a
-        responsiveWeb design for OpenAPI documents.# Prerequisites* You are experienced in using an
-        API, preferably a REST-API.* You are familiar with at least one of the applications for
-        which sample code is available.* You know Checkmk and its principles of setup and
-        configuration.# Using the API documentationThe API documentation's Web design provides 3
-        panes.The left navigation pane is used for orientation, search and quick jump to the exact
-        description ofthe entries in the middle content pane. The table of contents contains one
-        entry for each API endpoint.An endpoint uses a URL to refer to the resource that the API
-        provides (e.g., to collect hosts),along with the method used to access the resource (e.g.,
-        GET to display a host).The endpoints are organized in several folders.The middle content
-        pane contains all information about the definition of a request (with parameters,value
-        ranges, default values and descriptions) and the corresponding answers (also with all
-        details).The possible answers are displayed in different colors, depending on whether the
-        returned HTTP statuscode signals success or an error.The right example pane shows the method
-        and URL for the endpoint selected in the content pane,followed by several examples of
-        requests: the payload in JSON format (if relevant to the endpoint) andcode examples, such as
-        cURL, HTTPie, Python Requests, or Python Urllib. Then follow the responsesaccording to the
-        HTTP status. All code examples can be copied to the clipboard with the Copy button.#
-        ResponsesAs specified by the `Content-Type` of `application/json`, the response payload is
-        serialized withJSON and encoded in UTF-8.All responses are well-formed according to
-        the[Restful-Objects standard](https://en.wikipedia.org/wiki/Restful_Objects).There are a
-        limited number of key concepts in the standard (e.g. object, action, collection, etc.)which
-        enables the use of this API without having to understand the details of the implementation
-        ofeach endpoint.Every response comes with a collection of `links` to inform the API client
-        on possiblefollow-up actions. For example, a folder response can have links to resources for
-        updating,deleting and moving the folder. The client does not have to know about the URL
-        structure, itjust needs to follow the link. In this sense, the API is quasi
-        self-documenting.This provision of additional information as a REST-API principle is also
-        called[HATEOAS](https://en.wikipedia.org/wiki/HATEOAS).# AuthenticationTo use this API from
-        a automated client, a user needs to be set up in Checkmk. Ideally thiswould be an
-        automation-user, with which actions can be performed via the API. For a newlycreated site an
-        automation user is already created. You can find it, like other users, inCheckmk at *Setup*
-        &gt; *Users*.As an alternative, users who already logged into Checkmk can also access the
-        API, although theseusers are not very suitable for automation, because their session will
-        time out eventually.For scripting, please use the Bearer authentication
-        format.&lt;SecurityDefinitions /&gt;# Client compatibility issues## Overriding request
-        methodsIf you have a client which cannot do the HTTP PUT or DELETE methods, you can use
-        the`X-HTTP-Method-Override` HTTP header to force the server into believing the client
-        actually sentsuch a method. In these cases the HTTP method to use has to be POST. You cannot
-        override from GET.## Backwards compatibilityFuture versions of this API may add additional
-        fields in the responses. Clients must be writtenin a way to NOT expect the absence of a
-        field, as we don't guarantee that.For backwards compatibility reasons we only keep the
-        fields that have already been there in olderversions. You can consult the documentation to
-        see what changed in each API revision.</description>
+    <description>With the Checkmk REST-API you can transfer and execute the tasks you
+        normally performmanually in Checkmk's GUI to the Checkmk server via command or script.</description>
     <hint>This interface provides the token auth. You can access the API documents via the checkmk
         overview.</hint>
     <authType>token</authType>
