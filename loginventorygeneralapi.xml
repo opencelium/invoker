@@ -2,12 +2,10 @@
 	<name>LoginventoryGeneralAPI</name>
 	<description>LOGINventory supports you in keeping track of and optimizing your entire network with existing hardware and software and the licenses used. The General REST API (General Web API) allows full access to all LOGINventory data. If this API has been activated, all data can be accessed by a user who has the LOGINventory authorization level Administrator, without having to define endpoints for this purpose.</description>
 	<hint>Read here more about the general web api from loginventory https://www.loginventory.info/documentation/9/en/web-api/</hint>
-	<authType>basic</authType>
+	<authType>apikey</authType>
 	<requiredData>
 		<item name="url" type="string" visibility="public">http://{IPORHostname}/LOGINventory9/api/v1</item>
-		<item name="username" type="string" visibility="public"/>
-		<item name="password" type="string" visibility="protected"/>
-		<item name="token" type="string" visibility="private">Basic {username:password}</item>
+		<item name="xapikey" type="string" visibility="private">{x-api-key}</item>
 	</requiredData>
     	<category_tags>
         	<item>Inventory</item>
@@ -19,7 +17,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="raw" format="json" type="object"/>
 				<endpoint>{url}/Device</endpoint>
@@ -46,7 +44,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="array">
 					<field name="Cpu" type="object">
@@ -104,7 +102,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="raw" format="json" type="object"/>
 				<endpoint>{url}/SoftwarePackage/Device?{&quot;SoftwarePackage&quot;:&quot;Name LIKE '%Office%'&quot;, &quot;Device&quot;:&quot;Name LIKE 'DE%'&quot;}</endpoint>
@@ -140,7 +138,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="raw" format="json" type="object"/>
 				<endpoint>{url}/User/21/Device(Path=&quot;Owner&quot;)</endpoint>
@@ -169,7 +167,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="raw" format="json" type="object"/>
 				<endpoint>{url}/User/</endpoint>
@@ -198,7 +196,7 @@
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="object">
 					<field name="HardwareProduct" type="object">
@@ -234,7 +232,7 @@
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="object">
 					<field name="Amount" type="number"/>
@@ -274,7 +272,7 @@
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="object">
 					<field name="Amount" type="number"/>
@@ -317,7 +315,7 @@
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="object">
 					<field name="Amount" type="number"/>
@@ -357,7 +355,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="raw" format="json" type="object"/>
 				<endpoint>{url}/Device/3</endpoint>
@@ -385,7 +383,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="raw" format="json" type="object">
 					<field name="id" type="string"/>
@@ -415,7 +413,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="object">
 					<field name="Category" type="string"/>
@@ -449,7 +447,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="raw" format="json" type="object"/>
 				<endpoint>{url}/Device/Custom/{Property}</endpoint>
@@ -477,7 +475,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="object">
 					<field name="Category" type="string"/>
@@ -510,7 +508,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="raw" format="json" type="object"/>
 				<endpoint>{url}/Device/{ID}/Custom/{Property}</endpoint>
@@ -540,7 +538,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="object">
 					<field name="Value" type="string"/>
@@ -572,7 +570,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="object">
 					<field name="Value" type="string"/>
@@ -604,7 +602,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="object">
 					<field name="Author" type="string"/>
@@ -643,7 +641,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="raw" format="json" type="object"/>
 				<endpoint>{url}/LifecycleEntry?filter=</endpoint>
@@ -684,7 +682,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="object">
 					<field name="Body" type="string"/>
@@ -717,7 +715,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="raw" format="json" type="object"/>
 				<endpoint>{url}/LifecycleEntry/{ID}|{ORDINAL}</endpoint>
@@ -744,7 +742,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="object">
 					<field name="End" type="string"/>
@@ -775,7 +773,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="raw" format="json" type="object"/>
 				<endpoint>{url}/Device/{ID}/LinkedDocument</endpoint>
@@ -812,7 +810,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="raw" format="json" type="object"/>
 				<endpoint>{url}/Device/{ID}/LinkedDocument/{DOCUMENTID}</endpoint>
@@ -849,7 +847,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="object">
 					<field name="DocumentType" type=""/>
@@ -884,7 +882,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="object">
 					<field name="DocumentType" type=""/>
@@ -918,7 +916,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="object">
 					<field name="Name" type="string"/>
@@ -948,7 +946,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="raw" format="json" type="object"/>
 				<endpoint>{url}/ExternalResource/{ID}</endpoint>
@@ -975,7 +973,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="raw" format="json" type="object"/>
 				<endpoint>{url}/Device/{ID}/LinkedDocument/{DOKUMENTID}</endpoint>
@@ -1005,7 +1003,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="raw" format="json" type="object"/>
 				<endpoint>{url}/Device/{ID}/LinkedDocument/{DOCUMENTID}</endpoint>
@@ -1035,7 +1033,7 @@
 			<request>
 				<header>
 					<item name="Content-Type" type="string">application/json</item>
-					<item name="Authorization" type="string">{token}</item>
+					<item name="x-api-key" type="string">{xapikey}</item>
 				</header>
 				<body data="application/json" format="json" type="object">
 					<field name="FollowUp" type="string"/>
