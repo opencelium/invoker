@@ -5,7 +5,7 @@
 	<authType>apikey</authType>
 	<requiredData>
 		<item name="url" type="string" visibility="public">http://{IPORHostname}/LOGINventory9/api/v1</item>
-		<item name="xapikey" type="string" visibility="private">{x-api-key}</item>
+		<item name="xapikey" type="string" visibility="protected">{x-api-key}</item>
 	</requiredData>
     	<category_tags>
         	<item>Inventory</item>

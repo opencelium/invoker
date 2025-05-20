@@ -9,6 +9,9 @@
         <item name="password" type="string" visibility="protected"/>
         <item name="token" type="string" visibility="private">Basic {username:password}</item>
     </requiredData>
+    <category_tags>
+        <item>Virtualization Software</item>
+    </category_tags>
     <operations>
         <operation name="listVmStats" type="test">
             <request>
