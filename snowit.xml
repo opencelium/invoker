@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <invoker type="RESTful">
     <name>SnowInventory</name>
-    <description>Snow Inventory</description>
+    <description>The Snow Inventory Server architecture consists of several components that capture, transfer and store inventory data. The data is later normalized, processed and refined for use in Snow License Manager.</description>
     <hint>Add the URL poiting to the customer /api/customers/1 and you will see all potential functions</hint>
     <icon>SnowInventory.png</icon>
     <requiredData>
