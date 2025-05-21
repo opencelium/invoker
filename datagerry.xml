@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
+    <name>DataGerry</name>
+    <description>DATAGERRY is an Open Source CMDB &amp; Asset Management Tool, which completely leaves the definition of a data model to the user.</description>
+    <hint>This interface provides a basic auth. Read here the api documentation https://docs.datagerry.com/latest/api/rest/</hint>
+    <requiredData>
+        <item name="url" type="string" visibility="public"/>
+        <item name="username" type="string" visibility="public"/>
+        <item name="password" type="string" visibility="public"/>
+        <item name="token" type="string" visibility="private">Basic {username:password}</item>
+    </requiredData>
+    <authType>basic</authType>
+    <operations>
+        <operation name="GetCategories" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/categories</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="results" type="array">
+                            <field name="public_id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="parent" type="string"/>
+                            <field name="meta" type="object">
+                                <field name="icon" type="string"/>
+                                <field name="order" type="string"/>
+                            </field>
+                            <field name="types" type="array"/>
+                            <field name="label" type="string"/>
+                        </field>
+                        <field name="count" type="string"/>
+                        <field name="total" type="string"/>
+                        <field name="parameters" type="array"/>
+                        <field name="pager" type="array"/>
+                        <field name="pagination" type="array"/>
+                        <field name="response_type" type="string"/>
+                        <field name="model" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+    </operation>
+        <operation name="AddCategory" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/rest/categories</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="name" type="string"/>
+                    <field name="parent" type="string"/>
+                    <field name="meta" type="object">
+                        <field name="icon" type="string"/>
+                        <field name="order" type="string"/>
+                    </field>
+                    <field name="types" type="array"/>
+                    <field name="label" type="string"/>         
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result_id" type="string"/>
+                        <field name="raw" type="object">
+                            <field name="public_id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="types" type="array"/>
+                            <field name="parent" type="string"/>
+                            <field name="meta" type="object">
+                                <field name="icon" type="string"/>
+                                <field name="order" type="string"/>
+                            </field>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="model" type="string"/>
+                        <field name="time" type="string"/>                        
+                </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>
+        <operation name="UpdateCategory" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/rest/categories/{CATEGORYID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="public_id" type="string"/>
+                    <field name="name" type="string"/>
+                    <field name="label" type="string"/>
+                    <field name="types" type="array"/>
+                    <field name="parent" type="string"/>
+                    <field name="meta" type="object">
+                        <field name="icon" type="string"/>
+                        <field name="order" type="string"/>
+                    </field>
+                </body>
+                </request>
+                <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="types" type="array"/>
+                            <field name="parent" type="string"/>
+                            <field name="meta" type="object">
+                                <field name="icon" type="string"/>
+                                <field name="order" type="string"/>
+                            </field>
+                        </field>
+                        <field name="failed" type="string"/>
+                        <field name="response_type" type="string"/>
+                        <field name="model" type="string"/>
+                        <field name="time" type="string"/>        
+                </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>
+        <operation name="DeleteCategory" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/rest/categories/{CATEGORYID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="raw" type="object">
+                            <field name="public_id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="meta" type="object">
+                                <field name="icon" type="string"/>
+                                <field name="order" type="string"/>
+                            </field>
+                            <field name="parent" type="string"/>
+                            <field name="types" type="array"/>                                                                
+                        </field>                
+                        <field name="response_type" type="string"/>
+                        <field name="model" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>      
+        <operation name="GetTypes" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/types/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                     	<field name="results" type="array">
+                     		<field name="public_id" type="string"/>
+                     		<field name="name" type="string"/>
+                     		<field name="active" type="string"/>
+                     		<field name="label" type="string"/>
+                     	</field>
+                     	<field name="count" type="string"/>
+                     	<field name="total" type="string"/>
+                     	<field name="parameters" type="array"/>
+                     	<field name="pager" type="array"/>
+                     	<field name="pagination" type="array"/>
+                     	<field name="response_type" type="string"/>
+                     	<field name="model" type="string"/>
+                     	<field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+    </operation>
+        <operation name="AddType" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/rest/types/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                <field name="name" type="string"/>
+                <field name="label" type="string"/>
+                <field name="description" type="string"/>
+                <field name="version" type="string"/>
+                <field name="status" type="string"/>
+                <field name="active" type="string"/>
+                <field name="clean_db" type="string"/>
+                <field name="access" type="object">
+                        <field name="groups" type="string"/>
+                        <field name="users" type="string"/>
+                </field>
+                <field name="author_id" type="string"/>
+                <field name="render_meta" type="object">
+                    <field name="icon" type="string"/>
+                    <field name="sections" type="array">
+                        <field name="type" type="string"/>
+                        <field name="name" type="string"/>
+                        <field name="label" type="string"/>
+                        <field name="fields" type="array"/>
+                    </field>
+                    <field name="externals" type="array"/>
+                    <field name="summary" type="object">
+                      <field name="fields" type="array"/>
+                    </field>
+                </field>
+                <field name="fields" type="array">
+                     <field name="type" type="string"/>
+                     <field name="name" type="string"/>
+                     <field name="label" type="string"/>
+                </field>
+                <field name="category_id" type="string"/>
+                <field name="acl" type="object">
+                    <field name="activated" type="string"/>
+                    <field name="groups" type="object">
+                            <field name="includes" type="object"/>
+                        </field>
+                </field>
+		</body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+		                <field name="result_id" type="string"/>
+                    	<field name="raw" type="object">
+			                <field name="public_id" type="string"/>
+			                <field name="name" type="string"/>
+			                <field name="label" type="string"/>
+			                <field name="description" type="string"/>
+			                <field name="version" type="string"/>
+			                <field name="response_type" type="string"/>
+			                <field name="active" type="string"/>
+			                <field name="creation_time" type="string"/>
+			                <field name="author_id" type="string"/>
+			                <field name="model" type="string"/>
+			                <field name="time" type="string"/>
+			                <field name="render_meta" type="object">
+			                    <field name="icon" type="string"/>
+			                    <field name="sections" type="array">
+			                        <field name="type" type="string"/>
+			                        <field name="name" type="string"/>
+			                        <field name="label" type="string"/>
+			                        <field name="fields" type="array"/>
+			                    </field>
+			                    <field name="externals" type="array"/>
+			                    <field name="summary" type="object">
+			                      <field name="fields" type="array"/>
+			                    </field>
+			                </field>
+			                <field name="fields" type="array">
+			                     <field name="type" type="string"/>
+			                     <field name="name" type="string"/>
+			                     <field name="label" type="string"/>
+			                </field>
+			                <field name="editor_id" type="string"/>
+			                <field name="acl" type="object">
+			                    <field name="activated" type="string"/>
+			                    <field name="groups" type="object">
+			                            <field name="includes" type="object"/>
+			                        </field>
+			                </field>
+			            </field>
+				</body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>
+        <operation name="UpdateType" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/rest/types/{TYPEID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                <field name="name" type="string"/>
+                <field name="label" type="string"/>
+                <field name="description" type="string"/>
+                <field name="version" type="string"/>
+                <field name="status" type="string"/>
+                <field name="active" type="string"/>
+                <field name="clean_db" type="string"/>
+                <field name="access" type="object">
+                        <field name="groups" type="string"/>
+                        <field name="users" type="string"/>
+                </field>
+                <field name="author_id" type="string"/>
+                <field name="render_meta" type="object">
+                    <field name="icon" type="string"/>
+                    <field name="sections" type="array">
+                        <field name="type" type="string"/>
+                        <field name="name" type="string"/>
+                        <field name="label" type="string"/>
+                        <field name="fields" type="array"/>
+                    </field>
+                    <field name="externals" type="array"/>
+                    <field name="summary" type="object">
+                      <field name="fields" type="array"/>
+                    </field>
+                </field>
+                <field name="fields" type="array">
+                     <field name="type" type="string"/>
+                     <field name="name" type="string"/>
+                     <field name="label" type="string"/>
+                </field>
+                <field name="category_id" type="string"/>
+                <field name="acl" type="object">
+                    <field name="activated" type="string"/>
+                    <field name="groups" type="object">
+                            <field name="includes" type="object"/>
+                        </field>
+                </field>
+        </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result_id" type="string"/>
+                        <field name="raw" type="object">
+                            <field name="public_id" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="description" type="string"/>
+                            <field name="version" type="string"/>
+                            <field name="response_type" type="string"/>
+                            <field name="active" type="string"/>
+                            <field name="creation_time" type="string"/>
+                            <field name="author_id" type="string"/>
+                            <field name="model" type="string"/>
+                            <field name="time" type="string"/>
+                            <field name="render_meta" type="object">
+                                <field name="icon" type="string"/>
+                                <field name="sections" type="array">
+                                    <field name="type" type="string"/>
+                                    <field name="name" type="string"/>
+                                    <field name="label" type="string"/>
+                                    <field name="fields" type="array"/>
+                                </field>
+                                <field name="externals" type="array"/>
+                                <field name="summary" type="object">
+                                  <field name="fields" type="array"/>
+                                </field>
+                            </field>
+                            <field name="fields" type="array">
+                                 <field name="type" type="string"/>
+                                 <field name="name" type="string"/>
+                                 <field name="label" type="string"/>
+                            </field>
+                            <field name="editor_id" type="string"/>
+                            <field name="acl" type="object">
+                                <field name="activated" type="string"/>
+                                <field name="groups" type="object">
+                                        <field name="includes" type="object"/>
+                                    </field>
+                            </field>
+                        </field>
+                </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>
+        <operation name="DeleteType" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/rest/types/{TYPEID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body data="raw" format="json" type="object">
+				</body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="deleted_entry" type="object"/>
+                        <field name="response_type" type="string"/>
+                        <field name="model" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>	         	    
+        <operation name="GetObjects" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/objects/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                     	<field name="results" type="array">
+                     		<field name="type_id" type="string"/>
+                     		<field name="status" type="string"/>
+                     		<field name="version" type="string"/>
+                     		<field name="creation_time" type="string"/>
+                     		<field name="last_edit_time" type="string"/>
+                     		<field name="editor_id" type="string"/>
+                     		<field name="public_id" type="string"/>
+                     		<field name="active" type="boolean"/>   
+                     		<field name="fields" type="array">
+	                     		<field name="name" type="string"/>
+	                     		<field name="value" type="string"/>
+                     		</field>                  		
+                     	</field>
+                     	<field name="count" type="string"/>
+                     	<field name="total" type="string"/>
+                     	<field name="parameters" type="array"/>
+                     	<field name="pager" type="array"/>
+                     	<field name="pagination" type="array"/>
+                     	<field name="response_type" type="string"/>
+                     	<field name="model" type="string"/>
+                     	<field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>       
+        <operation name="AddObject" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/rest/objects/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+	        </header>
+                <body data="raw" format="json" type="object">
+                     <field name="type_id" type="string"/>
+                     <field name="version" type="string"/>
+                     <field name="author_id" type="string"/>
+                     <field name="active" type="boolean"/>
+                     <field name="views" type="string"/>
+                     <field name="fields" type="array"/>   
+                </body>		    
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="array">
+                     <field name="type_id" type="string"/>
+                     <field name="version" type="string"/>
+                     <field name="author_id" type="string"/>
+                     <field name="active" type="string"/>
+                     <field name="views" type="string"/>
+                     <field name="fields" type="array"/>   
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+    </operation>
+        <operation name="UpdateObject" type="">
+            <request>
+                <method>PUT</method>
+		<endpoint>{url}/rest/objects/{ID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                     <field name="type_id" type="string"/>
+                     <field name="version" type="string"/>
+                     <field name="author_id" type="string"/>
+                     <field name="active" type="boolean"/>
+                     <field name="views" type="string"/>
+                     <field name="fields" type="array"/>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="array">
+                     <field name="type_id" type="string"/>
+                     <field name="version" type="string"/>
+                     <field name="author_id" type="string"/>
+                     <field name="active" type="string"/>
+                     <field name="views" type="string"/>
+                     <field name="fields" type="array"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>
+       <operation name="DeleteObject" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/rest/objects/{OBJECTID}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                </header>
+                <body data="raw" format="json" type="object">
+				</body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="deleted_entry" type="object"/>
+                        <field name="response_type" type="string"/>
+                        <field name="model" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+       </operation>	            
+    </operations>
+</invoker>
