@@ -1,30 +1,32 @@
 <invoker type="RESTful">
     <name>db2api</name>
-    <description>OpenCelium extension - Translates HTTP request into database queries. Allowing users to interact with that SQL DB as if it was a native API. It is only supports the response type GET</description>
+    <description>OpenCelium extension - Translates HTTP request into database queries. Allowing users to interact with that SQL DB as if it was a native API.</description>
     <hint>Read here the documentation https://github.com/opencelium/db2api.</hint>
     <requiredData>
-        <item name="url" type="string" visibility="public"/>
-	<item name="db_hostname" type="string" visibility="public"/>
-        <item name="db_username" type="string" visibility="public"/>
-        <item name="db_password" type="string" visibility="protected"/>
-	<item name="db_name" type="string" visibility="public"/>
-	<item name="db_databasetype" type="string" visibility="public"/>
+        <item name="url" type="string" visibility="public">http://{DB2API_SERVER}:8080</item>
+	<item name="X-DB-Engine" type="string" visibility="public">{mysql,mssql,postgres,oracle or mongodb}</item>
+        <item name="X-DB-Host" type="string" visibility="public"/>
+        <item name="X-DB-Name" type="string" visibility="protected"/>
+    	<item name="X-DB-User" type="string" visibility="public"/>
+    	<item name="X-DB-Password" type="string" visibility="public"/>
+    	<item name="X-DB-Options" type="string" visibility="public"/>
     </requiredData>
     <authType>apikey</authType>
     <category_tags>
         <item>Convert to API Services</item>
     </category_tags>
     <operations>
-        <operation name="DBQuery" type="test">
+        <operation name="DBTest" type="test">
             <request>
                 <method>GET</method>
-                <endpoint>{url}</endpoint>
+                <endpoint>{url}/connect-test</endpoint>
                 <header>
-                    <item name="user" type="string">{db_username}</item>
-                    <item name="password" type="string">{db_password}</item>
-                    <item name="db_name" type="string">{db_name}</item>
-                    <item name="hostname" type="string">{db_hostname}</item>
-                    <item name="datasource" type="string">{db_databasetype}</item>
+                    <item name="X-DB-Engine" type="string">{X-DB-Engine}</item>
+                    <item name="X-DB-Host" type="string">{X-DB-Host}</item>
+                    <item name="X-DB-Name" type="string">{X-DB-Name}</item>
+                    <item name="X-DB-User" type="string">{X-DB-User}</item>
+                    <item name="X-DB-Password" type="string">{X-DB-Password}</item>
+                    <item name="X-DB-Options" type="string">{X-DB-Options}</item>
                 </header>
                 <body/>
             </request>
@@ -33,11 +35,42 @@
                     <header/>
 		    <body/>
                 </success>
+                <fail status="400">
+                    <header/>
+		    <body/>
+                </fail>
+            </response>
+        </operation>
+        <operation name="DBQuery" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/query</endpoint>
+                <header>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="X-DB-Engine" type="string">{X-DB-Engine}</item>
+                    <item name="X-DB-Host" type="string">{X-DB-Host}</item>
+                    <item name="X-DB-Name" type="string">{X-DB-Name}</item>
+                    <item name="X-DB-User" type="string">{X-DB-User}</item>
+                    <item name="X-DB-Password" type="string">{X-DB-Password}</item>
+                    <item name="X-DB-Options" type="string">{X-DB-Options}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="query" type="string"/>
+                    <field name="params" type="array"/>
+                    <field name="fields" type="array"/>
+                    <field name="maxRows" type="string"/>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+            <body/>
+                </success>
                 <fail status="500">
                     <header/>
                     <body/>
                 </fail>
             </response>
-        </operation>
+        </operation>        
     </operations>
 </invoker>
