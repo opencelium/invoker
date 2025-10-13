@@ -1,5 +1,5 @@
 <invoker type="openapi">
-    <name>WhatsUp Gold</name>
+    <name>WhatsUp 2019</name>
     <description>WhatsUp Gold is a commercial network and infrastructure monitoring tool by Ipswitch (now Progress) that gives IT teams real-time visibility into devices, servers, applications, network traffic, configurations, logs, and cloud environments. It uses automatic Layer 2/3 discovery to map your network topology and offers customizable dashboards, alerts (email/SMS/Slack) and report generation</description>
     <hint>WhatsUp Gold is a monitoring tool. Read api documentation https://docs.ipswitch.com/NM/WhatsUpGold2019_2/02_Guides/rest_api/#section/Overview</hint>
     <authType>token</authType>
