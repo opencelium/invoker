@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>DataGerry</name>
     <description>DATAGERRY is an Open Source CMDB &amp; Asset Management Tool, which completely leaves the definition of a data model to the user.</description>
-    <hint>This interface provides a basic auth. Read here the api documentation https://docs.datagerry.com/latest/api/rest/</hint>
+    <hint>This interface provides a basic auth. Read here the api documentation https://docs.datagerry.com/en/latest/rest_api/overview.html</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>
         <item name="username" type="string" visibility="public"/>
