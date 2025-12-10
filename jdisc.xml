@@ -21,7 +21,7 @@
                     <item name="Content-Type" type="string">application/json</item>
                 </header>
                 <body data="raw" format="json" type="object">
-                     <field name="query" type="string">mutation($user: String, $password: String) {authentication { login(login: $user, password: $password){ status accessToken refreshToken }}}</field>
+                     <field name="query" type="string">mutation($user: String!, $password: String!) {authentication { login(login: $user, password: $password){ status accessToken refreshToken }}}</field>
                      <field name="variables" type="object">
                         <field name="user" type="string">{username}</field>
                         <field name="password" type="string">{password}</field>
