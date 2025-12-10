@@ -1,0 +1,11 @@
+gitdir=/opt/backend/resources/invokers
+
+cp $gitdir/open/*.xml $gitdir/
+cp $gitdir/subscription/*.xml $gitdir/
+
+/usr/bin/git --git-dir=$gitdir/.git --work-tree=$gitdir pull
+/usr/bin/git --git-dir=$gitdir/.git --work-tree=$gitdir add .
+/usr/bin/git --git-dir=$gitdir/.git --work-tree=$gitdir commit -m "Automatic synchronization to the service portal"
+/usr/bin/git --git-dir=$gitdir/.git --work-tree=$gitdir push
+
+rm $gitdir/*.xml
