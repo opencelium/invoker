@@ -23,7 +23,6 @@
     <authType>token</authType>
     <category_tags>
 	<item>CMDB</item>
-	<item>Inventory</item>
 	<item>Asset Management</item>
     </category_tags>
     <operations>
