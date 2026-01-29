@@ -61,7 +61,7 @@
                     <header>
                         <item name="Content-Type" type="string">text/plain</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="error" type="string"/>
                     </body>
                 </fail>
@@ -222,7 +222,7 @@
                     <header>
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="error" type="string">1</field>
                     </body>
                 </fail>
@@ -386,7 +386,7 @@
                     <header>
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="error" type="string">1</field>
                     </body>
                 </fail>
@@ -505,7 +505,7 @@
                     <header>
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="error" type="string">1</field>
                     </body>
                 </fail>
@@ -615,7 +615,7 @@
                     <header>
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="error" type="string">1</field>
                     </body>
                 </fail>
@@ -771,7 +771,7 @@
                     <header>
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="error" type="string">1</field>
                     </body>
                 </fail>

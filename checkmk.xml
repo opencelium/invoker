@@ -175,7 +175,7 @@
                     <header>
                         <item name="Content-Type" type="string" >application/x-www-form-urlencoded</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="result" type="string"/>
                     </body>
                 </success>

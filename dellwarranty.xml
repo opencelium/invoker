@@ -20,7 +20,7 @@
                 <header>
                     <item name="Content-Type" type="string">application/x-www-form-urlencoded</item>
                 </header>
-                <body>
+                <body data="raw" format="json" type="object">
                     <field name="grant_type" type="string">client_credentials</field>
                     <field name="client_id" type="string">{client_id}</field>
                     <field name="client_secret" type="string">{client_secret}</field>
@@ -31,7 +31,7 @@
                     <header>
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="token_type" type="string"/>
                         <field name="expires_in" type="string"/>
                         <field name="scope" type="string"/>
@@ -42,7 +42,7 @@
                     <header>
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="error" type="string"/>
                     </body>
                 </fail>

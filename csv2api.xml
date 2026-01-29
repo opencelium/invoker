@@ -25,7 +25,7 @@
             <response>
                 <success status="200">
                     <header/>
-                    <body>
+                    <body data="raw" format="json" type="object">
 			<field name="result" type="array">
 				<field name="Cleintname" type="string"/>
 			</field>

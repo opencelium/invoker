@@ -39,7 +39,7 @@
             <response>
                 <success status="200">
                     <header/>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="prtg-version" type="string"/>
                         <field name="treesize" type="string"/>
                         <field name="sensors" type="array">
@@ -58,7 +58,7 @@
                     <header>
                        <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="error" type="string"/>
                     </body>
                 </fail>
@@ -76,7 +76,7 @@
             <response>
                 <success status="200">
                     <header/>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="prtg-version" type="string"/>
                         <field name="treesize" type="string"/>
                         <field name="devices" type="array">
@@ -99,7 +99,7 @@
                     <header>
                        <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="error" type="string"/>
                     </body>
                 </fail>
@@ -117,7 +117,7 @@
             <response>
                 <success status="200">
                     <header/>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="prtg-version" type="string"/>
                         <field name="treesize" type="string"/>
                         <field name="sensors" type="array">
@@ -130,7 +130,7 @@
                     <header>
                        <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="error" type="string"/>
                     </body>
                 </fail>
@@ -148,7 +148,7 @@
             <response>
                 <success status="200">
                      <header/>
-                     <body>
+                     <body data="raw" format="json" type="object">
                        <field name="prtg-version" type="string"/>
                        <field name="NewMessages" type="string"/>
                        <field name="NewAlarms" type="string"/>
@@ -196,7 +196,7 @@
                     <header>
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="error" type="string"/>
                     </body>
                 </fail>
@@ -214,7 +214,7 @@
             <response>
                 <success status="200">
                      <header/>
-                     <body>
+                     <body data="raw" format="json" type="object">
                         <item name="Name" type="string"/>
                     </body>
                 </success>
@@ -222,7 +222,7 @@
                     <header>
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="error" type="string"/>
                     </body>
                 </fail>
@@ -240,7 +240,7 @@
             <response>
                 <success status="200">
                      <header/>
-                     <body>
+                     <body data="raw" format="json" type="object">
                         <item name="Name" type="string"/>
                     </body>
                 </success>
@@ -248,7 +248,7 @@
                     <header>
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="error" type="string"/>
                     </body>
                 </fail>
@@ -266,7 +266,7 @@
             <response>
                 <success status="200">
                      <header/>
-                     <body>
+                     <body data="raw" format="json" type="object">
                         <item name="Name" type="string"/>
                     </body>
                 </success>
@@ -274,7 +274,7 @@
                     <header>
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="error" type="string"/>
                     </body>
                 </fail>
@@ -292,7 +292,7 @@
             <response>
                 <success status="200">
                      <header/>
-                     <body>
+                     <body data="raw" format="json" type="object">
                         <item name="Name" type="string"/>
                     </body>
                 </success>
@@ -300,7 +300,7 @@
                     <header>
                         <item name="Content-Type" type="string">application/json</item>
                     </header>
-                    <body>
+                    <body data="raw" format="json" type="object">
                         <field name="error" type="string"/>
                     </body>
                 </fail>
