@@ -3,10 +3,10 @@
     <description>JDisc Discovery is an on-premise IT service management solution for midsize and large enterprises. The solution serves IT departments in industries such as education, IT consulting and logistics.</description>
     <hint>This graphql interface provides a token auth. Its only provides one api operation, where you can flexible set up the query. The URL should look like this https://192.168.10.1/graphql</hint>
     <requiredData>
-        <item name="url" type="string" visibility="public"/>
+        <item name="url" type="string" visibility="public">https://{IP or HOSTNAME}/graphql</item>
         <item name="username" type="string" visibility="public"/>
 	<item name="password" type="string" visibility="public"/>
-        <item name="token" type="string" visibility="private">%{login.body.data.authentication.login.accessToken}</item>
+        <item name="token" type="string" visibility="public">%{login.body.data.authentication.login.accessToken}</item>
     </requiredData>
     <authType>token</authType>
     <category_tags>

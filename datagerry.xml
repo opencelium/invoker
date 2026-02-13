@@ -3,7 +3,7 @@
     <description>DATAGERRY is an Open Source CMDB &amp; Asset Management Tool, which completely leaves the definition of a data model to the user.</description>
     <hint>This interface provides a basic auth. Read here the api documentation https://docs.datagerry.com/en/latest/rest_api/overview.html</hint>
     <requiredData>
-        <item name="url" type="string" visibility="public"/>
+        <item name="url" type="string" visibility="public">http://{IP or HOSTNAME}:4200</item>
         <item name="username" type="string" visibility="public"/>
         <item name="password" type="string" visibility="public"/>
         <item name="token" type="string" visibility="private">Basic {username:password}</item>

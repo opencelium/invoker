@@ -14,7 +14,7 @@
     <hint>This interface provides a apikey auth. Read the api documentation here https://kb.i-doit.com/display/de/API+Methoden</hint>
     <icon>i-doit.png</icon>
     <requiredData>
-        <item name="url" type="string" visibility="public"/>
+        <item name="url" type="string" visibility="public">http://{IP or HOSTNAME}/src/jsonrpc.php</item>
         <item name="apikey" type="string" visibility="public"/>
         <item name="username" type="string" visibility="public"/>
         <item name="password" type="string" visibility="protected"/>

@@ -3,7 +3,7 @@
     <description>infoblox description</description>
     <hint>This interface provides the basic_auth. Check out the documentation on your own system (https://YOURSYSTEM/api/doc/) or get your postman collection here (https://blogs.infoblox.com/community/getting-started-with-wapis-using-postman/). </hint>
     <requiredData>
-        <item name="url" type="string" visibility="public"/>
+        <item name="url" type="string" visibility="public">https://{IP or HOSTNAME}/wapi/v2.6.1</item>
         <item name="username" type="string" visibility="public"/>
         <item name="password" type="string" visibility="protected"/>
         <item name="token" type="string" visibility="private">Basic {username:password}</item>

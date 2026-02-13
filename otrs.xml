@@ -17,7 +17,7 @@
     <hint>You find here the api reference https://doc.otrs.com/doc/api/otrs/8.0/Perl/</hint>
     <icon>otrs.png</icon>
     <requiredData>
-        <item name="url" type="string" visibility="public"/>
+        <item name="url" type="string" visibility="public">https://{IP OR HOSTNAME}/{otrs or znuny or otobo}/nph-genericinterface.pl/Webservice</item>
         <item name="UserLogin" type="string" visibility="public"/>
         <item name="Password" type="string" visibility="protected"/>
         <item name="WebService" type="string" visibility="public"/>
