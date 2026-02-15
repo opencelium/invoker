@@ -3,7 +3,7 @@
     <description>The baramundi Management Suite, is a versatile tool that will unleash your full IT potential. Stay in control and maximize your productivity by automating routine tasks. The Unified Endpoint Management Software can be installed and implemented quickly, is intuitive to use, has a modular structure and offers a high level of usability and transparency.</description>
     <hint>This interface provides a basic auth. https://docs.baramundi.com/helpsetid=m_t_configuration&amp;externalid=i_configuration_interfaces_bConnect&amp;Language=de-de&amp;Version=2024R1</hint>
     <requiredData>
-        <item name="url" type="string" visibility="public">https://{<baramundi-server>}/bconnect</item>
+        <item name="url" type="string" visibility="public">https://{baramundi-server}/bconnect</item>
         <item name="username" type="string" visibility="public"/>
         <item name="password" type="string" visibility="public"/>
         <item name="token" type="string" visibility="private">Basic {username:password}</item>
