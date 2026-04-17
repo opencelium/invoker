@@ -23,8 +23,7 @@
         <item name="UserLogin" type="string" visibility="public"/>
         <item name="Password" type="string" visibility="protected"/>
         <item name="Company" type="string" visibility="public"/>
-        <item name="token" type="string" visibility="private">
-        %{body.SessionId}</item>
+        <item name="token" type="string" visibility="private">%{login.body.SessionId}</item>
     </requiredData>
     <authType>token</authType>
     <category_tags>
