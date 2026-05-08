@@ -1041,8 +1041,7 @@
                     <item name="Authorization" type="string">{token}</item>
                 </header>
                 <body data="raw" format="json" type="object" />
-                <endpoint>
-                    {url}/cmdb/configitems/{configItemId}/versions/{versionId}/attachments/{attachmentId}</endpoint>
+                <endpoint>{url}/cmdb/configitems/{configItemId}/versions/{versionId}/attachments/{attachmentId}</endpoint>
                 <method>GET</method>
             </request>
             <response>
