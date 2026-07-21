@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>OpenNMS</name>
-    <description>Open Network Monitoring System: built for scalability, integration, and high levels of configuration since 2000.</description>
+    <description>OpenNMS is an open-source network monitoring platform built for scalability, integration, and high configurability. This invoker integrates OpenNMS with OpenCelium through its REST API for automated data exchange.</description>
     <hint>Open Network Monitoring System. Read api documentation https://docs.opennms.org/opennms/releases/17.0.0/guide-development/guide-development.html</hint>
     <icon>opennms.png</icon>
     <requiredData>

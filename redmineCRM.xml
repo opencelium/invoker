@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>Redmine CRM Plugin</name>
-    <description>The Redmine CRM is a light add-on but adds many features— workflows, sales funnels, charts and reports.</description>
+    <description>Redmine CRM Plugin is an add-on for Redmine that adds customer relationship management features such as sales funnels, charts, and reports. This invoker integrates Redmine CRM Plugin with OpenCelium through its REST API for automated data exchange.</description>
     <hint>This interface provides a basic auth. Read here the documentation https://www.redmineup.com/pages/help/crm/listing-contacts-api</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

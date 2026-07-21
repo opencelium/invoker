@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>Baramundi Management Suite</name>
-    <description>The baramundi Management Suite, is a versatile tool that will unleash your full IT potential. Stay in control and maximize your productivity by automating routine tasks. The Unified Endpoint Management Software can be installed and implemented quickly, is intuitive to use, has a modular structure and offers a high level of usability and transparency.</description>
+    <description>Baramundi Management Suite is a unified endpoint management solution for automating IT administration tasks across an organization's devices. This invoker integrates Baramundi Management Suite with OpenCelium through its REST API for automated data exchange.</description>
     <hint>This interface provides a basic auth. https://docs.baramundi.com/helpsetid=m_t_configuration&amp;externalid=i_configuration_interfaces_bConnect&amp;Language=de-de&amp;Version=2024R1</hint>
     <requiredData>
         <item name="url" type="string" visibility="public">https://{baramundi-server}/bconnect</item>

@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>FreshDesk</name>
-    <description>Freshdesk is a cloud-based customer support platform that was founded with the mission of enabling companies of all sizes to provide great customer service. Our goal is simple: make it easy for brands to talk to their customers and make it easy for users to get in touch with businesses.</description>
+    <description>FreshDesk is a cloud-based customer support and help desk platform for managing customer service requests. This invoker integrates FreshDesk with OpenCelium through its REST API for automated data exchange.</description>
     <hint>This interface provides the token auth. Check out the documentation https://developers.freshdesk.com/api</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

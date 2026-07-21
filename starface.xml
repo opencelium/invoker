@@ -1,6 +1,6 @@
 <invoker type="openapi">
 	<name>STARFACE</name>
-	<description>STARFACE is the future-proof, multi-award-winning, hybrid telephone system for your company and thus meets the highest demands for your modern business communication. Thanks to STARFACE, the communication services can be seamlessly integrated into the IT-supported business processes of your company - regardless of the platform on Mac or Windows. Thanks to the future-proof platform, STARFACE can also be integrated into different CRM and ERP systems, thus ensuring smooth communication flows throughout the company.</description>
+	<description>STARFACE is a hybrid IP telephone system and unified communications platform for business telephony and integration with CRM and ERP systems. This invoker integrates STARFACE with OpenCelium through its REST API for automated data exchange.</description>
 	<hint>This interface provides a basic auth.</hint>
 	<authType>basic</authType>
 	<requiredData>

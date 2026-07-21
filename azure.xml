@@ -9,7 +9,7 @@
    ~// confirmation.
 --><invoker type="RESTful">
     <name>Azure</name>
-    <description>Microsoft Azure, formerly known as Windows Azure, is Microsoft's public cloud computing platform. It provides a range of cloud services, including compute, analytics, storage and networking.</description>
+    <description>Azure is Microsoft's public cloud computing platform providing compute, analytics, storage, and networking services. This invoker integrates Azure with OpenCelium through its REST API for automated data exchange.</description>
     <hint>This api provides a token auth. The resource https://management.azure.com/ is used. Read the documentation here https://docs.microsoft.com/en-us/rest/api/azure/</hint>
     <icon>azure.png</icon>
     <requiredData>

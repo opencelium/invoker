@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>ZenWorksviaDB2API</name>
-    <description>Novell ZENworks is systems management software for the automated administration of desktop computers and servers. Novell's suite of software can manage the entire lifecycle of servers, desktops, laptops, handhelds and mobile devices.</description>
+    <description>ZenWorksviaDB2API is Novell ZENworks systems management software for automated administration of desktops, servers, and mobile devices. This invoker integrates ZenWorksviaDB2API with OpenCelium through its REST API for automated data exchange.</description>
     <hint>Translates HTTP request into database queries. Allowing users to interact with that SQL DB as if it was a native API. It is only supports the response type GET.</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

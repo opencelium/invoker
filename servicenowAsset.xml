@@ -10,7 +10,7 @@
 -->
 <invoker type="RESTful">
     <name>ServiceNow-Asset</name>
-    <description>Gain core asset management abilities to oversee infrastructure, operations and field services. Inform inventory, stockroom and contract decisions. </description>
+    <description>ServiceNow-Asset is the asset management module of the ServiceNow platform for tracking infrastructure, inventory, stockrooms, and contracts. This invoker integrates ServiceNow-Asset with OpenCelium through its REST API for automated data exchange.</description>
     <hint></hint>
     <icon>servicenowAsset.png</icon>
     <requiredData>

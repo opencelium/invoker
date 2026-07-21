@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>Trello</name>
-    <description>Trello is a collaboration tool that organizes your projects into boards. In one glance, Trello tells you what's being worked on, who's working on what, and where something is in a process.</description>
+    <description>Trello is a collaboration and project management tool that organizes tasks into boards, lists, and cards. This invoker integrates Trello with OpenCelium through its REST API for automated data exchange.</description>
     <hint>This interface provides the apikey auth. First you need to create a apikey token (https://trello.com/app-key/). Check out the documentation https://developer.atlassian.com/cloud/trello/rest/</hint>
     <requiredData>
         <item name="url" type="string" visibility="public">https://api.trello.com</item>

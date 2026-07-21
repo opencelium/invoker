@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>csv2api</name>
-    <description>This interface provides an optional basic auth (Just in case you use authentication to access your CSV files).  CSV to API acts as a filter, sitting between CSV and the browser, allowing users to interact with that CSV as if it was a native API. It is only supports the request type GET</description>
+    <description>csv2api is a service that exposes CSV files as a read-only API, allowing users to query CSV data as if it were a native REST interface. This invoker integrates csv2api with OpenCelium through its REST API for automated data exchange.</description>
     <hint>Enter dummy username and password when you not have configured an authentification behind your webserver. Read here the documentation https://github.com/opencelium/csv2api</hint>
     <requiredData>
 	    <item name="url" type="string" visibility="public"/>

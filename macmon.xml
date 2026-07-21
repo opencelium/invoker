@@ -1,9 +1,6 @@
 <invoker type="openapi">
 	<name>macmon</name>
-	<description>macmon secure GmbH has been developing network security software since 2003 and is
-		based in the heart of Berlin. macmon secure extends its proven protection to all enterprise
-		resources in the cloud in 2021 with its zero-trust network access strategy, and is the only
-		provider of NAC plus SDP with Identity and Access Management from Germany.</description>
+	<description>macmon is a network security platform providing network access control (NAC) and zero-trust network access. This invoker integrates macmon with OpenCelium through its REST API for automated data exchange.</description>
 	<hint>This interface provides a basic auth. Read the api documentation on your server
 		https://macmon-domain-or-ip/api/v1.1/system/api-docu</hint>
 	<authType>basic</authType>

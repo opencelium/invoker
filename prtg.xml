@@ -15,7 +15,7 @@
 -->
 <invoker type="RESTful">
     <name>PRTG</name>
-    <description>Powerful and easy network monitoring.Get push notifications. Create individual maps. All in one, no add-ons. Monitor complete network. Hosted version available. Integrated ticket system. Create custom dashboards.</description>
+    <description>PRTG is a network monitoring solution by Paessler for tracking the availability and performance of networks, servers, and devices. This invoker integrates PRTG with OpenCelium through its REST API for automated data exchange.</description>
     <hint>This interface provides an endpoint auth. You can request the passhash for an account with the following API call: https://yourserver/api/getpasshash.htm?username=myuser&amp;password=mypassword. Check out the documentation https://www.paessler.com/manuals/prtg/http_api</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

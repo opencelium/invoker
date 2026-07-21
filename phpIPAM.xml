@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>phpIPAM</name>
-    <description>phpipam is an open-source web IP address management application (IPAM). Its goal is to provide light, modern and useful IP address management.</description>
+    <description>phpIPAM is an open-source web application for IP address management (IPAM). This invoker integrates phpIPAM with OpenCelium through its REST API for automated data exchange.</description>
     <hint>This interface provides a basic auth.</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

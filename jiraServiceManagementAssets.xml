@@ -10,7 +10,7 @@
 -->
 <invoker type="RESTful">
     <name>JiraServiceManagement-Assets</name>
-    <description>With Jira Service Management, you can easily receive, track, manage, and resolve requests from your team’s customers. Customers can send requests by email, a customizable help center, and an embeddable widget. Jira Service Management makes it easier to categorize service requests, incidents, problems, and changes by organizing and prioritizing these requests in a single place, and keeps your team on track with goals.</description>
+    <description>JiraServiceManagement-Assets is the asset and configuration management capability within Atlassian's Jira Service Management for tracking IT service requests and resources. This invoker integrates JiraServiceManagement-Assets with OpenCelium through its REST API for automated data exchange.</description>
     <hint>Read here how to create a personal token https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/ and API documentation https://developer.atlassian.com/cloud/assets/rest/</hint>
     <icon>jiraservicemanagement.png</icon>
     <requiredData>

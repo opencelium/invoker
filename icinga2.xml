@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>Icinga2</name>
-    <description>Icinga is a monitoring system which checks the availability of your network resources, notifies users of outages, and generates performance data for reporting.</description>
+    <description>Icinga2 is an open-source monitoring system that checks the availability of network resources and generates performance data. This invoker integrates Icinga2 with OpenCelium through its REST API for automated data exchange.</description>
     <hint>This interface provides the basic_auth. Check out the documentation https://icinga.com/docs/icinga-2/latest/doc/12-icinga2-api/</hint>
     <icon></icon>
     <requiredData>

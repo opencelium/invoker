@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>VMWare</name>
-    <description>VMware is a virtualization and cloud computing software provider based in Palo Alto, Calif. Founded in 1998, VMware is a subsidiary of Dell Technologies. EMC Corporation originally acquired VMware in 2004; EMC was later acquired by Dell Technologies in 2016.</description>
+    <description>VMWare is a provider of virtualization and cloud computing software for running and managing virtual machines and infrastructure. This invoker integrates VMWare with OpenCelium through its REST API for automated data exchange.</description>
     <hint>This interface provides a basic auth. Read here the api documentation https://developer.vmware.com/apis/vsphere-automation/latest/vcenter/</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

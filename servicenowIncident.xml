@@ -10,7 +10,7 @@
 -->
 <invoker type="RESTful">
     <name>ServiceNow-Incident</name>
-    <description>Incident management is a series of steps taken to identify, analyze, and resolve critical incidents which could lead to issues in an organization. Creates / Updates Incidents and Articles</description>
+    <description>ServiceNow-Incident is the incident management module of the ServiceNow platform for identifying, tracking, and resolving IT incidents. This invoker integrates ServiceNow-Incident with OpenCelium through its REST API for automated data exchange.</description>
     <hint></hint>
     <icon>servicenowIncident.png</icon>
     <requiredData>

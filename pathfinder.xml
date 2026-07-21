@@ -1,6 +1,6 @@
 <invoker type="openapi">
 	<name>Pathfinder</name>
-	<description>This unified API offers access to Pathfinder objects and functionality through a collection of REST endpoints. Data is available in JSON.</description>
+	<description>Pathfinder is an asset management platform that exposes its objects and functionality through a unified REST API. This invoker integrates Pathfinder with OpenCelium through its REST API for automated data exchange.</description>
 	<hint>This interface provides a basic auth.</hint>
 	<authType>basic</authType>
 	<requiredData>

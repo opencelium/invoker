@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>OpenManage Enterprise</name>
-    <description>OpenManage, a Dell, Inc. product, consists of a number of network management and systems management applications. Although the name sounds like open source software, it is closed source. </description>
+    <description>OpenManage Enterprise is Dell's systems and network management application for monitoring and administering IT infrastructure. This invoker integrates OpenManage Enterprise with OpenCelium through its REST API for automated data exchange.</description>
     <hint>This interface provides the basic auth. Get the api documentation here https://www.dell.com/support/home/de-de/product-support/product/dell-openmanage-enterprise/docs</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

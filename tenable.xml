@@ -10,7 +10,7 @@
 -->
 <invoker type="RESTful">
 	<name>Tenable</name>
-	<description>Tenable provides the world’s first Cyber Exposure platform, giving you complete visibility into your network and helping you to manage and measure your modern attack surface. All the capabilities of Tenable.io Vulnerability Management are available in the Tenable.io API, a robust platform for users of all experience levels. The platform is designed to support and visualize elastic IT assets, such as containers and web apps. </description>
+	<description>Tenable is a cyber exposure and vulnerability management platform providing visibility into networks, assets, and attack surfaces. This invoker integrates Tenable with OpenCelium through its REST API for automated data exchange.</description>
     <hint>Check here the api documentation https://developer.tenable.com/reference/navigate. Read here how you generate an access and secretKey https://TENABLE-URL/#/settings/my-account/api-keys</hint>
 	<icon/>
 	<requiredData>

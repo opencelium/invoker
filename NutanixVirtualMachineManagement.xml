@@ -1,6 +1,6 @@
 <invoker type="openapi">
     <name>Nutanix Virtual Machine Management</name>
-    <description>Manage the life-cycle of virtual machines hosted on Nutanix</description>
+    <description>Nutanix Virtual Machine Management manages the lifecycle of virtual machines hosted on the Nutanix hyperconverged infrastructure platform. This invoker integrates Nutanix Virtual Machine Management with OpenCelium through its REST API for automated data exchange.</description>
     <hint>any hints here</hint>
     <authType>basic</authType>
     <requiredData>

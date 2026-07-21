@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>XenOrchestra</name>
-    <description>Xen Orchestra is designed to give you the tools you need to administrate your Citrix Hypervisor (XenServer) pools and enjoy a complete overview of your whole infrastructure. No agent to install on your hosts, you can access everything from anywhere and from any devices.</description>
+    <description>XenOrchestra is a management and administration platform for Citrix Hypervisor (XenServer) pools and virtualization infrastructure. This invoker integrates XenOrchestra with OpenCelium through its REST API for automated data exchange.</description>
     <hint>This interface provides a token auth. Read the documentation here https://xen-orchestra.com/docs/restapi.html</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

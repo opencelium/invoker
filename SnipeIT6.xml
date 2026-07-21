@@ -1,6 +1,6 @@
 <invoker type="soap">
 	<name>SnipeIT6</name>
-	<description>Snipe-IT 6 is open source software. Transparency, security and oversight is at the heart of everything we do. No vendor lock-in again, ever.</description>
+	<description>SnipeIT6 is an open-source IT asset management system for tracking hardware, licenses, and other assets. This invoker integrates SnipeIT6 with OpenCelium through its REST API for automated data exchange.</description>
 	<hint>Read here the API Documentation https://snipe-it.readme.io/reference/</hint>
 	<requiredData>
 		<item name="url" type="string" visibility="public">https://{snipeitapp.com}/api/v1</item>

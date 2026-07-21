@@ -1,6 +1,6 @@
 <invoker type="openapi">
 	<name>LoginventoryGeneralAPI</name>
-	<description>LOGINventory supports you in keeping track of and optimizing your entire network with existing hardware and software and the licenses used. The General REST API (General Web API) allows full access to all LOGINventory data. If this API has been activated, all data can be accessed by a user who has the LOGINventory authorization level Administrator, without having to define endpoints for this purpose.</description>
+	<description>LoginventoryGeneralAPI is the REST interface of LOGINventory, an inventory solution for tracking network hardware, software, and licenses. This invoker integrates LoginventoryGeneralAPI with OpenCelium through its REST API for automated data exchange.</description>
 	<hint>Read here more about the general web api from loginventory https://www.loginventory.info/documentation/9/en/web-api/</hint>
 	<authType>apikey</authType>
 	<requiredData>
