@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>Jira Service Desk</name>
-    <description>Jira Service Desk is an IT service management and ticketing platform by Atlassian built on Jira Software. This invoker integrates Jira Service Desk with OpenCelium through its REST API for automated data exchange.</description>
+    <description>
+Jira Service Desk is built on a powerful and mature software development platform (Jira Software) that connects your IT and development teams so they can work together on problems and arrive at solutions faster together. With Jira's service desk, teams can deliver outstanding service and employees can get the help they need quickly.</description>
     <hint>This interface provides the token by user auth. It works like basic_auth. You just need to replace password with added api-token (https://id.atlassian.com/manage-profile/security/api-tokens). Check out the documentation https://developer.atlassian.com/cloud/jira/platform/rest/v3/</hint>
     <icon>http://localhost:9090/api/storage/files/null</icon>
     <requiredData>

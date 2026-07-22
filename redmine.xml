@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>Redmine</name>
-    <description>Redmine is an open-source, web-based project management and issue-tracking application built on Ruby on Rails. This invoker integrates Redmine with OpenCelium through its REST API for automated data exchange.</description>
+    <description>Redmine is a flexible project management web application written using Ruby on Rails framework.</description>
     <hint>Read api documentation https://docs.zammad.org/en/latest/api</hint>
     <icon>redmine.png</icon>
     <requiredData>

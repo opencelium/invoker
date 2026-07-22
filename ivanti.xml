@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>Ivanti</name>
-    <description>Ivanti is an IT asset management platform used to inventory and remotely manage computers, software, and hardware. This invoker integrates Ivanti with OpenCelium through its REST API for automated data exchange.</description>
+    <description>What is Ivanti? Ivanti is an asset management software system used to remotely inventory and manage desktop computers. It has the ability to report on installed software and hardware, allow remote assistance, and install security patches.</description>
     <hint>This interface provides the basic_auth. Read the documentation here https://forums.ivanti.com/s/article/Getting-Started-with-the-MBSDK-Example-Scripts-Included?language=en_US</hint>
     <icon></icon>
     <requiredData>

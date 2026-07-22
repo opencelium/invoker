@@ -1,6 +1,6 @@
 <invoker type="openapi">
     <name>proxmox</name>
-    <description>proxmox is an open-source server virtualization platform (Proxmox VE) for managing virtual machines and containers. This invoker integrates proxmox with OpenCelium through its REST API for automated data exchange.</description>
+    <description>ProxMox VE API</description>
     <hint>any hints here</hint>
     <authType>basic</authType>
     <requiredData>

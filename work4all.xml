@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>work4all</name>
-    <description>work4all is a business software solution combining ERP, CRM, and document management functions. This invoker integrates work4all with OpenCelium through its REST API for automated data exchange.</description>
+    <description>work4all description</description>
     <hint>This interface provides a token auth. Read the documentation here https://demo.work4allcloud.de:4713/swagger/index.html</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>Jira Asset</name>
-    <description>Jira Asset is an asset management platform that links external asset inventories with Atlassian Jira issues. This invoker integrates Jira Asset with OpenCelium through its REST API for automated data exchange.</description>
+    <description>The Assets platform enables you to link your software with Jira and then populate Jira with your asset inventory. This lets users query for their assets in Jira and link them to issues. You can also provide them with a panel that displays asset related information, which is shown in Jira issues.</description>
     <hint>This interface provides the token by user auth. It works like basic_auth. You just need to replace password with the added api-token (https://id.atlassian.com/manage-profile/security/api-tokens). Check out the documentation https://developer.atlassian.com/cloud/assetapi/rest/api-group-assets</hint>
     <icon>http://localhost:9090/api/storage/files/null</icon>
     <requiredData>

@@ -1,6 +1,6 @@
 <invoker type="openapi">
 	<name>weclapp</name>
-	<description>weclapp is a cloud-based ERP software combining CRM, order management, and accounting for collaborative business processes. This invoker integrates weclapp with OpenCelium through its REST API for automated data exchange.</description>
+	<description>weclapp is the ERP software for teams.Whether CRM, merchandise management or accounting: With weclapp, teams control all important business processes together in just one software.</description>
 	<hint>This interface provides a basic auth.</hint>
 	<authType>basic</authType>
 	<requiredData>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>Zammad</name>
-    <description>Zammad is a web-based open-source helpdesk and customer support system managing communication across channels such as phone, chat, and email. This invoker integrates Zammad with OpenCelium through its REST API for automated data exchange.</description>
+    <description>Zammad is a web based open source helpdesk/customer support system with many features to manage customer communication via several channels like telephone, facebook, twitter, chat and emails.</description>
     <hint>Please add freshdeskid object to ticket to zammad to use this property. Read api documentation https://docs.zammad.org/en/latest/api</hint>
     <icon></icon>
     <requiredData>

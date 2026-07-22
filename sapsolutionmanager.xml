@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>SAP Solution Manager</name>
-    <description>SAP Solution Manager is an application management platform supporting the lifecycle of SAP solutions from planning and configuration through production operation. This invoker integrates SAP Solution Manager with OpenCelium through its REST API for automated data exchange.</description>
+    <description>SAP Solution Manager supports you throughout the entire lifecycle of you solutions, from planning through configuration to production operation</description>
     <hint>This interface provides the basic_auth.</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

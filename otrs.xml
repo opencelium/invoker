@@ -13,7 +13,7 @@
   ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
 --><invoker type="RESTful">
     <name>OTRS</name>
-    <description>OTRS is a service management and ticketing suite that includes agent, admin, and customer portals. This invoker integrates OTRS with OpenCelium through its REST API for automated data exchange.</description>
+    <description>OTRS (originally Open-Source Ticket Request System) is a service management suite. The suite contains an agent portal, admin dashboard and customer portal. The same web service can be used for Znuny, OTOBO and other forks.</description>
     <hint>You find here the api reference https://doc.otrs.com/doc/api/otrs/8.0/Perl/</hint>
     <icon>otrs.png</icon>
     <requiredData>

@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>Dell Warranty</name>
-    <description>Dell Warranty is Dell's TechDirect asset warranty service providing device, warranty entitlement, and part details for Dell assets. This invoker integrates Dell Warranty with OpenCelium through its REST API for automated data exchange.</description>
+    <description>TechDirect asset warranty service provides information related to Asset details,warranty entitlements, current associated arranties, and header information related to SDR response that contains, BUID CountryCode, Ship and Product details. The service also provides summary details which is a consolidated information of Asset detail, Warranty information and Part Details.</description>
     <hint>This api provides a token auth. Register here https://techdirect.dell.com/portal/AboutAPIs.aspx to get an apikey and the documentation.</hint>
     <requiredData>
         <item name="url" type="string" visibility="private">https://apigtwb2c.us.dell.com</item>

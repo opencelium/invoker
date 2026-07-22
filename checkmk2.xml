@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <invoker type="openapi">
     <name>CheckMK 2</name>
-    <description>CheckMK 2 is a monitoring tool for IT infrastructure and applications, available in open-source and enterprise editions. This invoker integrates CheckMK 2 with OpenCelium through its REST API for automated data exchange.</description>
+    <description>With the Checkmk REST-API you can transfer and execute the tasks you
+        normally performmanually in Checkmk's GUI to the Checkmk server via command or script.</description>
     <hint>This interface provides the token auth. You can access the API documents via the checkmk
         overview.</hint>
     <authType>token</authType>

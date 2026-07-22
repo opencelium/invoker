@@ -10,7 +10,7 @@
 -->
 <invoker type="RESTful">
     <name>Aruba-IMC</name>
-    <description>Aruba-IMC is HPE Aruba's Intelligent Management Center, a platform for managing and monitoring network devices and infrastructure. This invoker integrates Aruba-IMC with OpenCelium through its REST API for automated data exchange.</description>
+    <description>Queries the Aruba IMC REST API</description>
     <hint>This uses Digest auth. Please generate a JSESSION Cookie with postman</hint>
     <requiredData>
         <item name="url" type="string" visibility="public" />

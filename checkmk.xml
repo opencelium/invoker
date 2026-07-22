@@ -11,7 +11,7 @@
 -->
 <invoker type="RESTful">
     <name>CheckMK</name>
-    <description>CheckMK is a monitoring tool for IT infrastructure and applications, available in open-source and enterprise editions. This invoker integrates CheckMK with OpenCelium through its REST API for automated data exchange.</description>
+    <description>Checkmk is a leading tool for Infrastructure and Application Monitoring. Simple configuration, scalable, flexible. Open Source and Enterprise.</description>
     <hint>CheckMK is a monitoring tool. Read api documentation https://checkmk.de/cms_web_api_references.html</hint>
     <icon>checkmk.png</icon>
     <requiredData>

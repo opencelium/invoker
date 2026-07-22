@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>db2api</name>
-    <description>db2api is an OpenCelium extension that translates HTTP requests into database queries, exposing an SQL database as a native API. This invoker integrates db2api with OpenCelium through its REST API for automated data exchange.</description>
+    <description>OpenCelium extension - Translates HTTP request into database queries. Allowing users to interact with that SQL DB as if it was a native API.</description>
     <hint>Read here the documentation https://github.com/opencelium/db2api.</hint>
     <requiredData>
         <item name="url" type="string" visibility="public">http://{DB2API_SERVER}:8080</item>

@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>infoblox</name>
-    <description>infoblox is a network services platform providing DNS, DHCP, and IP address management (DDI) for enterprise networks. This invoker integrates infoblox with OpenCelium through its REST API for automated data exchange.</description>
+    <description>infoblox description</description>
     <hint>This interface provides the basic_auth. Check out the documentation on your own system (https://YOURSYSTEM/api/doc/) or get your postman collection here (https://blogs.infoblox.com/community/getting-started-with-wapis-using-postman/). </hint>
     <requiredData>
         <item name="url" type="string" visibility="public">https://{IP or HOSTNAME}/wapi/v2.6.1</item>

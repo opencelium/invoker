@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>OCS Inventory</name>
-    <description>OCS Inventory is an open-source solution for scanning and inventorying hardware and software assets across IT devices. This invoker integrates OCS Inventory with OpenCelium through its REST API for automated data exchange.</description>
+    <description>It is an open source software. It allows you to scan and inventory all your devices in your IT Department. Once you know everything about your machines, on hardware and software sides, you can deploy packages to keep your environment safe.</description>
     <hint>This interface provides the basic_auth. Check out the documentation http://wiki.ocsinventory-ng.org/11.Rest-API/Authentification/</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

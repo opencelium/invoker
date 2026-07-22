@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>Jira Insight</name>
-    <description>Jira Insight is an asset and configuration management application for Jira Service Management used to track assets and their relationships. This invoker integrates Jira Insight with OpenCelium through its REST API for automated data exchange.</description>
+    <description>Insight Asset Management is a Jira app. With the Insight feature in Jira Service Management, teams can track their assets, configuration items, and resources to understand and visualise the critical relationships between applications, services, their underlying infrastructure, and other key dependencies.</description>
     <hint>This connector supports the Jira Datacenter or Server installation. It provides the basic auth. Check out the documentation https://confluence.atlassian.com/insightapps/insight-rest-api-1085180885.html</hint>
     <icon>jira.png</icon>
     <requiredData>

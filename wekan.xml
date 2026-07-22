@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>Wekan</name>
-    <description>Wekan is an open-source kanban board for card-based task and to-do management. This invoker integrates Wekan with OpenCelium through its REST API for automated data exchange.</description>
+    <description>Wekan is an open-source kanban board which allows a card-based task and to-do management.</description>
     <hint>This interface provides the token auth. Check out the documentation https://wekan.github.io/api/</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

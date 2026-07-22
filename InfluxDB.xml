@@ -1,6 +1,7 @@
 <invoker type="openapi">
     <name>InfluxDB</name>
-    <description>InfluxDB is an open-source time-series database used for storing and querying metrics, events, and monitoring data. This invoker integrates InfluxDB with OpenCelium through its REST API for automated data exchange.</description>
+    <description>The InfluxDB v2 HTTP API provides a programmatic interface for all interactions with an InfluxDB v2 instance. Access the InfluxDB API using `/api/v2/` and InfluxDB v1-compatible endpoints.
+This documentation is generated from the [InfluxDB OpenAPI specification](https://github.com/influxdata/openapi/blob/influxdb-oss-v2.7.0/contracts/ref/oss.yml).</description>
     <hint>any hints here</hint>
     <authType>basic</authType>
     <requiredData>

@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>Docusnap</name>
-    <description>Docusnap is a software solution for documenting IT environments, networks, and infrastructure. This invoker integrates Docusnap with OpenCelium through its REST API for automated data exchange.</description>
+    <description>Docusnap is the software solution for documenting IT environments. Launched in 2004, Docusnap can now proudly call itself the market leader in the field of IT documentation in the German-speaking countries (Germany, Austria and Switzerland).</description>
     <hint>This interface provides a basic auth and based on a SQL DB Connector. SQL DB to API acts as a filter, sitting between SQL DB and the browser, allowing users to interact with that SQL DB as if it was a native API. It is only supports the response type GET. Read here the documentation https://github.com/opencelium/csv2api</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

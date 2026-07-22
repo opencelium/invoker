@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>Bitbucket</name>
-    <description>Bitbucket is a Git repository management and collaboration platform by Atlassian for professional development teams. This invoker integrates Bitbucket with OpenCelium through its REST API for automated data exchange.</description>
+    <description>Bitbucket is our Git repository management solution designed for professional teams. It gives you a central place to manage git repositories, collaborate on your source code and guide you through the development flow.</description>
     <hint>This interface provides the basic_auth. Check out the documentation https://developer.atlassian.com/bitbucket/api/2/reference/</hint>
     <icon></icon>
     <requiredData>

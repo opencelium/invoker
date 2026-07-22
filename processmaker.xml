@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>ProcessMaker</name>
-    <description>ProcessMaker is a low-code platform for designing and automating form-based, approval-driven business workflows across departments and systems. This invoker integrates ProcessMaker with OpenCelium through its REST API for automated data exchange.</description>
+    <description>Automate form-intensive, approval-based processes across departments and systems. Empower business users from finance to IT to HR to design and run their own workflows — no coding experience required. </description>
     <hint>This API provides a token authentication. Read the documentation here https://wiki.processmaker.com/REST_API</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

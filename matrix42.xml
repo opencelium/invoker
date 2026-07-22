@@ -1,6 +1,6 @@
 <invoker type="RESTful">
     <name>Matrix42</name>
-    <description>Matrix42 is a workspace management solution combining client, service, and software asset management for enterprise endpoints. This invoker integrates Matrix42 with OpenCelium through its REST API for automated data exchange.</description>
+    <description>Matrix42 Workspace Management offers client, enterprise mobility, service and software asset management in one integrated solution. 360° all-round protection for all your endpoints and data. Adaptable to your business processes, easy to use, available in the cloud, on-premise or in hybrid operation.</description>
     <hint>This interface provides a basic auth.</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

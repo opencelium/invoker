@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><invoker type="RESTful">
     <name>Adaxes</name>
-    <description>Adaxes is a management and automation solution for administering Active Directory, Exchange, and Microsoft 365 environments. This invoker integrates Adaxes with OpenCelium through its REST API for automated data exchange.</description>
+    <description>Adaxes is a management and automation solution that provides enhanced administration experience to Active Directory, Exchange and Microsoft 365 environments.</description>
     <hint>This interface provides a token auth. Read here the api documentation https://www.adaxes.com/sdk/REST_Authentication/</hint>
     <requiredData>
         <item name="url" type="string" visibility="public"/>

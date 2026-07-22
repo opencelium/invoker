@@ -15,7 +15,7 @@
 -->
 <invoker type="RESTful">
     <name>SAP Business One</name>
-    <description>SAP Business One is an ERP solution for small and midsize businesses covering sales, finance, purchasing, and inventory processes. This invoker integrates SAP Business One with OpenCelium through its REST API for automated data exchange.</description>
+    <description>This is a SAP Business One Connector for a Sales Order and Delivery Note process</description>
     <hint>hint text</hint>
     <icon>otrs.png</icon>
     <requiredData>
