@@ -1,0 +1,3449 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<invoker type="RESTful">
+    <name>DataGerryCloud</name>
+    <description>DATAGERRY is an Open Source CMDB &amp; Asset Management Tool, which completely leaves the definition of a data model to the user.</description>
+    <hint>This interface uses Basic auth with the e-mail address and password of your DataGerry Cloud (Service Portal) account plus the API key (x-api-key) of your DataGerry Cloud instance, which you find in the Service Portal. API documentation: https://docs.datagerry.com/en/latest/reference/rest-api.html</hint>
+    <requiredData>
+        <item name="url" type="string" visibility="public">https://api.datagerry.com</item>
+        <item name="username" type="string" visibility="public"/>
+        <item name="password" type="string" visibility="public"/>
+        <item name="x-api-key" type="string" visibility="public"/>
+        <item name="token" type="string" visibility="private">Basic {username:password}</item>
+    </requiredData>
+    <authType>basic</authType>
+    <category_tags>
+        <item>CMDB</item>
+        <item>Asset Management</item>
+    </category_tags>
+    <operations>
+        <!--                                                                                                                 -->
+        <!--                                                   CATEGORIES                                                    -->
+        <!--                                                                                                                 -->
+
+        <!--                                                 CREATE CATEGORY                                                 -->
+        <operation name="Create new Category" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/rest/categories/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="name" type="string"/>
+                    <field name="label" type="string"/>
+                    <field name="parent" type="integer"/>
+                    <field name="types" type="array"/>
+                    <field name="meta" type="object">
+                        <field name="icon" type="string"/>
+                        <field name="order" type="integer"/>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result_id" type="integer"/>
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="parent" type="integer"/>
+                            <field name="types" type="array"/>
+                            <field name="meta" type="object">
+                                <field name="icon" type="string"/>
+                                <field name="order" type="integer"/>
+                            </field>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                 GET CATEGORIES                                                  -->
+        <!-- Also the connection test. Collection parameters: ?limit=10&page=1&sort=public_id&order=1 (limit=0 = all) -->
+        <operation name="Get Categories" type="test">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/categories/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="results" type="array">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="parent" type="integer"/>
+                            <field name="types" type="array"/>
+                            <field name="meta" type="object">
+                                <field name="icon" type="string"/>
+                                <field name="order" type="integer"/>
+                            </field>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                        </field>
+                        <field name="count" type="integer"/>
+                        <field name="total" type="integer"/>
+                        <field name="parameters" type="object">
+                            <field name="limit" type="integer"/>
+                            <field name="sort" type="string"/>
+                            <field name="order" type="integer"/>
+                            <field name="page" type="integer"/>
+                            <field name="filter" type="object"/>
+                            <field name="optional" type="object"/>
+                        </field>
+                        <field name="pager" type="object">
+                            <field name="page" type="integer"/>
+                            <field name="page_size" type="integer"/>
+                            <field name="total_pages" type="integer"/>
+                        </field>
+                        <field name="pagination" type="object">
+                            <field name="current" type="string"/>
+                            <field name="first" type="string"/>
+                            <field name="prev" type="string"/>
+                            <field name="next" type="string"/>
+                            <field name="last" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="401">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                  GET CATEGORY                                                   -->
+        <operation name="Get Category by public_id" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/categories/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="parent" type="integer"/>
+                            <field name="types" type="array"/>
+                            <field name="meta" type="object">
+                                <field name="icon" type="string"/>
+                                <field name="order" type="integer"/>
+                            </field>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                 UPDATE CATEGORY                                                 -->
+        <!-- The body is the complete Category -->
+        <operation name="Update Category by public_id" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/rest/categories/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="name" type="string"/>
+                    <field name="label" type="string"/>
+                    <field name="parent" type="integer"/>
+                    <field name="types" type="array"/>
+                    <field name="meta" type="object">
+                        <field name="icon" type="string"/>
+                        <field name="order" type="integer"/>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="parent" type="integer"/>
+                            <field name="types" type="array"/>
+                            <field name="meta" type="object">
+                                <field name="icon" type="string"/>
+                                <field name="order" type="integer"/>
+                            </field>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                 DELETE CATEGORY                                                 -->
+        <operation name="Delete Category by public_id" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/rest/categories/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="parent" type="integer"/>
+                            <field name="types" type="array"/>
+                            <field name="meta" type="object">
+                                <field name="icon" type="string"/>
+                                <field name="order" type="integer"/>
+                            </field>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+
+        <!--                                                                                                                 -->
+        <!--                                                      TYPES                                                      -->
+        <!--                                                                                                                 -->
+
+        <!--                                                   CREATE TYPE                                                   -->
+        <!-- author_id is required by self-hosted 3.3 and ignored (set by the server) from 3.4 on -->
+        <operation name="Create new Type" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/rest/types/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="name" type="string"/>
+                    <field name="label" type="string"/>
+                    <field name="author_id" type="integer"/>
+                    <field name="description" type="string"/>
+                    <field name="active" type="boolean"/>
+                    <field name="version" type="string"/>
+                    <field name="selectable_as_parent" type="boolean"/>
+                    <field name="global_template_ids" type="array"/>
+                    <field name="fields" type="array">
+                        <field name="type" type="string"/>
+                        <field name="name" type="string"/>
+                        <field name="label" type="string"/>
+                        <field name="required" type="boolean"/>
+                        <field name="description" type="string"/>
+                        <field name="regex" type="string"/>
+                        <field name="placeholder" type="string"/>
+                        <field name="value" type="string"/>
+                        <field name="helperText" type="string"/>
+                        <field name="options" type="array"/>
+                        <field name="ref_types" type="array"/>
+                    </field>
+                    <field name="render_meta" type="object">
+                        <field name="icon" type="string"/>
+                        <field name="sections" type="array">
+                            <field name="type" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="fields" type="array"/>
+                        </field>
+                        <field name="externals" type="array"/>
+                        <field name="summary" type="object">
+                            <field name="fields" type="array"/>
+                        </field>
+                    </field>
+                    <field name="acl" type="object">
+                        <field name="activated" type="boolean"/>
+                        <field name="groups" type="object"/>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result_id" type="integer"/>
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="author_id" type="integer"/>
+                            <field name="editor_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="description" type="string"/>
+                            <field name="active" type="boolean"/>
+                            <field name="version" type="string"/>
+                            <field name="selectable_as_parent" type="boolean"/>
+                            <field name="special_type" type="string"/>
+                            <field name="global_template_ids" type="array"/>
+                            <field name="fields" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="required" type="boolean"/>
+                                <field name="description" type="string"/>
+                                <field name="regex" type="string"/>
+                                <field name="placeholder" type="string"/>
+                                <field name="value" type="string"/>
+                                <field name="helperText" type="string"/>
+                                <field name="options" type="array"/>
+                                <field name="ref_types" type="array"/>
+                            </field>
+                            <field name="render_meta" type="object">
+                                <field name="icon" type="string"/>
+                                <field name="sections" type="array">
+                                    <field name="type" type="string"/>
+                                    <field name="name" type="string"/>
+                                    <field name="label" type="string"/>
+                                    <field name="fields" type="array"/>
+                                </field>
+                                <field name="externals" type="array"/>
+                                <field name="summary" type="object">
+                                    <field name="fields" type="array"/>
+                                </field>
+                            </field>
+                            <field name="acl" type="object">
+                                <field name="activated" type="boolean"/>
+                                <field name="groups" type="object"/>
+                            </field>
+                            <field name="ci_explorer_label" type="string"/>
+                            <field name="ci_explorer_color" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                    GET TYPES                                                    -->
+        <!-- Collection parameters: ?limit=10&page=1&sort=public_id&order=1 (limit=0 = all) -->
+        <operation name="Get Types" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/types/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="results" type="array">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="author_id" type="integer"/>
+                            <field name="editor_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="description" type="string"/>
+                            <field name="active" type="boolean"/>
+                            <field name="version" type="string"/>
+                            <field name="selectable_as_parent" type="boolean"/>
+                            <field name="special_type" type="string"/>
+                            <field name="global_template_ids" type="array"/>
+                            <field name="fields" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="required" type="boolean"/>
+                                <field name="description" type="string"/>
+                                <field name="regex" type="string"/>
+                                <field name="placeholder" type="string"/>
+                                <field name="value" type="string"/>
+                                <field name="helperText" type="string"/>
+                                <field name="options" type="array"/>
+                                <field name="ref_types" type="array"/>
+                            </field>
+                            <field name="render_meta" type="object">
+                                <field name="icon" type="string"/>
+                                <field name="sections" type="array">
+                                    <field name="type" type="string"/>
+                                    <field name="name" type="string"/>
+                                    <field name="label" type="string"/>
+                                    <field name="fields" type="array"/>
+                                </field>
+                                <field name="externals" type="array"/>
+                                <field name="summary" type="object">
+                                    <field name="fields" type="array"/>
+                                </field>
+                            </field>
+                            <field name="acl" type="object">
+                                <field name="activated" type="boolean"/>
+                                <field name="groups" type="object"/>
+                            </field>
+                            <field name="ci_explorer_label" type="string"/>
+                            <field name="ci_explorer_color" type="string"/>
+                        </field>
+                        <field name="count" type="integer"/>
+                        <field name="total" type="integer"/>
+                        <field name="parameters" type="object">
+                            <field name="limit" type="integer"/>
+                            <field name="sort" type="string"/>
+                            <field name="order" type="integer"/>
+                            <field name="page" type="integer"/>
+                            <field name="filter" type="object"/>
+                            <field name="optional" type="object"/>
+                        </field>
+                        <field name="pager" type="object">
+                            <field name="page" type="integer"/>
+                            <field name="page_size" type="integer"/>
+                            <field name="total_pages" type="integer"/>
+                        </field>
+                        <field name="pagination" type="object">
+                            <field name="current" type="string"/>
+                            <field name="first" type="string"/>
+                            <field name="prev" type="string"/>
+                            <field name="next" type="string"/>
+                            <field name="last" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                    GET TYPE                                                     -->
+        <operation name="Get Type by public_id" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/types/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="author_id" type="integer"/>
+                            <field name="editor_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="description" type="string"/>
+                            <field name="active" type="boolean"/>
+                            <field name="version" type="string"/>
+                            <field name="selectable_as_parent" type="boolean"/>
+                            <field name="special_type" type="string"/>
+                            <field name="global_template_ids" type="array"/>
+                            <field name="fields" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="required" type="boolean"/>
+                                <field name="description" type="string"/>
+                                <field name="regex" type="string"/>
+                                <field name="placeholder" type="string"/>
+                                <field name="value" type="string"/>
+                                <field name="helperText" type="string"/>
+                                <field name="options" type="array"/>
+                                <field name="ref_types" type="array"/>
+                            </field>
+                            <field name="render_meta" type="object">
+                                <field name="icon" type="string"/>
+                                <field name="sections" type="array">
+                                    <field name="type" type="string"/>
+                                    <field name="name" type="string"/>
+                                    <field name="label" type="string"/>
+                                    <field name="fields" type="array"/>
+                                </field>
+                                <field name="externals" type="array"/>
+                                <field name="summary" type="object">
+                                    <field name="fields" type="array"/>
+                                </field>
+                            </field>
+                            <field name="acl" type="object">
+                                <field name="activated" type="boolean"/>
+                                <field name="groups" type="object"/>
+                            </field>
+                            <field name="ci_explorer_label" type="string"/>
+                            <field name="ci_explorer_color" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                              COUNT OBJECTS OF TYPE                                              -->
+        <!-- Answers a bare number -->
+        <operation name="Get Object count for Type" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/types/count_objects/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="integer"/>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                   UPDATE TYPE                                                   -->
+        <!-- The body is the complete Type -->
+        <operation name="Update Type by public_id" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/rest/types/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="name" type="string"/>
+                    <field name="label" type="string"/>
+                    <field name="author_id" type="integer"/>
+                    <field name="description" type="string"/>
+                    <field name="active" type="boolean"/>
+                    <field name="version" type="string"/>
+                    <field name="selectable_as_parent" type="boolean"/>
+                    <field name="global_template_ids" type="array"/>
+                    <field name="fields" type="array">
+                        <field name="type" type="string"/>
+                        <field name="name" type="string"/>
+                        <field name="label" type="string"/>
+                        <field name="required" type="boolean"/>
+                        <field name="description" type="string"/>
+                        <field name="regex" type="string"/>
+                        <field name="placeholder" type="string"/>
+                        <field name="value" type="string"/>
+                        <field name="helperText" type="string"/>
+                        <field name="options" type="array"/>
+                        <field name="ref_types" type="array"/>
+                    </field>
+                    <field name="render_meta" type="object">
+                        <field name="icon" type="string"/>
+                        <field name="sections" type="array">
+                            <field name="type" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="fields" type="array"/>
+                        </field>
+                        <field name="externals" type="array"/>
+                        <field name="summary" type="object">
+                            <field name="fields" type="array"/>
+                        </field>
+                    </field>
+                    <field name="acl" type="object">
+                        <field name="activated" type="boolean"/>
+                        <field name="groups" type="object"/>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="author_id" type="integer"/>
+                            <field name="editor_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="description" type="string"/>
+                            <field name="active" type="boolean"/>
+                            <field name="version" type="string"/>
+                            <field name="selectable_as_parent" type="boolean"/>
+                            <field name="special_type" type="string"/>
+                            <field name="global_template_ids" type="array"/>
+                            <field name="fields" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="required" type="boolean"/>
+                                <field name="description" type="string"/>
+                                <field name="regex" type="string"/>
+                                <field name="placeholder" type="string"/>
+                                <field name="value" type="string"/>
+                                <field name="helperText" type="string"/>
+                                <field name="options" type="array"/>
+                                <field name="ref_types" type="array"/>
+                            </field>
+                            <field name="render_meta" type="object">
+                                <field name="icon" type="string"/>
+                                <field name="sections" type="array">
+                                    <field name="type" type="string"/>
+                                    <field name="name" type="string"/>
+                                    <field name="label" type="string"/>
+                                    <field name="fields" type="array"/>
+                                </field>
+                                <field name="externals" type="array"/>
+                                <field name="summary" type="object">
+                                    <field name="fields" type="array"/>
+                                </field>
+                            </field>
+                            <field name="acl" type="object">
+                                <field name="activated" type="boolean"/>
+                                <field name="groups" type="object"/>
+                            </field>
+                            <field name="ci_explorer_label" type="string"/>
+                            <field name="ci_explorer_color" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                   DELETE TYPE                                                   -->
+        <!-- Refused (400) while Objects of the Type exist -->
+        <operation name="Delete Type by public_id" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/rest/types/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="author_id" type="integer"/>
+                            <field name="editor_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="description" type="string"/>
+                            <field name="active" type="boolean"/>
+                            <field name="version" type="string"/>
+                            <field name="selectable_as_parent" type="boolean"/>
+                            <field name="special_type" type="string"/>
+                            <field name="global_template_ids" type="array"/>
+                            <field name="fields" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="required" type="boolean"/>
+                                <field name="description" type="string"/>
+                                <field name="regex" type="string"/>
+                                <field name="placeholder" type="string"/>
+                                <field name="value" type="string"/>
+                                <field name="helperText" type="string"/>
+                                <field name="options" type="array"/>
+                                <field name="ref_types" type="array"/>
+                            </field>
+                            <field name="render_meta" type="object">
+                                <field name="icon" type="string"/>
+                                <field name="sections" type="array">
+                                    <field name="type" type="string"/>
+                                    <field name="name" type="string"/>
+                                    <field name="label" type="string"/>
+                                    <field name="fields" type="array"/>
+                                </field>
+                                <field name="externals" type="array"/>
+                                <field name="summary" type="object">
+                                    <field name="fields" type="array"/>
+                                </field>
+                            </field>
+                            <field name="acl" type="object">
+                                <field name="activated" type="boolean"/>
+                                <field name="groups" type="object"/>
+                            </field>
+                            <field name="ci_explorer_label" type="string"/>
+                            <field name="ci_explorer_color" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+
+        <!--                                                                                                                 -->
+        <!--                                                     OBJECTS                                                     -->
+        <!--                                                                                                                 -->
+
+        <!--                                                  CREATE OBJECT                                                  -->
+        <!-- Answers the public_id of the new Object as a bare number -->
+        <operation name="Create new Object" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/rest/objects/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="type_id" type="integer"/>
+                    <field name="author_id" type="integer"/>
+                    <field name="active" type="boolean"/>
+                    <field name="fields" type="array">
+                        <field name="name" type="string"/>
+                        <field name="value" type="string"/>
+                    </field>
+                    <field name="multi_data_sections" type="array">
+                        <field name="section_id" type="string"/>
+                        <field name="highest_id" type="integer"/>
+                        <field name="values" type="array">
+                            <field name="multi_data_id" type="integer"/>
+                            <field name="data" type="array">
+                                <field name="name" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                        </field>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="integer"/>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                   GET OBJECTS                                                   -->
+        <!-- Collection parameters: ?limit=10&page=1&sort=public_id&order=1&filter=<URL-encoded JSON, e.g. {"type_id":1}> (limit=0 = all) -->
+        <operation name="Get Objects" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/objects/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="results" type="array">
+                            <field name="public_id" type="integer"/>
+                            <field name="type_id" type="integer"/>
+                            <field name="version" type="string"/>
+                            <field name="author_id" type="integer"/>
+                            <field name="editor_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="active" type="boolean"/>
+                            <field name="fields" type="array">
+                                <field name="name" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="multi_data_sections" type="array">
+                                <field name="section_id" type="string"/>
+                                <field name="highest_id" type="integer"/>
+                                <field name="values" type="array">
+                                    <field name="multi_data_id" type="integer"/>
+                                    <field name="data" type="array">
+                                        <field name="name" type="string"/>
+                                        <field name="value" type="string"/>
+                                    </field>
+                                </field>
+                            </field>
+                            <field name="ci_explorer_tooltip" type="string"/>
+                        </field>
+                        <field name="count" type="integer"/>
+                        <field name="total" type="integer"/>
+                        <field name="parameters" type="object">
+                            <field name="limit" type="integer"/>
+                            <field name="sort" type="string"/>
+                            <field name="order" type="integer"/>
+                            <field name="page" type="integer"/>
+                            <field name="filter" type="object"/>
+                            <field name="optional" type="object"/>
+                        </field>
+                        <field name="pager" type="object">
+                            <field name="page" type="integer"/>
+                            <field name="page_size" type="integer"/>
+                            <field name="total_pages" type="integer"/>
+                        </field>
+                        <field name="pagination" type="object">
+                            <field name="current" type="string"/>
+                            <field name="first" type="string"/>
+                            <field name="prev" type="string"/>
+                            <field name="next" type="string"/>
+                            <field name="last" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                   GET OBJECT                                                    -->
+        <!-- Answers the rendered Object (no envelope); ?view=values gives the stored Object with name-keyed fields -->
+        <operation name="Get Object by public_id" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/objects/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="current_render_time" type="object">
+                            <field name="$date" type="integer"/>
+                        </field>
+                        <field name="object_information" type="object">
+                            <field name="object_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="author_id" type="integer"/>
+                            <field name="author_name" type="string"/>
+                            <field name="editor_id" type="integer"/>
+                            <field name="editor_name" type="string"/>
+                            <field name="active" type="boolean"/>
+                            <field name="version" type="string"/>
+                        </field>
+                        <field name="type_information" type="object">
+                            <field name="type_id" type="integer"/>
+                            <field name="type_name" type="string"/>
+                            <field name="type_label" type="string"/>
+                            <field name="icon" type="string"/>
+                            <field name="active" type="boolean"/>
+                            <field name="version" type="string"/>
+                        </field>
+                        <field name="fields" type="array">
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="type" type="string"/>
+                            <field name="value" type="string"/>
+                        </field>
+                        <field name="sections" type="array"/>
+                        <field name="summaries" type="array"/>
+                        <field name="summary_line" type="string"/>
+                        <field name="externals" type="array"/>
+                        <field name="multi_data_sections" type="array"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                GET NATIVE OBJECT                                                -->
+        <!-- Answers the stored Object (no envelope) -->
+        <operation name="Get native Object by public_id" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/objects/native/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="public_id" type="integer"/>
+                        <field name="type_id" type="integer"/>
+                        <field name="version" type="string"/>
+                        <field name="author_id" type="integer"/>
+                        <field name="editor_id" type="integer"/>
+                        <field name="creation_time" type="object">
+                            <field name="$date" type="integer"/>
+                        </field>
+                        <field name="last_edit_time" type="object">
+                            <field name="$date" type="integer"/>
+                        </field>
+                        <field name="active" type="boolean"/>
+                        <field name="fields" type="array">
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>
+                        </field>
+                        <field name="multi_data_sections" type="array">
+                            <field name="section_id" type="string"/>
+                            <field name="highest_id" type="integer"/>
+                            <field name="values" type="array">
+                                <field name="multi_data_id" type="integer"/>
+                                <field name="data" type="array">
+                                    <field name="name" type="string"/>
+                                    <field name="value" type="string"/>
+                                </field>
+                            </field>
+                        </field>
+                        <field name="ci_explorer_tooltip" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                  COUNT OBJECTS                                                  -->
+        <!-- Answers a bare number -->
+        <operation name="Get count of all Objects" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/objects/count</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="integer"/>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                              COUNT OBJECTS OF TYPE                                              -->
+        <!-- Answers a bare number -->
+        <operation name="Get Object count by Type" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/objects/count/{type_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="integer"/>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                GET OBJECT STATE                                                 -->
+        <!-- Answers true (active) or false as a bare value -->
+        <operation name="Get Object state" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/objects/state/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="boolean"/>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                               UPDATE OBJECT STATE                                               -->
+        <!-- The body is the bare JSON value true or false -->
+        <operation name="Update Object state" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/rest/objects/state/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="boolean"/>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="type_id" type="integer"/>
+                            <field name="version" type="string"/>
+                            <field name="author_id" type="integer"/>
+                            <field name="editor_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="active" type="boolean"/>
+                            <field name="fields" type="array">
+                                <field name="name" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="multi_data_sections" type="array">
+                                <field name="section_id" type="string"/>
+                                <field name="highest_id" type="integer"/>
+                                <field name="values" type="array">
+                                    <field name="multi_data_id" type="integer"/>
+                                    <field name="data" type="array">
+                                        <field name="name" type="string"/>
+                                        <field name="value" type="string"/>
+                                    </field>
+                                </field>
+                            </field>
+                            <field name="ci_explorer_tooltip" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                  UPDATE OBJECT                                                  -->
+        <!-- Replaces the Object; append ?objectIDs={public_id}&objectIDs=... to write the same body to several Objects -->
+        <operation name="Update object" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/rest/objects/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="type_id" type="integer"/>
+                    <field name="author_id" type="integer"/>
+                    <field name="active" type="boolean"/>
+                    <field name="fields" type="array">
+                        <field name="name" type="string"/>
+                        <field name="value" type="string"/>
+                    </field>
+                    <field name="multi_data_sections" type="array">
+                        <field name="section_id" type="string"/>
+                        <field name="highest_id" type="integer"/>
+                        <field name="values" type="array">
+                            <field name="multi_data_id" type="integer"/>
+                            <field name="data" type="array">
+                                <field name="name" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                        </field>
+                    </field>
+                    <field name="comment" type="string"/>
+                </body>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="results" type="array">
+                            <field name="public_id" type="integer"/>
+                            <field name="type_id" type="integer"/>
+                            <field name="version" type="string"/>
+                            <field name="author_id" type="integer"/>
+                            <field name="editor_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="active" type="boolean"/>
+                            <field name="fields" type="array">
+                                <field name="name" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="multi_data_sections" type="array">
+                                <field name="section_id" type="string"/>
+                                <field name="highest_id" type="integer"/>
+                                <field name="values" type="array">
+                                    <field name="multi_data_id" type="integer"/>
+                                    <field name="data" type="array">
+                                        <field name="name" type="string"/>
+                                        <field name="value" type="string"/>
+                                    </field>
+                                </field>
+                            </field>
+                            <field name="ci_explorer_tooltip" type="string"/>
+                        </field>
+                        <field name="failed" type="array"/>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                  PATCH OBJECT                                                   -->
+        <!-- Only the listed fields change; send at least one of fields, *_mds_rows or location_name -->
+        <operation name="Partially update Object by public_id" type="">
+            <request>
+                <method>PATCH</method>
+                <endpoint>{url}/rest/objects/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="fields" type="array">
+                        <field name="name" type="string"/>
+                        <field name="value" type="string"/>
+                    </field>
+                    <field name="created_mds_rows" type="array">
+                        <field name="section_id" type="string"/>
+                        <field name="data" type="array">
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>
+                        </field>
+                    </field>
+                    <field name="edited_mds_rows" type="array">
+                        <field name="section_id" type="string"/>
+                        <field name="multi_data_id" type="integer"/>
+                        <field name="data" type="array">
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>
+                        </field>
+                    </field>
+                    <field name="deleted_mds_rows" type="array">
+                        <field name="section_id" type="string"/>
+                        <field name="multi_data_id" type="integer"/>
+                    </field>
+                    <field name="location_name" type="string"/>
+                    <field name="comment" type="string"/>
+                </body>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="type_id" type="integer"/>
+                            <field name="version" type="string"/>
+                            <field name="author_id" type="integer"/>
+                            <field name="editor_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="active" type="boolean"/>
+                            <field name="fields" type="array">
+                                <field name="name" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="multi_data_sections" type="array">
+                                <field name="section_id" type="string"/>
+                                <field name="highest_id" type="integer"/>
+                                <field name="values" type="array">
+                                    <field name="multi_data_id" type="integer"/>
+                                    <field name="data" type="array">
+                                        <field name="name" type="string"/>
+                                        <field name="value" type="string"/>
+                                    </field>
+                                </field>
+                            </field>
+                            <field name="ci_explorer_tooltip" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                              PATCH OBJECTS (BULK)                                               -->
+        <!-- Same field subset (and/or active state) for every Object named by a repeated objectIDs parameter -->
+        <operation name="Partially update multiple Objects" type="">
+            <request>
+                <method>PATCH</method>
+                <endpoint>{url}/rest/objects/?objectIDs={public_id_1}&amp;objectIDs={public_id_2}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="fields" type="array">
+                        <field name="name" type="string"/>
+                        <field name="value" type="string"/>
+                    </field>
+                    <field name="active" type="boolean"/>
+                    <field name="comment" type="string"/>
+                </body>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="results" type="array">
+                            <field name="public_id" type="integer"/>
+                            <field name="type_id" type="integer"/>
+                            <field name="version" type="string"/>
+                            <field name="author_id" type="integer"/>
+                            <field name="editor_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="active" type="boolean"/>
+                            <field name="fields" type="array">
+                                <field name="name" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="multi_data_sections" type="array">
+                                <field name="section_id" type="string"/>
+                                <field name="highest_id" type="integer"/>
+                                <field name="values" type="array">
+                                    <field name="multi_data_id" type="integer"/>
+                                    <field name="data" type="array">
+                                        <field name="name" type="string"/>
+                                        <field name="value" type="string"/>
+                                    </field>
+                                </field>
+                            </field>
+                            <field name="ci_explorer_tooltip" type="string"/>
+                        </field>
+                        <field name="failed" type="array"/>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                  DELETE OBJECT                                                  -->
+        <!-- Answers true -->
+        <operation name="Delete Object by public_id" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/rest/objects/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="boolean"/>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                 DELETE OBJECTS                                                  -->
+        <!-- public_ids is a comma-separated list, e.g. 12,13,14 -->
+        <operation name="Delete multiple Objects" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/rest/objects/delete/{public_ids}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="successfully" type="boolean"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+
+        <!--                                                                                                                 -->
+        <!--                                                  OBJECT GROUPS                                                  -->
+        <!--                                                                                                                 -->
+
+        <!--                                               CREATE OBJECT GROUP                                               -->
+        <!-- group_type STATIC: assigned_ids are Object ids; DYNAMIC: assigned_ids are Type ids -->
+        <operation name="Create new ObjectGroup" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/rest/object_groups/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="name" type="string"/>
+                    <field name="group_type" type="string"/>
+                    <field name="assigned_ids" type="array"/>
+                    <field name="categories" type="array"/>
+                </body>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result_id" type="integer"/>
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="group_type" type="string"/>
+                            <field name="assigned_ids" type="array"/>
+                            <field name="categories" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                GET OBJECT GROUPS                                                -->
+        <operation name="Get ObjectGroups" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/object_groups/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="results" type="array">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="group_type" type="string"/>
+                            <field name="assigned_ids" type="array"/>
+                            <field name="categories" type="array"/>
+                        </field>
+                        <field name="count" type="integer"/>
+                        <field name="total" type="integer"/>
+                        <field name="parameters" type="object">
+                            <field name="limit" type="integer"/>
+                            <field name="sort" type="string"/>
+                            <field name="order" type="integer"/>
+                            <field name="page" type="integer"/>
+                            <field name="filter" type="object"/>
+                            <field name="optional" type="object"/>
+                        </field>
+                        <field name="pager" type="object">
+                            <field name="page" type="integer"/>
+                            <field name="page_size" type="integer"/>
+                            <field name="total_pages" type="integer"/>
+                        </field>
+                        <field name="pagination" type="object">
+                            <field name="current" type="string"/>
+                            <field name="first" type="string"/>
+                            <field name="prev" type="string"/>
+                            <field name="next" type="string"/>
+                            <field name="last" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                GET OBJECT GROUP                                                 -->
+        <operation name="Get ObjectGroup by public_id" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/object_groups/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="group_type" type="string"/>
+                            <field name="assigned_ids" type="array"/>
+                            <field name="categories" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                               UPDATE OBJECT GROUP                                               -->
+        <operation name="Update ObjectGroup by public_id" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/rest/object_groups/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="name" type="string"/>
+                    <field name="group_type" type="string"/>
+                    <field name="assigned_ids" type="array"/>
+                    <field name="categories" type="array"/>
+                </body>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="group_type" type="string"/>
+                            <field name="assigned_ids" type="array"/>
+                            <field name="categories" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                               DELETE OBJECT GROUP                                               -->
+        <operation name="Delete ObjectGroup by public_id" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/rest/object_groups/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="group_type" type="string"/>
+                            <field name="assigned_ids" type="array"/>
+                            <field name="categories" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+
+        <!--                                                                                                                 -->
+        <!--                                                SECTION TEMPLATES                                                -->
+        <!--                                                                                                                 -->
+
+        <!--                                             CREATE SECTION TEMPLATE                                             -->
+        <!-- The template is sent in the QUERY STRING, not in the body: type = section or multi-data-section, fields = URL-encoded JSON list of field definitions. Answers the new public_id as a bare number -->
+        <operation name="Create new SectionTemplate" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/rest/section_templates/?name={name}&amp;label={label}&amp;type={type}&amp;is_global={is_global}&amp;predefined=false&amp;fields={fields}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="integer"/>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                              GET SECTION TEMPLATES                                              -->
+        <operation name="Get SectionTemplates" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/section_templates/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="results" type="array">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="type" type="string"/>
+                            <field name="is_global" type="boolean"/>
+                            <field name="predefined" type="boolean"/>
+                            <field name="fields" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                            </field>
+                        </field>
+                        <field name="count" type="integer"/>
+                        <field name="total" type="integer"/>
+                        <field name="parameters" type="object">
+                            <field name="limit" type="integer"/>
+                            <field name="sort" type="string"/>
+                            <field name="order" type="integer"/>
+                            <field name="page" type="integer"/>
+                            <field name="filter" type="object"/>
+                            <field name="optional" type="object"/>
+                        </field>
+                        <field name="pager" type="object">
+                            <field name="page" type="integer"/>
+                            <field name="page_size" type="integer"/>
+                            <field name="total_pages" type="integer"/>
+                        </field>
+                        <field name="pagination" type="object">
+                            <field name="current" type="string"/>
+                            <field name="first" type="string"/>
+                            <field name="prev" type="string"/>
+                            <field name="next" type="string"/>
+                            <field name="last" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                              GET SECTION TEMPLATE                                               -->
+        <!-- Answers the template itself (no envelope) -->
+        <operation name="Get SectionTemplate by public_id" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/section_templates/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="public_id" type="integer"/>
+                        <field name="name" type="string"/>
+                        <field name="label" type="string"/>
+                        <field name="type" type="string"/>
+                        <field name="is_global" type="boolean"/>
+                        <field name="predefined" type="boolean"/>
+                        <field name="fields" type="array">
+                            <field name="type" type="string"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                        </field>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                             UPDATE SECTION TEMPLATE                                             -->
+        <!-- The template (incl. its public_id) is sent in the QUERY STRING; the name cannot change. The change is propagated to the Types and Objects using the template -->
+        <operation name="Update SectionTemplate" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/rest/section_templates/?public_id={public_id}&amp;name={name}&amp;label={label}&amp;type={type}&amp;is_global={is_global}&amp;predefined=false&amp;fields={fields}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="boolean"/>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                             DELETE SECTION TEMPLATE                                             -->
+        <!-- Answers true -->
+        <operation name="Delete SectionTemplate by public_id" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/rest/section_templates/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="boolean"/>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+
+        <!--                                                                                                                 -->
+        <!--                                                      USERS                                                      -->
+        <!--                                                                                                                 -->
+
+        <!--                                                    GET USERS                                                    -->
+        <operation name="Get Users" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/users/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="results" type="array">
+                            <field name="public_id" type="integer"/>
+                            <field name="user_name" type="string"/>
+                            <field name="active" type="boolean"/>
+                            <field name="group_id" type="integer"/>
+                            <field name="registration_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="authenticator" type="string"/>
+                            <field name="database" type="string"/>
+                            <field name="api_level" type="integer"/>
+                            <field name="config_items_limit" type="integer"/>
+                            <field name="email" type="string"/>
+                            <field name="image" type="string"/>
+                            <field name="first_name" type="string"/>
+                            <field name="last_name" type="string"/>
+                        </field>
+                        <field name="count" type="integer"/>
+                        <field name="total" type="integer"/>
+                        <field name="parameters" type="object">
+                            <field name="limit" type="integer"/>
+                            <field name="sort" type="string"/>
+                            <field name="order" type="integer"/>
+                            <field name="page" type="integer"/>
+                            <field name="filter" type="object"/>
+                            <field name="optional" type="object"/>
+                        </field>
+                        <field name="pager" type="object">
+                            <field name="page" type="integer"/>
+                            <field name="page_size" type="integer"/>
+                            <field name="total_pages" type="integer"/>
+                        </field>
+                        <field name="pagination" type="object">
+                            <field name="current" type="string"/>
+                            <field name="first" type="string"/>
+                            <field name="prev" type="string"/>
+                            <field name="next" type="string"/>
+                            <field name="last" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                    GET USER                                                     -->
+        <operation name="Get User by public_id" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/users/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="user_name" type="string"/>
+                            <field name="active" type="boolean"/>
+                            <field name="group_id" type="integer"/>
+                            <field name="registration_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="authenticator" type="string"/>
+                            <field name="database" type="string"/>
+                            <field name="api_level" type="integer"/>
+                            <field name="config_items_limit" type="integer"/>
+                            <field name="email" type="string"/>
+                            <field name="image" type="string"/>
+                            <field name="first_name" type="string"/>
+                            <field name="last_name" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+
+        <!--                                                                                                                 -->
+        <!--                                                   USER GROUPS                                                   -->
+        <!--                                                                                                                 -->
+
+        <!--                                                CREATE USER GROUP                                                -->
+        <operation name="Create new UserGroup" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/rest/groups/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="name" type="string"/>
+                    <field name="label" type="string"/>
+                    <field name="rights" type="array"/>
+                </body>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result_id" type="integer"/>
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="rights" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                 GET USER GROUPS                                                 -->
+        <operation name="Get UserGroups" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/groups/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="results" type="array">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="rights" type="array"/>
+                        </field>
+                        <field name="count" type="integer"/>
+                        <field name="total" type="integer"/>
+                        <field name="parameters" type="object">
+                            <field name="limit" type="integer"/>
+                            <field name="sort" type="string"/>
+                            <field name="order" type="integer"/>
+                            <field name="page" type="integer"/>
+                            <field name="filter" type="object"/>
+                            <field name="optional" type="object"/>
+                        </field>
+                        <field name="pager" type="object">
+                            <field name="page" type="integer"/>
+                            <field name="page_size" type="integer"/>
+                            <field name="total_pages" type="integer"/>
+                        </field>
+                        <field name="pagination" type="object">
+                            <field name="current" type="string"/>
+                            <field name="first" type="string"/>
+                            <field name="prev" type="string"/>
+                            <field name="next" type="string"/>
+                            <field name="last" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                 GET USER GROUP                                                  -->
+        <operation name="Get UserGroup by public_id" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/groups/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="rights" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                UPDATE USER GROUP                                                -->
+        <operation name="Update UserGroup by public_id" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/rest/groups/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="name" type="string"/>
+                    <field name="label" type="string"/>
+                    <field name="rights" type="array"/>
+                </body>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="rights" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                DELETE USER GROUP                                                -->
+        <!-- Members of the group: append ?action=MOVE&group_id={target_group_id} to move them, ?action=DELETE to delete them -->
+        <operation name="Delete UserGroup by public_id" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/rest/groups/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="label" type="string"/>
+                            <field name="rights" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+
+        <!--                                                                                                                 -->
+        <!--                                                     PERSONS                                                     -->
+        <!--                                                                                                                 -->
+
+        <!--                                                  CREATE PERSON                                                  -->
+        <operation name="Create new Person" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/rest/persons/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="display_name" type="string"/>
+                    <field name="first_name" type="string"/>
+                    <field name="last_name" type="string"/>
+                    <field name="phone_number" type="string"/>
+                    <field name="email" type="string"/>
+                    <field name="groups" type="array"/>
+                </body>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result_id" type="integer"/>
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="display_name" type="string"/>
+                            <field name="first_name" type="string"/>
+                            <field name="last_name" type="string"/>
+                            <field name="phone_number" type="string"/>
+                            <field name="email" type="string"/>
+                            <field name="groups" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                   GET PERSONS                                                   -->
+        <operation name="Get Persons" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/persons/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="results" type="array">
+                            <field name="public_id" type="integer"/>
+                            <field name="display_name" type="string"/>
+                            <field name="first_name" type="string"/>
+                            <field name="last_name" type="string"/>
+                            <field name="phone_number" type="string"/>
+                            <field name="email" type="string"/>
+                            <field name="groups" type="array"/>
+                        </field>
+                        <field name="count" type="integer"/>
+                        <field name="total" type="integer"/>
+                        <field name="parameters" type="object">
+                            <field name="limit" type="integer"/>
+                            <field name="sort" type="string"/>
+                            <field name="order" type="integer"/>
+                            <field name="page" type="integer"/>
+                            <field name="filter" type="object"/>
+                            <field name="optional" type="object"/>
+                        </field>
+                        <field name="pager" type="object">
+                            <field name="page" type="integer"/>
+                            <field name="page_size" type="integer"/>
+                            <field name="total_pages" type="integer"/>
+                        </field>
+                        <field name="pagination" type="object">
+                            <field name="current" type="string"/>
+                            <field name="first" type="string"/>
+                            <field name="prev" type="string"/>
+                            <field name="next" type="string"/>
+                            <field name="last" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                   GET PERSON                                                    -->
+        <operation name="Get Person by public_id" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/persons/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="display_name" type="string"/>
+                            <field name="first_name" type="string"/>
+                            <field name="last_name" type="string"/>
+                            <field name="phone_number" type="string"/>
+                            <field name="email" type="string"/>
+                            <field name="groups" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                  UPDATE PERSON                                                  -->
+        <operation name="Update Person by public_id" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/rest/persons/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="display_name" type="string"/>
+                    <field name="first_name" type="string"/>
+                    <field name="last_name" type="string"/>
+                    <field name="phone_number" type="string"/>
+                    <field name="email" type="string"/>
+                    <field name="groups" type="array"/>
+                </body>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="display_name" type="string"/>
+                            <field name="first_name" type="string"/>
+                            <field name="last_name" type="string"/>
+                            <field name="phone_number" type="string"/>
+                            <field name="email" type="string"/>
+                            <field name="groups" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                  DELETE PERSON                                                  -->
+        <operation name="Delete Person by public_id" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/rest/persons/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="display_name" type="string"/>
+                            <field name="first_name" type="string"/>
+                            <field name="last_name" type="string"/>
+                            <field name="phone_number" type="string"/>
+                            <field name="email" type="string"/>
+                            <field name="groups" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+
+        <!--                                                                                                                 -->
+        <!--                                                  PERSON GROUPS                                                  -->
+        <!--                                                                                                                 -->
+
+        <!--                                               CREATE PERSON GROUP                                               -->
+        <operation name="Create new PersonGroup" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/rest/person_groups/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="name" type="string"/>
+                    <field name="email" type="string"/>
+                    <field name="group_members" type="array"/>
+                </body>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result_id" type="integer"/>
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="email" type="string"/>
+                            <field name="group_members" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                GET PERSON GROUPS                                                -->
+        <operation name="Get PersonGroups" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/person_groups/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="results" type="array">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="email" type="string"/>
+                            <field name="group_members" type="array"/>
+                        </field>
+                        <field name="count" type="integer"/>
+                        <field name="total" type="integer"/>
+                        <field name="parameters" type="object">
+                            <field name="limit" type="integer"/>
+                            <field name="sort" type="string"/>
+                            <field name="order" type="integer"/>
+                            <field name="page" type="integer"/>
+                            <field name="filter" type="object"/>
+                            <field name="optional" type="object"/>
+                        </field>
+                        <field name="pager" type="object">
+                            <field name="page" type="integer"/>
+                            <field name="page_size" type="integer"/>
+                            <field name="total_pages" type="integer"/>
+                        </field>
+                        <field name="pagination" type="object">
+                            <field name="current" type="string"/>
+                            <field name="first" type="string"/>
+                            <field name="prev" type="string"/>
+                            <field name="next" type="string"/>
+                            <field name="last" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                GET PERSON GROUP                                                 -->
+        <operation name="Get PersonGroup by public_id" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/person_groups/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="email" type="string"/>
+                            <field name="group_members" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                               UPDATE PERSON GROUP                                               -->
+        <operation name="Update PersonGroup by public_id" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/rest/person_groups/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="name" type="string"/>
+                    <field name="email" type="string"/>
+                    <field name="group_members" type="array"/>
+                </body>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="email" type="string"/>
+                            <field name="group_members" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                               DELETE PERSON GROUP                                               -->
+        <operation name="Delete PersonGroup by public_id" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/rest/person_groups/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="email" type="string"/>
+                            <field name="group_members" type="array"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+
+        <!--                                                                                                                 -->
+        <!--                                                    LOCATIONS                                                    -->
+        <!--                                                                                                                 -->
+
+        <!--                                                  GET LOCATION                                                   -->
+        <!-- Answers the Location itself (no envelope) -->
+        <operation name="Get Location by public_id" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/locations/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="public_id" type="integer"/>
+                        <field name="name" type="string"/>
+                        <field name="parent" type="integer"/>
+                        <field name="object_id" type="integer"/>
+                        <field name="type_id" type="integer"/>
+                        <field name="type_label" type="string"/>
+                        <field name="type_icon" type="string"/>
+                        <field name="type_selectable" type="boolean"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                             GET LOCATION OF OBJECT                                              -->
+        <!-- object_id is the public_id of the Object -->
+        <operation name="Get Location of Object" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/locations/{object_id}/object</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="public_id" type="integer"/>
+                        <field name="name" type="string"/>
+                        <field name="parent" type="integer"/>
+                        <field name="object_id" type="integer"/>
+                        <field name="type_id" type="integer"/>
+                        <field name="type_label" type="string"/>
+                        <field name="type_icon" type="string"/>
+                        <field name="type_selectable" type="boolean"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                          GET PARENT LOCATION OF OBJECT                                          -->
+        <!-- Answers null when the Object has no parent Location -->
+        <operation name="Get parent Location of Object" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/locations/{object_id}/parent</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="public_id" type="integer"/>
+                        <field name="name" type="string"/>
+                        <field name="parent" type="integer"/>
+                        <field name="object_id" type="integer"/>
+                        <field name="type_id" type="integer"/>
+                        <field name="type_label" type="string"/>
+                        <field name="type_icon" type="string"/>
+                        <field name="type_selectable" type="boolean"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                          GET CHILD LOCATIONS OF OBJECT                                          -->
+        <operation name="Get child Locations of Object" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/locations/{object_id}/children</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="array">
+                        <field name="public_id" type="integer"/>
+                        <field name="name" type="string"/>
+                        <field name="parent" type="integer"/>
+                        <field name="object_id" type="integer"/>
+                        <field name="type_id" type="integer"/>
+                        <field name="type_label" type="string"/>
+                        <field name="type_icon" type="string"/>
+                        <field name="type_selectable" type="boolean"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                              MOVE OBJECT LOCATION                                               -->
+        <!-- parent = public_id of the new parent Location (the root location id for the top level, null to remove the placement) -->
+        <operation name="Move Object to parent Location" type="">
+            <request>
+                <method>PATCH</method>
+                <endpoint>{url}/rest/locations/{object_id}/parent</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="parent" type="integer"/>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="object_id" type="integer"/>
+                        <field name="parent" type="integer"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+
+        <!--                                                                                                                 -->
+        <!--                                                    RELATIONS                                                    -->
+        <!--                                                                                                                 -->
+
+        <!--                                                 CREATE RELATION                                                 -->
+        <operation name="Create new Relation" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/rest/relations/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="relation_name" type="string"/>
+                    <field name="relation_name_parent" type="string"/>
+                    <field name="relation_icon_parent" type="string"/>
+                    <field name="relation_color_parent" type="string"/>
+                    <field name="relation_name_child" type="string"/>
+                    <field name="relation_icon_child" type="string"/>
+                    <field name="relation_color_child" type="string"/>
+                    <field name="description" type="string"/>
+                    <field name="parent_type_ids" type="array"/>
+                    <field name="child_type_ids" type="array"/>
+                    <field name="sections" type="array">
+                        <field name="type" type="string"/>
+                        <field name="name" type="string"/>
+                        <field name="label" type="string"/>
+                        <field name="fields" type="array"/>
+                    </field>
+                    <field name="fields" type="array">
+                        <field name="type" type="string"/>
+                        <field name="name" type="string"/>
+                        <field name="label" type="string"/>
+                        <field name="required" type="boolean"/>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result_id" type="integer"/>
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="relation_name" type="string"/>
+                            <field name="relation_name_parent" type="string"/>
+                            <field name="relation_icon_parent" type="string"/>
+                            <field name="relation_color_parent" type="string"/>
+                            <field name="relation_name_child" type="string"/>
+                            <field name="relation_icon_child" type="string"/>
+                            <field name="relation_color_child" type="string"/>
+                            <field name="description" type="string"/>
+                            <field name="parent_type_ids" type="array"/>
+                            <field name="child_type_ids" type="array"/>
+                            <field name="sections" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="fields" type="array"/>
+                            </field>
+                            <field name="fields" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="required" type="boolean"/>
+                            </field>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                  GET RELATIONS                                                  -->
+        <operation name="Get Relations" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/relations/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="results" type="array">
+                            <field name="public_id" type="integer"/>
+                            <field name="relation_name" type="string"/>
+                            <field name="relation_name_parent" type="string"/>
+                            <field name="relation_icon_parent" type="string"/>
+                            <field name="relation_color_parent" type="string"/>
+                            <field name="relation_name_child" type="string"/>
+                            <field name="relation_icon_child" type="string"/>
+                            <field name="relation_color_child" type="string"/>
+                            <field name="description" type="string"/>
+                            <field name="parent_type_ids" type="array"/>
+                            <field name="child_type_ids" type="array"/>
+                            <field name="sections" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="fields" type="array"/>
+                            </field>
+                            <field name="fields" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="required" type="boolean"/>
+                            </field>
+                        </field>
+                        <field name="count" type="integer"/>
+                        <field name="total" type="integer"/>
+                        <field name="parameters" type="object">
+                            <field name="limit" type="integer"/>
+                            <field name="sort" type="string"/>
+                            <field name="order" type="integer"/>
+                            <field name="page" type="integer"/>
+                            <field name="filter" type="object"/>
+                            <field name="optional" type="object"/>
+                        </field>
+                        <field name="pager" type="object">
+                            <field name="page" type="integer"/>
+                            <field name="page_size" type="integer"/>
+                            <field name="total_pages" type="integer"/>
+                        </field>
+                        <field name="pagination" type="object">
+                            <field name="current" type="string"/>
+                            <field name="first" type="string"/>
+                            <field name="prev" type="string"/>
+                            <field name="next" type="string"/>
+                            <field name="last" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                  GET RELATION                                                   -->
+        <operation name="Get Relation by public_id" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/relations/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="relation_name" type="string"/>
+                            <field name="relation_name_parent" type="string"/>
+                            <field name="relation_icon_parent" type="string"/>
+                            <field name="relation_color_parent" type="string"/>
+                            <field name="relation_name_child" type="string"/>
+                            <field name="relation_icon_child" type="string"/>
+                            <field name="relation_color_child" type="string"/>
+                            <field name="description" type="string"/>
+                            <field name="parent_type_ids" type="array"/>
+                            <field name="child_type_ids" type="array"/>
+                            <field name="sections" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="fields" type="array"/>
+                            </field>
+                            <field name="fields" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="required" type="boolean"/>
+                            </field>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                 UPDATE RELATION                                                 -->
+        <operation name="Update Relation by public_id" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/rest/relations/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="relation_name" type="string"/>
+                    <field name="relation_name_parent" type="string"/>
+                    <field name="relation_icon_parent" type="string"/>
+                    <field name="relation_color_parent" type="string"/>
+                    <field name="relation_name_child" type="string"/>
+                    <field name="relation_icon_child" type="string"/>
+                    <field name="relation_color_child" type="string"/>
+                    <field name="description" type="string"/>
+                    <field name="parent_type_ids" type="array"/>
+                    <field name="child_type_ids" type="array"/>
+                    <field name="sections" type="array">
+                        <field name="type" type="string"/>
+                        <field name="name" type="string"/>
+                        <field name="label" type="string"/>
+                        <field name="fields" type="array"/>
+                    </field>
+                    <field name="fields" type="array">
+                        <field name="type" type="string"/>
+                        <field name="name" type="string"/>
+                        <field name="label" type="string"/>
+                        <field name="required" type="boolean"/>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="relation_name" type="string"/>
+                            <field name="relation_name_parent" type="string"/>
+                            <field name="relation_icon_parent" type="string"/>
+                            <field name="relation_color_parent" type="string"/>
+                            <field name="relation_name_child" type="string"/>
+                            <field name="relation_icon_child" type="string"/>
+                            <field name="relation_color_child" type="string"/>
+                            <field name="description" type="string"/>
+                            <field name="parent_type_ids" type="array"/>
+                            <field name="child_type_ids" type="array"/>
+                            <field name="sections" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="fields" type="array"/>
+                            </field>
+                            <field name="fields" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="required" type="boolean"/>
+                            </field>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                 DELETE RELATION                                                 -->
+        <operation name="Delete Relation by public_id" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/rest/relations/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="relation_name" type="string"/>
+                            <field name="relation_name_parent" type="string"/>
+                            <field name="relation_icon_parent" type="string"/>
+                            <field name="relation_color_parent" type="string"/>
+                            <field name="relation_name_child" type="string"/>
+                            <field name="relation_icon_child" type="string"/>
+                            <field name="relation_color_child" type="string"/>
+                            <field name="description" type="string"/>
+                            <field name="parent_type_ids" type="array"/>
+                            <field name="child_type_ids" type="array"/>
+                            <field name="sections" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="fields" type="array"/>
+                            </field>
+                            <field name="fields" type="array">
+                                <field name="type" type="string"/>
+                                <field name="name" type="string"/>
+                                <field name="label" type="string"/>
+                                <field name="required" type="boolean"/>
+                            </field>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+
+        <!--                                                                                                                 -->
+        <!--                                                OBJECT RELATIONS                                                 -->
+        <!--                                                                                                                 -->
+
+        <!--                                             CREATE OBJECT RELATION                                              -->
+        <operation name="Create new ObjectRelation" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/rest/object_relations/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="relation_id" type="integer"/>
+                    <field name="relation_parent_id" type="integer"/>
+                    <field name="relation_parent_type_id" type="integer"/>
+                    <field name="relation_child_id" type="integer"/>
+                    <field name="relation_child_type_id" type="integer"/>
+                    <field name="field_values" type="array">
+                        <field name="name" type="string"/>
+                        <field name="value" type="string"/>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="201">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result_id" type="integer"/>
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="relation_id" type="integer"/>
+                            <field name="relation_parent_id" type="integer"/>
+                            <field name="relation_parent_type_id" type="integer"/>
+                            <field name="relation_child_id" type="integer"/>
+                            <field name="relation_child_type_id" type="integer"/>
+                            <field name="field_values" type="array">
+                                <field name="name" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="author_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                              GET OBJECT RELATIONS                                               -->
+        <!-- Filter e.g. with ?filter=<URL-encoded JSON, e.g. {"relation_parent_id":12}> -->
+        <operation name="Get ObjectRelations" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/object_relations/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="results" type="array">
+                            <field name="public_id" type="integer"/>
+                            <field name="relation_id" type="integer"/>
+                            <field name="relation_parent_id" type="integer"/>
+                            <field name="relation_parent_type_id" type="integer"/>
+                            <field name="relation_child_id" type="integer"/>
+                            <field name="relation_child_type_id" type="integer"/>
+                            <field name="field_values" type="array">
+                                <field name="name" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="author_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                        </field>
+                        <field name="count" type="integer"/>
+                        <field name="total" type="integer"/>
+                        <field name="parameters" type="object">
+                            <field name="limit" type="integer"/>
+                            <field name="sort" type="string"/>
+                            <field name="order" type="integer"/>
+                            <field name="page" type="integer"/>
+                            <field name="filter" type="object"/>
+                            <field name="optional" type="object"/>
+                        </field>
+                        <field name="pager" type="object">
+                            <field name="page" type="integer"/>
+                            <field name="page_size" type="integer"/>
+                            <field name="total_pages" type="integer"/>
+                        </field>
+                        <field name="pagination" type="object">
+                            <field name="current" type="string"/>
+                            <field name="first" type="string"/>
+                            <field name="prev" type="string"/>
+                            <field name="next" type="string"/>
+                            <field name="last" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                               GET OBJECT RELATION                                               -->
+        <operation name="Get ObjectRelation by public_id" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/object_relations/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="relation_id" type="integer"/>
+                            <field name="relation_parent_id" type="integer"/>
+                            <field name="relation_parent_type_id" type="integer"/>
+                            <field name="relation_child_id" type="integer"/>
+                            <field name="relation_child_type_id" type="integer"/>
+                            <field name="field_values" type="array">
+                                <field name="name" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="author_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                             UPDATE OBJECT RELATION                                              -->
+        <operation name="Update ObjectRelation by public_id" type="">
+            <request>
+                <method>PUT</method>
+                <endpoint>{url}/rest/object_relations/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="relation_id" type="integer"/>
+                    <field name="relation_parent_id" type="integer"/>
+                    <field name="relation_parent_type_id" type="integer"/>
+                    <field name="relation_child_id" type="integer"/>
+                    <field name="relation_child_type_id" type="integer"/>
+                    <field name="field_values" type="array">
+                        <field name="name" type="string"/>
+                        <field name="value" type="string"/>
+                    </field>
+                </body>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="result" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="relation_id" type="integer"/>
+                            <field name="relation_parent_id" type="integer"/>
+                            <field name="relation_parent_type_id" type="integer"/>
+                            <field name="relation_child_id" type="integer"/>
+                            <field name="relation_child_type_id" type="integer"/>
+                            <field name="field_values" type="array">
+                                <field name="name" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="author_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                             DELETE OBJECT RELATION                                              -->
+        <operation name="Delete ObjectRelation by public_id" type="">
+            <request>
+                <method>DELETE</method>
+                <endpoint>{url}/rest/object_relations/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="202">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="raw" type="object">
+                            <field name="public_id" type="integer"/>
+                            <field name="relation_id" type="integer"/>
+                            <field name="relation_parent_id" type="integer"/>
+                            <field name="relation_parent_type_id" type="integer"/>
+                            <field name="relation_child_id" type="integer"/>
+                            <field name="relation_child_type_id" type="integer"/>
+                            <field name="field_values" type="array">
+                                <field name="name" type="string"/>
+                                <field name="value" type="string"/>
+                            </field>
+                            <field name="author_id" type="integer"/>
+                            <field name="creation_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                            <field name="last_edit_time" type="object">
+                                <field name="$date" type="integer"/>
+                            </field>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                             DELETE OBJECT RELATIONS                                             -->
+        <!-- target_ids = list of ObjectRelation public_ids. Answers true -->
+        <operation name="Delete multiple ObjectRelations" type="">
+            <request>
+                <method>POST</method>
+                <endpoint>{url}/rest/object_relations/delete/many</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body data="raw" format="json" type="object">
+                    <field name="target_ids" type="array"/>
+                </body>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="boolean"/>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+
+        <!--                                                                                                                 -->
+        <!--                                                     REPORTS                                                     -->
+        <!--                                                                                                                 -->
+
+        <!--                                                   GET REPORTS                                                   -->
+        <operation name="Get Reports" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/reports/</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="object">
+                        <field name="results" type="array">
+                            <field name="public_id" type="integer"/>
+                            <field name="report_category_id" type="integer"/>
+                            <field name="name" type="string"/>
+                            <field name="type_id" type="integer"/>
+                            <field name="selected_fields" type="array"/>
+                            <field name="conditions" type="object"/>
+                            <field name="report_query" type="object"/>
+                            <field name="predefined" type="boolean"/>
+                            <field name="mds_mode" type="string"/>
+                        </field>
+                        <field name="count" type="integer"/>
+                        <field name="total" type="integer"/>
+                        <field name="parameters" type="object">
+                            <field name="limit" type="integer"/>
+                            <field name="sort" type="string"/>
+                            <field name="order" type="integer"/>
+                            <field name="page" type="integer"/>
+                            <field name="filter" type="object"/>
+                            <field name="optional" type="object"/>
+                        </field>
+                        <field name="pager" type="object">
+                            <field name="page" type="integer"/>
+                            <field name="page_size" type="integer"/>
+                            <field name="total_pages" type="integer"/>
+                        </field>
+                        <field name="pagination" type="object">
+                            <field name="current" type="string"/>
+                            <field name="first" type="string"/>
+                            <field name="prev" type="string"/>
+                            <field name="next" type="string"/>
+                            <field name="last" type="string"/>
+                        </field>
+                        <field name="response_type" type="string"/>
+                        <field name="time" type="string"/>
+                    </body>
+                </success>
+                <fail status="400">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+        <!--                                                   RUN REPORT                                                    -->
+        <!-- Answers the matching Objects as a bare list -->
+        <operation name="Run Report by public_id" type="">
+            <request>
+                <method>GET</method>
+                <endpoint>{url}/rest/reports/run/{public_id}</endpoint>
+                <header>
+                    <item name="Authorization" type="string">{token}</item>
+                    <item name="Content-Type" type="string">application/json</item>
+                    <item name="x-api-key" type="string">{x-api-key}</item>
+                </header>
+                <body/>
+            </request>
+            <response>
+                <success status="200">
+                    <header/>
+                    <body data="raw" format="json" type="array">
+                        <field name="public_id" type="integer"/>
+                        <field name="type_id" type="integer"/>
+                        <field name="version" type="string"/>
+                        <field name="author_id" type="integer"/>
+                        <field name="editor_id" type="integer"/>
+                        <field name="creation_time" type="object">
+                            <field name="$date" type="integer"/>
+                        </field>
+                        <field name="last_edit_time" type="object">
+                            <field name="$date" type="integer"/>
+                        </field>
+                        <field name="active" type="boolean"/>
+                        <field name="fields" type="array">
+                            <field name="name" type="string"/>
+                            <field name="value" type="string"/>
+                        </field>
+                        <field name="multi_data_sections" type="array">
+                            <field name="section_id" type="string"/>
+                            <field name="highest_id" type="integer"/>
+                            <field name="values" type="array">
+                                <field name="multi_data_id" type="integer"/>
+                                <field name="data" type="array">
+                                    <field name="name" type="string"/>
+                                    <field name="value" type="string"/>
+                                </field>
+                            </field>
+                        </field>
+                        <field name="ci_explorer_tooltip" type="string"/>
+                    </body>
+                </success>
+                <fail status="404">
+                    <header/>
+                    <body/>
+                </fail>
+            </response>
+        </operation>
+    </operations>
+</invoker>
